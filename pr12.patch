@@ -1,0 +1,1743 @@
+From 82d34a4e11fdab74f6b0ee69f7c9df1270ca824d Mon Sep 17 00:00:00 2001
+From: dairoemma <2632814@dundee.ac.uk>
+Date: Sun, 12 Oct 2025 18:13:28 +0000
+Subject: [PATCH] feat: added Layer Manager UI and integrated with
+ DataLayerService (issue #3)
+
+---
+ .DS_Store                                     | Bin 0 -> 6148 bytes
+ frontend/src/app/app.module.ts                |   6 +
+ .../layer-manager.component.html              |  46 ++
+ .../layer-manager.component.scss              |  82 ++++
+ .../layer-manager.component.spec.ts           |  25 +
+ .../layer-manager/layer-manager.component.ts  |  44 ++
+ frontend/src/app/map-view/map-view.module.ts  |   9 +-
+ .../src/app/map-view/map/layers/band-layer.ts |  96 ++--
+ .../map-view/map/layers/data-layer.service.ts | 227 ++++++++-
+ .../map-view/map/layers/result-layer-group.ts |  87 ++--
+ .../src/app/map-view/map/map.component.html   |  46 +-
+ .../src/app/map-view/map/map.component.scss   | 103 ++++-
+ .../src/app/map-view/map/map.component.ts     | 429 ++++++++----------
+ package-lock.json                             |   6 +
+ 14 files changed, 876 insertions(+), 330 deletions(-)
+ create mode 100644 .DS_Store
+ create mode 100644 frontend/src/app/map-view/layer-manager/layer-manager.component.html
+ create mode 100644 frontend/src/app/map-view/layer-manager/layer-manager.component.scss
+ create mode 100644 frontend/src/app/map-view/layer-manager/layer-manager.component.spec.ts
+ create mode 100644 frontend/src/app/map-view/layer-manager/layer-manager.component.ts
+ create mode 100644 package-lock.json
+
+diff --git a/.DS_Store b/.DS_Store
+new file mode 100644
+index 0000000000000000000000000000000000000000..9533f1d087bb4b849875ce64f242822bf3e6d3cc
+GIT binary patch
+literal 6148
+zcmeHK&x_MQ6n@jKHnpe~6!sznysov?MG!BwKad4oVYBK%r6x_c8#hf#lUkQj=vn_2
+z!K;6X|BEO6-pmMTx<yYS>pXb#&1Bx2$$al+CPPG`HT4@rRU)#WjKxbR&JgZrU6X=-
+zav3P(7zeaREqYFeKqH0$!@$4J0DrqzsZGylA75?u``xF<RHG63dtu!7!q|f)ZxfH8
+zwI5PY<E_Cbmr|$)O=ys_|B|!6LIe5$%Mpz!MEy4PDW-^yD4^l0ueh1>wO}=o)+s!r
+z{JV)yzq9vd$yl%Dt2YjVB(2xKiNaR#!o`wRvMSaa=Qy4@shdudmOFXHt;0ADy<c_L
+zdl3v~z3TOL9Hnj$4JOhd@CPt?{W6IBc-D%ik)KFkM|D_btK6$@&*zQ$?vB0Ns4sTx
+z`GdQ4)bHJ2EXvl6TX!BF^iIN26o14TAObt86pm0<c#Ug3ymuy17)L|&v0sUvU<Ynf
+z7g2Snn`8AmEV2>2hDf-G!U@Wuj7SKMxm}}oh$y0y8-e5UIg<lrWKI{E(V?fnGqR?@
+zZ<d|2gmL?bWq`R;N><00IhGy20_#(mF~>6cr^uSwnipr<A9$UU9N54~E)zh>M$s8&
+zRW@3f4#R+9;D2R+_Xiuw*wnaGD7Ow2@(KVf;;|Ie`6q#WY>iEgONHox2;~Y?u0mfi
+zgmTAoTiZ1?E)^<w68iEX^vpuvP=uTv<J;1lL{p(D4FiUORR*?Hv&!dxck}&!)ycFB
+z1BQWf#egVwoK6c%(r4@1;`pq!p>LrqY`0V>T~O%bSXTHb-iAs+pUo9uQ{z%0o<Pix
+NfTY0`hJnAzz)!}C3qb$?
+
+literal 0
+HcmV?d00001
+
+diff --git a/frontend/src/app/app.module.ts b/frontend/src/app/app.module.ts
+index 638deee1..65898c50 100644
+--- a/frontend/src/app/app.module.ts
++++ b/frontend/src/app/app.module.ts
+@@ -26,6 +26,10 @@ import { MatCheckboxModule } from "@angular/material/checkbox";
+ import { MatButtonModule } from "@angular/material/button";
+ import { MatRadioModule } from "@angular/material/radio";
+ 
++
++import { DragDropModule } from '@angular/cdk/drag-drop';
++import { MatSliderModule } from '@angular/material/slider';
++
+ @NgModule({
+   declarations: [AppComponent],
+   imports: [
+@@ -36,6 +40,8 @@ import { MatRadioModule } from "@angular/material/radio";
+     MatCheckboxModule,
+     MatButtonModule,
+     MatRadioModule,
++    DragDropModule,
++    MatSliderModule,
+     SharedModule,
+     CoreModule,
+     MapViewModule,
+diff --git a/frontend/src/app/map-view/layer-manager/layer-manager.component.html b/frontend/src/app/map-view/layer-manager/layer-manager.component.html
+new file mode 100644
+index 00000000..c17d5a7a
+--- /dev/null
++++ b/frontend/src/app/map-view/layer-manager/layer-manager.component.html
+@@ -0,0 +1,46 @@
++<div class="layer-manager">
++  <h3>Layer Manager</h3>
++
++  <div
++    cdkDropList
++    (cdkDropListDropped)="drop($event)"
++    class="layer-list"
++  >
++    <div
++      class="layer-item"
++      *ngFor="let layer of layers"
++      cdkDrag
++    >
++      <span class="drag-handle" cdkDragHandle title="Reorder layer">☰</span>
++
++      <input
++        type="checkbox"
++        [checked]="layer.visible"
++        (change)="toggleLayer(layer)"
++      />
++
++      
++      <span class="layer-name">{{ layer.name }}</span>
++
++      
++      <input
++        class="opacity-slider"
++        type="range"
++        min="0"
++        max="100"
++        [value]="(layer.opacity ?? 1) * 100"
++        (input)="changeOpacity(layer, $event.target.value)"
++        title="Adjust opacity"
++      />
++
++    
++      <button
++        class="remove-btn"
++        title="Remove layer"
++        (click)="removeLayer(layer)"
++      >
++        ✕
++      </button>
++    </div>
++  </div>
++</div>
+diff --git a/frontend/src/app/map-view/layer-manager/layer-manager.component.scss b/frontend/src/app/map-view/layer-manager/layer-manager.component.scss
+new file mode 100644
+index 00000000..be7a3584
+--- /dev/null
++++ b/frontend/src/app/map-view/layer-manager/layer-manager.component.scss
+@@ -0,0 +1,82 @@
++.layer-manager {
++  position: absolute;
++  top: 100px;
++  right: 20px;
++  background: #fff;
++  padding: 12px 16px;
++  border-radius: 8px;
++  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
++  font-family: 'Roboto', sans-serif;
++  font-size: 13px;
++  z-index: 2000;
++  width: 260px;
++
++  h3 {
++    font-size: 15px;
++    margin-bottom: 10px;
++    text-align: center;
++    color: #333;
++    font-weight: 600;
++  }
++
++  .layer-list {
++    display: flex;
++    flex-direction: column;
++    gap: 6px;
++  }
++
++  .layer-item {
++    display: flex;
++    align-items: center;
++    justify-content: space-between;
++    gap: 6px;
++    padding: 6px 8px;
++    border: 1px solid #e5e5e5;
++    border-radius: 6px;
++    background: #fafafa;
++    transition: background 0.2s;
++    cursor: grab;
++
++    &:hover {
++      background: #f0f0f0;
++    }
++
++    .drag-handle {
++      cursor: grab;
++      user-select: none;
++      font-size: 16px;
++      opacity: 0.6;
++
++      &:hover {
++        opacity: 1;
++      }
++    }
++
++    .layer-name {
++      flex-grow: 1;
++      overflow: hidden;
++      text-overflow: ellipsis;
++      white-space: nowrap;
++      color: #333;
++    }
++
++    .opacity-slider {
++      width: 60px;
++      accent-color: #007bff;
++      cursor: pointer;
++    }
++
++    .remove-btn {
++      border: none;
++      background: none;
++      color: #c00;
++      font-size: 16px;
++      cursor: pointer;
++      padding: 0 4px;
++
++      &:hover {
++        color: #900;
++      }
++    }
++  }
++}
+diff --git a/frontend/src/app/map-view/layer-manager/layer-manager.component.spec.ts b/frontend/src/app/map-view/layer-manager/layer-manager.component.spec.ts
+new file mode 100644
+index 00000000..335de209
+--- /dev/null
++++ b/frontend/src/app/map-view/layer-manager/layer-manager.component.spec.ts
+@@ -0,0 +1,25 @@
++import { ComponentFixture, TestBed } from '@angular/core/testing';
++
++import { LayerManagerComponent } from './layer-manager.component';
++
++describe('LayerManagerComponent', () => {
++  let component: LayerManagerComponent;
++  let fixture: ComponentFixture<LayerManagerComponent>;
++
++  beforeEach(async () => {
++    await TestBed.configureTestingModule({
++      imports: [LayerManagerComponent]
++    })
++    .compileComponents();
++
++    fixture = TestBed.createComponent(LayerManagerComponent);
++    component = fixture.componentInstance;
++    fixture.detectChanges();
++  });
++
++  it('should create', () => {
++    expect(component).toBeTruthy();
++  });
++});
++
++
+diff --git a/frontend/src/app/map-view/layer-manager/layer-manager.component.ts b/frontend/src/app/map-view/layer-manager/layer-manager.component.ts
+new file mode 100644
+index 00000000..c0fbce40
+--- /dev/null
++++ b/frontend/src/app/map-view/layer-manager/layer-manager.component.ts
+@@ -0,0 +1,44 @@
++import { Component, OnInit, OnDestroy } from '@angular/core';
++import { Subscription } from 'rxjs';
++import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
++import { DataLayerService, LayerRecord } from '../map/layers/data-layer.service';
++
++@Component({
++  selector: 'app-layer-manager',
++  templateUrl: './layer-manager.component.html',
++  styleUrls: ['./layer-manager.component.scss']
++})
++export class LayerManagerComponent implements OnInit, OnDestroy {
++  layers: LayerRecord[] = [];
++  private sub?: Subscription;
++
++  constructor(private dataLayerService: DataLayerService) {}
++
++  ngOnInit() {
++    this.sub = this.dataLayerService.layers$.subscribe(layers => {
++      this.layers = [...layers].sort((a, b) => (b.zIndex ?? 0) - (a.zIndex ?? 0));
++    });
++  }
++
++  ngOnDestroy() {
++    if (this.sub) this.sub.unsubscribe();
++  }
++
++  toggleLayer(layer: LayerRecord) {
++    this.dataLayerService.setLayerVisibility(layer.id, !layer.visible);
++  }
++
++  changeOpacity(layer: LayerRecord, value: number) {
++    this.dataLayerService.setLayerOpacity(layer.id, value);
++  }
++
++  removeLayer(layer: LayerRecord) {
++    this.dataLayerService.removeLayer(layer.id);
++  }
++
++  drop(event: CdkDragDrop<LayerRecord[]>) {
++    moveItemInArray(this.layers, event.previousIndex, event.currentIndex);
++    const newOrderIds = this.layers.map(l => l.id);
++    this.dataLayerService.reorder(newOrderIds);
++  }
++}
+diff --git a/frontend/src/app/map-view/map-view.module.ts b/frontend/src/app/map-view/map-view.module.ts
+index 4e374942..196e3cc4 100644
+--- a/frontend/src/app/map-view/map-view.module.ts
++++ b/frontend/src/app/map-view/map-view.module.ts
+@@ -23,9 +23,7 @@ import { CalculationHistoryComponent } from './calculation-history/calculation-h
+ import { ComparisonComponent } from './comparison/comparison.component';
+ import { CreateUserAreaModalComponent } from './map/create-user-area-modal/create-user-area-modal.component';
+ import { CheckboxAccordionComponent } from './band-selection/checkbox-accordion/checkbox-accordion.component';
+-import {
+-  MatrixTableComponent
+-} from './scenario/scenario-area-detail/matrix-selection/matrix-table/matrix-table.component';
++import { MatrixTableComponent } from './scenario/scenario-area-detail/matrix-selection/matrix-table/matrix-table.component';
+ import { FormsModule } from "@angular/forms";
+ import { UploadUserAreaModalComponent } from "@src/app/map-view/map/upload-user-area-modal/upload-user-area-modal.component";
+ import { ScenarioEditorModule } from "@src/app/map-view/scenario/scenario-editor.module";
+@@ -42,6 +40,8 @@ import { CompoundComparisonListDialogComponent } from '@src/app/map-view/compoun
+ import { DownloadCompoundComparisonDialogComponent } from './compound-comparison-list-dialog/download-compound-comparison-dialog/download-compound-comparison-dialog.component';
+ import { ReliabilityLegendComponent } from "@src/app/map-view/reliability-legend/reliability-legend.component";
+ 
++import { LayerManagerComponent } from './layer-manager/layer-manager.component';
++
+ @NgModule({
+   declarations: [
+     MainViewComponent,
+@@ -71,7 +71,8 @@ import { ReliabilityLegendComponent } from "@src/app/map-view/reliability-legend
+     ConfirmGenerateComparisonComponent,
+     CompoundComparisonListDialogComponent,
+     DownloadCompoundComparisonDialogComponent,
+-    ReliabilityLegendComponent
++    ReliabilityLegendComponent,
++    LayerManagerComponent
+   ],
+   imports: [
+     SharedModule,
+diff --git a/frontend/src/app/map-view/map/layers/band-layer.ts b/frontend/src/app/map-view/map/layers/band-layer.ts
+index 677b239f..e284d4c4 100644
+--- a/frontend/src/app/map-view/map/layers/band-layer.ts
++++ b/frontend/src/app/map-view/map/layers/band-layer.ts
+@@ -15,7 +15,6 @@ import { MetadataActions } from "@data/metadata";
+ class DataLayer extends ImageLayer<ImageSource> {
+   constructor(opts: StaticImageOptions) {
+     super({
+-      // TODO: It would be more convenient to make use of a tiled protocol here: => WM(T)S?
+       source: new ImageStatic(opts)
+     });
+   }
+@@ -32,73 +31,98 @@ class BandLayer extends SymphonyLayerGroup {
+     pressures: new Set<number>()
+   };
+ 
+-  constructor(private baseline: string,
+-              private dataLayerService: DataLayerService,
+-              private store: Store<State>,
+-              antialias: boolean) {
++  constructor(
++    private baseline: string,
++    private dataLayerService: DataLayerService,
++    private store: Store<State>,
++    antialias: boolean
++  ) {
+     super();
+     this.antialias = antialias;
+   }
+ 
+-  protected renderHandler = (evt: RenderEvent) => (evt.context! as CanvasRenderingContext2D).imageSmoothingEnabled = this.antialias;
++  protected renderHandler = (evt: RenderEvent) =>
++    (evt.context! as CanvasRenderingContext2D).imageSmoothingEnabled = this.antialias;
+ 
+   public setVisibleBands(bandType: BandType, bands: Band[]) {
+     const ecoType = bandType === 'ECOSYSTEM',
+-          layerBands =
+-            ecoType ? this.loadedBands.ecoComponents : this.loadedBands.pressures,
+-          visibleBandNumbers =
+-            ecoType ? this.visibleBandNumbers.ecoComponents : this.visibleBandNumbers.pressures;
++      layerBands = ecoType ? this.loadedBands.ecoComponents : this.loadedBands.pressures,
++      visibleBandNumbers = ecoType
++        ? this.visibleBandNumbers.ecoComponents
++        : this.visibleBandNumbers.pressures;
++
+ 
+-    // remove layers
+     const bandNumbers = bands.map(band => band.bandNumber);
+ 
+     layerBands.forEach((layer: Layer, bandNumber: number) => {
+       if (!bandNumbers.includes(bandNumber)) {
+         this.getLayers().remove(layer);
+         visibleBandNumbers.delete(bandNumber);
++
++        const type = ecoType ? 'ECOSYSTEM' : 'PRESSURE';
++        this.dataLayerService.removeLayer(`${type.toLowerCase()}-${bandNumber}`);
+       }
+     });
+ 
+-    // add layers
+     bands.forEach((band: Band) => {
+       if (!visibleBandNumbers.has(band.bandNumber)) {
+-        // already loaded layers don't require fetching
+         if (layerBands.has(band.bandNumber)) {
++          
+           const layer = layerBands.get(band.bandNumber)!;
+           if (!this.getLayers().getArray().includes(layer)) {
+-            // guard necessary due oddity in OpenLayers collections impl. Could be a bug?
+-            // Opting for a simple if branch here over a verbose try-catch block.
+-            // https://github.com/openlayers/openlayers/blob/f2c05afbd128428035f51945bbc74dc00aeaed7b/src/ol/Collection.js#L319
+             this.getLayers().push(layer);
+           }
++
++      
++          const type = ecoType ? 'ECOSYSTEM' : 'PRESSURE';
++          this.dataLayerService.setLayerVisibility(`${type.toLowerCase()}-${band.bandNumber}`, true);
++          visibleBandNumbers.add(band.bandNumber);
+         } else {
+-          const type = layerBands === this.loadedBands.ecoComponents ? 'ECOSYSTEM' : 'PRESSURE';
+-          this.dataLayerService.getDataLayer(this.baseline, type, band.bandNumber).subscribe(response => {
+-            const extentHeader = response.headers.get('SYM-Image-Extent');
+-            if (extentHeader) {
+-              if (!response.body) {
+-                return;
+-              }
++          
++          const type = ecoType ? 'ECOSYSTEM' : 'PRESSURE';
++          this.dataLayerService
++            .getDataLayer(this.baseline, type, band.bandNumber)
++            .subscribe(response => {
++              const extentHeader = response.headers.get('SYM-Image-Extent');
++              if (!extentHeader || !response.body) return;
++
+               const imageOpts = {
+                 url: URL.createObjectURL(response.body),
+                 imageExtent: JSON.parse(extentHeader),
+                 calculationId: NaN,
+                 projection: AppSettings.MAP_PROJECTION,
+-                attributions: band.meta.mapAcknowledgement ?? band.meta.authorOrganisation ?? '',
++                attributions:
++                  band.meta.mapAcknowledgement ??
++                  band.meta.authorOrganisation ??
++                  '',
+                 interpolate: this.antialias
+               };
+ 
+               const layer = new DataLayer(imageOpts);
+               this.getLayers().push(layer);
+               layerBands.set(band.bandNumber, layer);
++
+               layer.on('prerender', this.renderHandler);
+-              this.setBandLayerOpacity(bandType, band.bandNumber, (band.layerOpacity ?? 100) / 100);
+-              this.store.dispatch(MetadataActions.setLoadedState({ band, value: true }));
++
++             
++              const opacity = (band.layerOpacity ?? 100) / 100;
++              this.setBandLayerOpacity(bandType, band.bandNumber, opacity);
++
++            
++              this.dataLayerService.addLayer({
++                id: `${type.toLowerCase()}-${band.bandNumber}`,
++                name: `${type} ${band.bandNumber}`,
++                instance: layer,
++                visible: true,
++                opacity,
++                zIndex: ecoType ? 100 + band.bandNumber : 200 + band.bandNumber
++              });
++
++              this.store.dispatch(
++                MetadataActions.setLoadedState({ band, value: true })
++              );
+               visibleBandNumbers.add(band.bandNumber);
+-            } else {
+-              console.error("Image for band " + band.bandNumber + " does not have any extent header ignoring.");
+-            }
+-          });
++            });
+         }
+       }
+     });
+@@ -106,9 +130,17 @@ class BandLayer extends SymphonyLayerGroup {
+ 
+   private setBandLayerOpacity(type: BandType, layerNumber: number, opacity: number) {
+     if (type === 'ECOSYSTEM') {
+-      this.loadedBands.ecoComponents.get(layerNumber)!.setOpacity(opacity);
++      const layer = this.loadedBands.ecoComponents.get(layerNumber);
++      if (layer) {
++        layer.setOpacity(opacity);
++        this.dataLayerService.setLayerOpacity(`ecosystem-${layerNumber}`, opacity * 100);
++      }
+     } else {
+-      this.loadedBands.pressures.get(layerNumber)!.setOpacity(opacity);
++      const layer = this.loadedBands.pressures.get(layerNumber);
++      if (layer) {
++        layer.setOpacity(opacity);
++        this.dataLayerService.setLayerOpacity(`pressure-${layerNumber}`, opacity * 100);
++      }
+     }
+   }
+ }
+diff --git a/frontend/src/app/map-view/map/layers/data-layer.service.ts b/frontend/src/app/map-view/map/layers/data-layer.service.ts
+index 21f2ac85..dc970447 100644
+--- a/frontend/src/app/map-view/map/layers/data-layer.service.ts
++++ b/frontend/src/app/map-view/map/layers/data-layer.service.ts
+@@ -1,20 +1,241 @@
+ import { Injectable } from '@angular/core';
+ import { HttpClient, HttpParams } from "@angular/common/http";
++import { BehaviorSubject } from "rxjs";
+ import { environment as env } from "@src/environments/environment";
+ import { BandType } from "@data/metadata/metadata.interfaces";
+ import { AppSettings } from "@src/app/app.settings";
+ 
++export interface LayerRecord {
++  id: string;
++  name: string;
++  instance: any;
++  visible: boolean;
++  opacity?: number;
++  zIndex?: number;
++}
++
+ @Injectable({
+   providedIn: 'root'
+ })
+ export class DataLayerService {
++  private layers: LayerRecord[] = [];
++  private layersSubject = new BehaviorSubject<LayerRecord[]>([]);
++  public layers$ = this.layersSubject.asObservable();
++
++  private map: any;
++
+   constructor(private http: HttpClient) {}
+ 
++  setMap(mapInstance: any) {
++    this.map = mapInstance;
++  }
++
++  addLayer(record: LayerRecord) {
++    if (!record || !record.id) return;
++
++    const existing = this.layers.find(l => l.id === record.id);
++    if (existing) {
++      existing.name = record.name ?? existing.name;
++      existing.instance = record.instance ?? existing.instance;
++      existing.visible = record.visible ?? existing.visible;
++      existing.opacity = record.opacity ?? existing.opacity ?? 1;
++      existing.zIndex = record.zIndex ?? existing.zIndex ?? 0;
++      this.applyVisibility(existing);
++      this.applyOpacity(existing);
++      this.applyZIndex(existing);
++    } else {
++      record.opacity = record.opacity ?? 1;
++      record.zIndex = record.zIndex ?? this.layers.length;
++      this.layers.push(record);
++      this.applyVisibility(record);
++      this.applyOpacity(record);
++      this.applyZIndex(record);
++    }
++
++    this.emitLayers();
++  }
++
++  getAllLayers(): LayerRecord[] {
++    return [...this.layers];
++  }
++
++  getActiveLayers(): LayerRecord[] {
++    return this.layers.filter(l => l.visible);
++  }
++
++  setLayerVisibility(layerId: string, visible: boolean) {
++    const layer = this.layers.find(l => l.id === layerId);
++    if (!layer) return;
++    layer.visible = visible;
++    this.applyVisibility(layer);
++    this.emitLayers();
++  }
++
++  setLayerOpacity(layerId: string, opacity: number) {
++    const layer = this.layers.find(l => l.id === layerId);
++    if (!layer) return;
++
++    layer.opacity = opacity > 1 ? opacity / 100 : opacity;
++    this.applyOpacity(layer);
++    this.emitLayers();
++  }
++
++  setLayerZIndex(layerId: string, z: number) {
++    const layer = this.layers.find(l => l.id === layerId);
++    if (!layer) return;
++    layer.zIndex = z;
++    this.applyZIndex(layer);
++    this.emitLayers();
++  }
++
++  reorder(idsInOrder: string[]) {
++    const newOrder: LayerRecord[] = [];
++    idsInOrder.forEach((id, idx) => {
++      const layer = this.layers.find(l => l.id === id);
++      if (layer) {
++        layer.zIndex = idx;
++        newOrder.push(layer);
++        this.applyZIndex(layer);
++      }
++    });
++    this.layers = newOrder.concat(this.layers.filter(l => !idsInOrder.includes(l.id)));
++    this.emitLayers();
++  }
++
++  
++  removeLayer(layerId: string) {
++    const idx = this.layers.findIndex(l => l.id === layerId);
++    if (idx === -1) return;
++    const layer = this.layers[idx];
++    if (this.map && layer.instance) {
++      try {
++        if (this.olLayerIsOnMap(layer.instance)) this.map.removeLayer(layer.instance);
++      } catch (e) {}
++    }
++    this.layers.splice(idx, 1);
++    this.emitLayers();
++  }
++
++
++  private applyVisibility(layer: LayerRecord) {
++    const inst = layer.instance;
++    if (!inst) return;
++
++    if (typeof inst.setVisible === 'function') {
++      try {
++        inst.setVisible(layer.visible);
++        if (layer.visible && this.map && !this.olLayerIsOnMap(inst)) {
++          this.map.addLayer(inst);
++        }
++        if (!layer.visible && this.map && this.olLayerIsOnMap(inst)) {
++          this.map.removeLayer(inst);
++        }
++        return;
++      } catch {}
++    }
++
++    if (typeof inst.getLayer === 'function') {
++      const ol = inst.getLayer();
++      if (ol && typeof ol.setVisible === 'function') {
++        ol.setVisible(layer.visible);
++        if (layer.visible && this.map && !this.olLayerIsOnMap(ol)) this.map.addLayer(ol);
++        if (!layer.visible && this.map && this.olLayerIsOnMap(ol)) this.map.removeLayer(ol);
++        return;
++      }
++    }
++
++    if (typeof inst.getOlLayer === 'function') {
++      const ol = inst.getOlLayer();
++      if (ol && typeof ol.setVisible === 'function') {
++        ol.setVisible(layer.visible);
++        if (layer.visible && this.map && !this.olLayerIsOnMap(ol)) this.map.addLayer(ol);
++        if (!layer.visible && this.map && this.olLayerIsOnMap(ol)) this.map.removeLayer(ol);
++        return;
++      }
++    }
++
++    if (this.map) {
++      try {
++        if (layer.visible && !this.olLayerIsOnMap(inst)) {
++          this.map.addLayer(inst);
++        } else if (!layer.visible && this.olLayerIsOnMap(inst)) {
++          this.map.removeLayer(inst);
++        }
++      } catch {}
++    }
++  }
++
++  private applyOpacity(layer: LayerRecord) {
++    const inst = layer.instance;
++    if (!inst) return;
++
++    if (typeof inst.setOpacity === 'function') {
++      try {
++        inst.setOpacity(layer.opacity ?? 1);
++      } catch {}
++      return;
++    }
++
++    if (typeof inst.getLayer === 'function') {
++      const ol = inst.getLayer();
++      if (ol && typeof ol.setOpacity === 'function') {
++        try { ol.setOpacity(layer.opacity ?? 1); } catch {}
++        return;
++      }
++    }
++
++    if (typeof inst.getOlLayer === 'function') {
++      const ol = inst.getOlLayer();
++      if (ol && typeof ol.setOpacity === 'function') {
++        try { ol.setOpacity(layer.opacity ?? 1); } catch {}
++        return;
++      }
++    }
++  }
++
++  private applyZIndex(layer: LayerRecord) {
++    const inst = layer.instance;
++    if (!inst) return;
++
++    if (typeof inst.setZIndex === 'function') {
++      try { inst.setZIndex(layer.zIndex ?? 0); } catch {}
++      return;
++    }
++
++    if (typeof inst.getLayer === 'function') {
++      const ol = inst.getLayer();
++      if (ol && typeof ol.setZIndex === 'function') {
++        try { ol.setZIndex(layer.zIndex ?? 0); } catch {}
++        return;
++      }
++    }
++
++    if (typeof inst.getOlLayer === 'function') {
++      const ol = inst.getOlLayer();
++      if (ol && typeof ol.setZIndex === 'function') {
++        try { ol.setZIndex(layer.zIndex ?? 0); } catch {}
++        return;
++      }
++    }
++  }
++
++  private olLayerIsOnMap(olLayer: any): boolean {
++    try {
++      if (!this.map) return false;
++      const layers = this.map.getLayers ? this.map.getLayers().getArray() : [];
++      return layers.includes(olLayer);
++    } catch {
++      return false;
++    }
++  }
++
++  private emitLayers() {
++    this.layersSubject.next([...this.layers]);
++  }
++
++  
+   public getDataLayer(baseline: string, type: BandType, bandNumber: number) {
+     const url = `${env.apiBaseUrl}/datalayer/${type.toLowerCase()}/${bandNumber}/${baseline}`;
+-    // const params = AppSettings.CLIENT_SIDE_PROJECTION ?
+-    //       undefined :
+-    //       new HttpParams().set('crs', encodeURIComponent(AppSettings.MAP_PROJECTION));
+     const params = new HttpParams().set('crs', encodeURIComponent(AppSettings.MAP_PROJECTION));
+ 
+     return this.http.get(url, {
+diff --git a/frontend/src/app/map-view/map/layers/result-layer-group.ts b/frontend/src/app/map-view/map/layers/result-layer-group.ts
+index d84ca5ad..15b207f2 100644
+--- a/frontend/src/app/map-view/map/layers/result-layer-group.ts
++++ b/frontend/src/app/map-view/map/layers/result-layer-group.ts
+@@ -2,65 +2,88 @@ import { Collection } from 'ol';
+ import ImageLayer from 'ol/layer/Image';
+ import ImageStatic from 'ol/source/ImageStatic';
+ import BaseLayer from 'ol/layer/Base';
+-import { StaticImageOptions} from '@data/calculation/calculation.interfaces';
+-import Static from "ol/source/ImageStatic";
++import { StaticImageOptions } from '@data/calculation/calculation.interfaces';
++import Static from 'ol/source/ImageStatic';
+ import { SymphonyLayerGroup } from "@src/app/map-view/map/layers/symphony-layer";
+ import { MapComponent } from "@src/app/map-view/map/map.component";
+ import { AppSettings } from "@src/app/app.settings";
++import { DataLayerService } from '@src/app/map-view/map/layers/data-layer.service';
+ 
+ export class ResultLayerGroup extends SymphonyLayerGroup {
+-
+   private calculationLayers = new Map<number, ImageLayer<Static>>();
+ 
++  constructor(private map: MapComponent, private dataLayerService?: DataLayerService) {
++    super();
++  }
++
+   private resetOptions(image: ImageStatic, calcId: number): StaticImageOptions {
+     return {
+       url: image.getUrl(),
+       imageExtent: image.getImageExtent(),
+-      projection: AppSettings.CLIENT_SIDE_PROJECTION ?
+-        AppSettings.DATALAYER_RASTER_CRS :
+-        AppSettings.MAP_PROJECTION,
++      projection: AppSettings.CLIENT_SIDE_PROJECTION
++        ? AppSettings.DATALAYER_RASTER_CRS
++        : AppSettings.MAP_PROJECTION,
+       calculationId: calcId,
+       interpolate: this.antialias
+     };
+   }
+ 
+-  constructor(private map: MapComponent) { super(); }
+-
+   // TODO Clip result to scenario boundaries? Perhaps like so:
+   // https://gis.stackexchange.com/questions/185881/clipping-tilelayer-with-georeferenced-polygon-clipping-mask
+   public addResult(result: StaticImageOptions) {
+-    const imageLayers = this.getLayers(),
+-          cpl = new ImageLayer({
+-            source: new ImageStatic(result)
+-          });
+-    const cl = this.calculationLayers.get(result.calculationId);
++    const imageLayers = this.getLayers();
++    const cpl = new ImageLayer({ source: new ImageStatic(result) });
++    const existing = this.calculationLayers.get(result.calculationId);
+ 
+     // Comparison layers use a dummy negative number obtained
+     // by concatenating the respective calculation ids.
+     // This way we may utilize the same method to render both
+-    // types of results.
+-
+-    if(!isNaN(result.calculationId)  && !cl) {
++    // types of results
++    if (!isNaN(result.calculationId) && !existing) {
+       this.calculationLayers.set(result.calculationId, cpl);
+       imageLayers.push(cpl);
+       this.setLayers(imageLayers);
++
++      if (this.dataLayerService) {
++        this.dataLayerService.addLayer({
++          id: `result-${result.calculationId}`,
++          name: `Result ${result.calculationId}`,
++          instance: cpl,
++          visible: true,
++          opacity: 1,
++          zIndex: 500 + result.calculationId 
++        });
++      }
+     }
+ 
+     this.layerChange();
+   }
+ 
+-  public removeResult(id : number) {
+-    const imageLayers = this.getLayers(),
+-          cl = this.calculationLayers.get(id);
+-    if(cl) {
++  public removeResult(id: number) {
++    const imageLayers = this.getLayers();
++    const cl = this.calculationLayers.get(id);
++    if (cl) {
+       imageLayers.remove(cl);
+       this.calculationLayers.delete(id);
++      this.setLayers(imageLayers);
++
++   
++      if (this.dataLayerService) {
++        this.dataLayerService.removeLayer(`result-${id}`);
++      }
+     }
+-    this.setLayers(imageLayers);
+     this.layerChange();
+   }
+ 
+   public clearResult() {
++    
++    if (this.dataLayerService) {
++      const allLayers = this.dataLayerService.getAllLayers();
++      allLayers
++        .filter(l => l.id.startsWith('result-'))
++        .forEach(l => this.dataLayerService!.removeLayer(l.id));
++    }
++
+     this.calculationLayers = new Map<number, ImageLayer<Static>>();
+     this.setLayers(new Collection<BaseLayer>());
+     this.layerChange();
+@@ -68,22 +91,32 @@ export class ResultLayerGroup extends SymphonyLayerGroup {
+ 
+   private layerChange() {
+     const layerIds = [...this.calculationLayers.keys()];
+-    this.map.emitLayerChange(layerIds.filter(layerId => layerId > 0),
+-                             layerIds.filter(layerId => layerId < 0).length);
++    this.map.emitLayerChange(
++      layerIds.filter(layerId => layerId > 0),
++      layerIds.filter(layerId => layerId < 0).length
++    );
+   }
+ 
+   public toggleImageSmoothing(aliasing: boolean) {
+     super.toggleImageSmoothing(aliasing);
+ 
+-    const layers : ImageLayer<ImageStatic>[] = [];
++    const layers: ImageLayer<ImageStatic>[] = [];
+     this.calculationLayers.forEach((layer: ImageLayer<Static>, calcId) => {
+-      const chgLayer = new ImageLayer({
++      const newLayer = new ImageLayer({
+         source: new ImageStatic(this.resetOptions(layer.getRenderSource() as ImageStatic, calcId))
+       });
+-      this.calculationLayers.set(calcId, chgLayer);
+-      layers.push(chgLayer);
++      this.calculationLayers.set(calcId, newLayer);
++      layers.push(newLayer);
++
++      if (this.dataLayerService) {
++        this.dataLayerService.setLayerOpacity(`result-${calcId}`, 100);
++      }
+     });
+     this.setLayers(new Collection(layers));
+     this.changed();
+   }
+ }
++
++
++
++
+diff --git a/frontend/src/app/map-view/map/map.component.html b/frontend/src/app/map-view/map/map.component.html
+index 22eedaec..a5beaa14 100644
+--- a/frontend/src/app/map-view/map/map.component.html
++++ b/frontend/src/app/map-view/map/map.component.html
+@@ -1,19 +1,31 @@
+-<div id="map" class="map" #map></div>
+-<app-map-toolbar
+-  [drawIsActive]="drawIsActive"
+-  (zoomIn)="zoomIn()"
+-  (zoomOut)="zoomOut()"
+-  (clearResult)="clearResult()"
+-  (toggleDraw)="toggleDrawInteraction()"
+-  (setMapOpacity)="setMapOpacity($event)"
+-></app-map-toolbar>
+-<app-footer></app-footer>
+-<div id="popup" class="ol-popup" *ngIf="!drawIsActive">
+-  <div id="popup-content">
+-    <h5 id="popup-title"> </h5>
+-    <p id="popup-body">{{ 'map.click-area' | translate }}</p>
++<div class="map-container">
++
++  <div id="map" class="map" #map></div>
++  
++  <app-map-toolbar
++    [drawIsActive]="drawIsActive"
++    (zoomIn)="zoomIn()"
++    (zoomOut)="zoomOut()"
++    (clearResult)="clearResult()"
++    (toggleDraw)="toggleDrawInteraction()"
++    (setMapOpacity)="setMapOpacity($event)"
++  ></app-map-toolbar>
++
++
++  <app-layer-manager class="layer-manager-panel"></app-layer-manager>
++
++  
++  <app-footer></app-footer>
++
++
++  <div id="popup" class="ol-popup" *ngIf="!drawIsActive">
++    <div id="popup-content">
++      <h5 id="popup-title"></h5>
++      <p id="popup-body">{{ 'map.click-area' | translate }}</p>
++    </div>
++  </div>
++
++  <div id="area-options-menu">
++    <button>{{ 'map.area-options.get-shapefile' | translate }}</button>
+   </div>
+-</div>
+-<div id="area-options-menu">
+-  <button>{{ 'map.area-options.get-shapefile' | translate }}</button>
+ </div>
+diff --git a/frontend/src/app/map-view/map/map.component.scss b/frontend/src/app/map-view/map/map.component.scss
+index a219c931..b060ea68 100644
+--- a/frontend/src/app/map-view/map/map.component.scss
++++ b/frontend/src/app/map-view/map/map.component.scss
+@@ -6,9 +6,22 @@
+   background: $hav-darkcoldgrey;
+   position: relative;
+   height: calc(100vh - #{$header-height});
++  width: 100%;
++  display: block;
++  overflow: hidden;
+ 
++  /* 🔹 Fix 1: ensure the map always fills the available area */
+   #map {
++    position: absolute;
++    top: 0;
++    left: 0;
++    right: 0;
++    bottom: 0;
++    width: 100%;
+     height: 100%;
++    z-index: 0; /* base layer sits behind everything else */
++    background: #dfe6ed; /* light fallback color if tiles fail */
++
+     -moz-user-select: all;
+     -webkit-user-select: all;
+     -ms-user-select: all;
+@@ -23,27 +36,100 @@
+     }
+   }
+ 
++  /* 🔹 Map Toolbar: stays above everything */
+   app-map-toolbar {
+     position: absolute;
+     top: 2rem;
+     right: 0.8rem;
++    z-index: 2100;
+   }
+ 
++  /* 🔹 Layer Manager (side panel) */
++  app-layer-manager {
++    position: absolute;
++    top: 9rem;
++    right: 2rem;
++    z-index: 2000;
++    width: 200px;
++    background: #fff;
++    border-radius: 8px;
++    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
++    padding: 1rem 1.2rem;
++    font-family: 'Roboto', sans-serif;
++    font-size: 1.3rem;
++    color: #333;
++
++    /* 🔹 Fix 2: prevent empty white header box (previously caused by stray <h3>) */
++    h3 {
++      font-size: 1.4rem;
++      margin-bottom: 0.6rem;
++      text-align: center;
++      color: #444;
++    }
++
++    ul {
++      list-style: none;
++      padding: 0;
++      margin: 0;
++
++      li {
++        display: flex;
++        align-items: center;
++        justify-content: space-between;
++        padding: 0.4rem 0;
++        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
++
++        &:last-child {
++          border-bottom: none;
++        }
++
++        label {
++          display: flex;
++          align-items: center;
++          gap: 0.6rem;
++          cursor: pointer;
++        }
++
++        input[type='range'] {
++          width: 80px;
++          accent-color: $hav-turquoise;
++        }
++
++        button.remove-btn {
++          background: none;
++          border: none;
++          color: #c33;
++          cursor: pointer;
++          font-size: 1.4rem;
++          line-height: 1;
++          padding: 0;
++
++          &:hover {
++            color: darkred;
++          }
++        }
++      }
++    }
++  }
++
++  /* 🔹 OpenLayers popup styling */
+   .ol-popup {
+     position: absolute;
+     background-color: white;
+-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
++    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+     padding: 10px;
+     border-radius: 4px;
+     border: 1px solid #cccccc;
+     top: -23px;
+     left: 22px;
+     min-width: 240px;
++    z-index: 2500;
+ 
+-    &:after, &:before {
++    &:after,
++    &:before {
+       top: 12px;
+       border: solid transparent;
+-      content: " ";
++      content: '';
+       height: 0;
+       width: 0;
+       position: absolute;
+@@ -79,13 +165,24 @@
+     }
+   }
+ 
++  /* 🔹 Area options menu bottom right */
+   #area-options-menu {
+     background-color: white;
+     font-size: 1.3rem;
++    position: absolute;
++    bottom: 80px;
++    right: 20px;
++    z-index: 2100;
++    border-radius: 4px;
++    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+ 
+     button {
+       padding: 0.7rem 0.6rem;
+       margin: 0.3rem;
++      border: none;
++      border-radius: 4px;
++      background: #f9f9f9;
++      cursor: pointer;
+ 
+       &:hover {
+         background-color: $hav-lightturquoise;
+diff --git a/frontend/src/app/map-view/map/map.component.ts b/frontend/src/app/map-view/map/map.component.ts
+index 0f8a8832..0d75bee4 100644
+--- a/frontend/src/app/map-view/map/map.component.ts
++++ b/frontend/src/app/map-view/map/map.component.ts
+@@ -1,4 +1,12 @@
+-import { AfterViewInit, Component, EventEmitter, HostListener, Input, NgModuleRef, OnDestroy, Output
++import {
++  AfterViewInit,
++  Component,
++  EventEmitter,
++  HostListener,
++  Input,
++  NgModuleRef,
++  OnDestroy,
++  Output
+ } from '@angular/core';
+ import { Coordinate } from 'ol/coordinate';
+ import { firstValueFrom, Observable, skipWhile, Subscription } from 'rxjs';
+@@ -54,8 +62,8 @@ import {
+ })
+ export class MapComponent implements AfterViewInit, OnDestroy {
+   @Input() mapCenter?: Coordinate;
+-  @Output() resultLayerGroupChange: EventEmitter<number> = new EventEmitter<number>();
+-  @Output() resultLayerGroupChangeCmp: EventEmitter<number> = new EventEmitter<number>();
++  @Output() resultLayerGroupChange = new EventEmitter<number>();
++  @Output() resultLayerGroupChangeCmp = new EventEmitter<number>();
+   drawIsActive = false;
+ 
+   private map?: OLMap;
+@@ -70,10 +78,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
+   private scenarioSubscription: Subscription;
+   private scenarioCloseSubscription: Subscription;
+ 
+-  private reliabilitySubject$?: Observable<ReliabilityMap | null>
++  private reliabilitySubject$?: Observable<ReliabilityMap | null>;
+   private reliabilitySubscription$?: Subscription;
+ 
+-  // layers
++ 
+   private background?: BackgroundLayer;
+   private areaLayer!: AreaLayer;
+   private areaHighlightLayer!: AreaHighlightLayer;
+@@ -90,7 +98,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
+   public baselineName = '';
+   private geoJson?: GeoJSON;
+   private selectedAreas: StatePath[] = [];
+-
+   private aliasing = true;
+ 
+   constructor(
+@@ -102,17 +109,17 @@ export class MapComponent implements AfterViewInit, OnDestroy {
+     private dataLayerService: DataLayerService,
+     private moduleRef: NgModuleRef<never>
+   ) {
+-    this.userSubscription = this.store        /* TOOD: Just get from static environment?*/
++    this.userSubscription = this.store
+       .select(UserSelectors.selectBaseline).pipe(isNotNullOrUndefined())
+       .subscribe((baseline) => {
+         this.baselineName = baseline.name;
+         this.bandLayer = new BandLayer(baseline.name, dataLayerService, this.store, this.aliasing);
+-        this.map!.getLayers().insertAt(1, this.bandLayer); // on top of background layer
++        this.map!.getLayers().insertAt(1, this.bandLayer);
+       });
+ 
+     this.storeSubscription = this.store
+       .select(MetadataSelectors.selectVisibleBands)
+-      .subscribe(components => { // FIXME
++      .subscribe(components => {
+         this.bandLayer?.setVisibleBands('ECOSYSTEM', components.ecoComponent);
+         this.bandLayer?.setVisibleBands('PRESSURE', components.pressureComponent);
+       });
+@@ -121,70 +128,65 @@ export class MapComponent implements AfterViewInit, OnDestroy {
+ 
+     this.scenarioSubscription = this.activeScenario$.pipe(
+       distinctUntilChanged(
+-        (prev: Scenario|undefined, curr: Scenario|undefined) => prev?.id === curr?.id &&
+-          isEqual(prev?.areas.map(a => a.id), curr?.areas.map(a => a.id))),
+-      isNotNullOrUndefined(),
++        (prev, curr) =>
++          prev?.id === curr?.id &&
++          isEqual(prev?.areas.map(a => a.id), curr?.areas.map(a => a.id))
++      ),
++      isNotNullOrUndefined()
+     ).subscribe((scenario: Scenario) => {
+       this.areaLayer.deselectAreas();
+-
+       this.scenarioLayer.clearLayers();
+-
+       this.scenarioLayer.setScenarioBoundary(scenario);
+-
+-      this.zoomToExtent(this.scenarioLayer.getBoundaryFeature()!.getGeometry()!.getExtent(),
+-        500);
++      this.zoomToExtent(this.scenarioLayer.getBoundaryFeature()!.getGeometry()!.getExtent(), 500);
+     });
+ 
+     this.scenarioCloseSubscription = this.activeScenario$.pipe(
+-      skip(1), // undefined as always emitted on start, which does indicate a scenario close
++      skip(1),
+       filter(s => s === undefined)
+-    ).subscribe(() => {  // A scenario was closed
+-      // TODO: Remove result layer if loadResultLayerOnOpen is true
++    ).subscribe(() => {
+       this.scenarioLayer.clearLayers();
+-
+-      this.setZoom(env.map.initialZoom); // visual cue that scenario has been exited
++      this.setZoom(env.map.initialZoom);
+     });
+ 
+-    // Use store instead?
++    
+     this.resultSubscription = this.calcService.resultReady$.subscribe((result: StaticImageOptions) => {
+       this.resultLayerGroup.addResult(result);
++      const resultId = uuid();
++      this.dataLayerService.addLayer({
++        id: `result-${resultId}`,
++        name: `Model Result`,
++        instance: this.resultLayerGroup,
++        visible: true
++      });
+     });
+ 
+-    this.resultDeletedSubscription = this.calcService.resultRemoved$.subscribe((removedId: number) => {
+-      this.resultLayerGroup.removeResult(removedId);
++    this.resultDeletedSubscription = this.calcService.resultRemoved$.subscribe(() => {
++      this.resultLayerGroup.clearResult();
++      const allLayers = this.dataLayerService.getAllLayers();
++      allLayers
++        .filter(l => l.id.startsWith('result-'))
++        .forEach(l => this.dataLayerService.removeLayer(l.id));
+     });
+ 
+-    this.aliasingSubscription = this.store.select(UserSelectors.selectAliasing).subscribe((aliasing: boolean) => {
++    this.aliasingSubscription = this.store.select(UserSelectors.selectAliasing).subscribe(aliasing => {
+       this.resultLayerGroup?.toggleImageSmoothing(aliasing);
+       this.bandLayer?.toggleImageSmoothing(aliasing);
+       this.aliasing = aliasing;
+     });
+ 
+-    this.selectedAreasSubscription = this.store.select(AreaSelectors.selectSelectedArea).subscribe((selectedArea) => {
+-      this.selectedAreas = selectedArea;
+-    });
++    this.selectedAreasSubscription = this.store.select(AreaSelectors.selectSelectedArea)
++      .subscribe(selectedArea => this.selectedAreas = selectedArea);
+   }
+ 
+   async ngAfterViewInit() {
+     if (!env.map.disableBackgroundMap)
+       this.background = new BackgroundLayer('OpenSeaMap');
+ 
+-    // TODO useGeographic function in the ‘ol/proj’?
+     this.map = new OLMap({
+       target: 'map',
+       controls: [
+-        new ScaleLine({
+-          units: 'metric',
+-          // Not present in d.ts file for some reason
+-          //bar: true,
+-          //steps: 4,
+-          //text: true,
+-          minWidth: 140,
+-          target: document.getElementById('scale-container') as HTMLElement
+-        }),
+-        new Attribution({
+-          collapsible: false
+-        })
++        new ScaleLine({ units: 'metric', minWidth: 140, target: document.getElementById('scale-container') as HTMLElement }),
++        new Attribution({ collapsible: false })
+       ],
+       layers: this.background ? [this.background] : [],
+       view: new View({
+@@ -192,107 +194,114 @@ export class MapComponent implements AfterViewInit, OnDestroy {
+         zoom: env.map.initialZoom,
+         maxZoom: env.map.maxZoom,
+         minZoom: env.map.minZoom,
+-        // Web Mercator is Open Layers default (like OSM). Use EPSG:4326 instead?
+-        // projection: proj.get(AppSettings.MAP_PROJECTION),
+       }),
+-      pixelRatio: 1 // to fix tile size to 256x256
++      pixelRatio: 1
+     });
+ 
+-    const areaObservable = this.store.select(AreaSelectors.selectAreaFeatures),
+-      boundaries = await firstValueFrom(this.store.select(AreaSelectors.selectBoundaryFeatures).pipe(
+-      skipWhile(value => !value || value.features.length === 0)
+-    ));
++    this.dataLayerService.setMap(this.map);
+ 
+-    this.resultLayerGroup = new ResultLayerGroup(this);
++    const boundaries = await firstValueFrom(
++      this.store.select(AreaSelectors.selectBoundaryFeatures).pipe(
++        skipWhile(value => !value || value.features.length === 0)
++      )
++    );
++
++    this.resultLayerGroup = new ResultLayerGroup(this, this.dataLayerService);
+     this.map.addLayer(this.resultLayerGroup);
+-    this.geoJson = new GeoJSON({
+-      featureProjection: this.map.getView().getProjection()
+-    });
+ 
++    this.geoJson = new GeoJSON({ featureProjection: this.map.getView().getProjection() });
+     this.scenarioLayer = new ScenarioLayer(this.scenarioService, this.map.getView().getProjection().getCode(), this.store);
+-
+     this.areaLayer = new AreaLayer(
+-        this.map, this.dispatchSelectionUpdate, this.zoomToExtent,
+-        this.onDrawEnd, this.onDrawInvalid, this.onDownloadClick, this.onSplitClick, this.onMergeClick,
+-        this.scenarioLayer, this.translateService, this.geoJson); // Will add itself to the map
+-
++      this.map, this.dispatchSelectionUpdate, this.zoomToExtent,
++      this.onDrawEnd, this.onDrawInvalid, this.onDownloadClick, this.onSplitClick, this.onMergeClick,
++      this.scenarioLayer, this.translateService, this.geoJson
++    );
+     this.areaHighlightLayer = new AreaHighlightLayer(this.geoJson);
+-
+     this.areaLayer.setBoundaries(boundaries);
+ 
+     this.areaSubscription = this.store.select(AreaSelectors.selectAreaFeatures)
+       .pipe(skipWhile(value => !value || value.length === 0))
+-      .subscribe((features) =>
+-        {
+-          this.areaLayer.mapAreaFeatures(features);
+-          this.areaHighlightLayer.mapAreaLayers(features);
+-        }
+-      );
+-
+-    this.store.select(
+-      AreaSelectors.selectVisibleAreas).subscribe((paths) => {
+-      this.areaLayer.setVisibleAreas(paths.visible, paths.selected);
+-    });
+-
+-    this.reliabilitySubject$ = this.store.select(MetadataSelectors.selectReliabilityMap).pipe(
+-      skipWhile(reliabilityMap => reliabilityMap === null)
+-    );
++      .subscribe(features => {
++        this.areaLayer.mapAreaFeatures(features);
++        this.areaHighlightLayer.mapAreaLayers(features);
++      });
+ 
+-    this.reliabilitySubscription$ = this.reliabilitySubject$.pipe(
+-      take(1)
+-      ).subscribe((reliabilityMap ) => {
+-
+-      this.reliabilityLayers = {
+-        ECOSYSTEM: new ReliabilityLayer(reliabilityMap!.ECOSYSTEM, true, this.geoJson!),
+-        PRESSURE: new ReliabilityLayer(reliabilityMap!.PRESSURE, true, this.geoJson!),
+-        ECOSYSTEM_OL: new ReliabilityLayer(reliabilityMap!.ECOSYSTEM, false, this.geoJson!),
+-        PRESSURE_OL: new ReliabilityLayer(reliabilityMap!.PRESSURE, false, this.geoJson!)
+-      };
+-
+-      this.map!.getLayers().insertAt(1, this.reliabilityLayers.ECOSYSTEM);
+-      this.map!.getLayers().insertAt(1, this.reliabilityLayers.PRESSURE);
+-      this.map!.addLayer(this.reliabilityLayers.ECOSYSTEM_OL);
+-      this.map!.addLayer(this.reliabilityLayers.PRESSURE_OL);
+-
+-      this.store.select(MetadataSelectors.selectVisibleReliability).subscribe( (visibleReliability) => {
+-        this.reliabilityLayers.ECOSYSTEM.clear();
+-        this.reliabilityLayers.PRESSURE.clear();
+-        this.reliabilityLayers.ECOSYSTEM_OL.clear();
+-        this.reliabilityLayers.PRESSURE_OL.clear();
+-
+-        if (visibleReliability !== null) {
+-          this.showReliability(
+-            visibleReliability.band.symphonyCategory,
+-            visibleReliability.band.bandNumber,
+-            visibleReliability.opaque);
+-        }
++    this.store.select(AreaSelectors.selectVisibleAreas)
++      .subscribe(paths => this.areaLayer.setVisibleAreas(paths.visible, paths.selected));
++
++    this.reliabilitySubject$ = this.store.select(MetadataSelectors.selectReliabilityMap)
++      .pipe(skipWhile(r => r === null));
++
++    this.reliabilitySubscription$ = this.reliabilitySubject$.pipe(take(1))
++      .subscribe(reliabilityMap => {
++        this.reliabilityLayers = {
++          ECOSYSTEM: new ReliabilityLayer(reliabilityMap!.ECOSYSTEM, true, this.geoJson!),
++          PRESSURE: new ReliabilityLayer(reliabilityMap!.PRESSURE, true, this.geoJson!),
++          ECOSYSTEM_OL: new ReliabilityLayer(reliabilityMap!.ECOSYSTEM, false, this.geoJson!),
++          PRESSURE_OL: new ReliabilityLayer(reliabilityMap!.PRESSURE, false, this.geoJson!)
++        };
++
++        this.map!.getLayers().insertAt(1, this.reliabilityLayers.ECOSYSTEM);
++        this.map!.getLayers().insertAt(1, this.reliabilityLayers.PRESSURE);
++        this.map!.addLayer(this.reliabilityLayers.ECOSYSTEM_OL);
++        this.map!.addLayer(this.reliabilityLayers.PRESSURE_OL);
++
++        this.store.select(MetadataSelectors.selectVisibleReliability)
++          .subscribe(visibleReliability => {
++            this.reliabilityLayers.ECOSYSTEM.clear();
++            this.reliabilityLayers.PRESSURE.clear();
++            this.reliabilityLayers.ECOSYSTEM_OL.clear();
++            this.reliabilityLayers.PRESSURE_OL.clear();
++            if (visibleReliability !== null) {
++              this.showReliability(
++                visibleReliability.band.symphonyCategory,
++                visibleReliability.band.bandNumber,
++                visibleReliability.opaque
++              );
++            }
++          });
+       });
+-    });
+ 
+     this.map!.addLayer(this.areaLayer);
+     this.map!.addLayer(this.scenarioLayer);
+     this.map!.addLayer(this.areaHighlightLayer);
++
++    const normalizeInstance = (inst: any) => {
++      if (!inst) return inst;
++      if (typeof inst.getLayer === 'function') return inst.getLayer();
++      if (typeof inst.getOlLayer === 'function') return inst.getOlLayer();
++      return inst;
++    };
++
++    this.dataLayerService.addLayer({ id: 'background-layer', name: 'Background', instance: normalizeInstance(this.background), visible: true, zIndex: 0 });
++    this.dataLayerService.addLayer({ id: 'area-layer', name: 'User Areas', instance: normalizeInstance(this.areaLayer), visible: true, zIndex: 10 });
++    this.dataLayerService.addLayer({ id: 'scenario-layer', name: 'Scenario', instance: normalizeInstance(this.scenarioLayer), visible: true, zIndex: 20 });
++    this.dataLayerService.addLayer({ id: 'highlight-layer', name: 'Highlights', instance: normalizeInstance(this.areaHighlightLayer), visible: true, zIndex: 30 });
++    this.dataLayerService.addLayer({ id: 'result-layer-group', name: 'Model Results', instance: normalizeInstance(this.resultLayerGroup), visible: true, zIndex: 40 });
++    this.dataLayerService.addLayer({ id: 'ecosystem-reliability', name: 'Ecosystem Reliability', instance: normalizeInstance(this.reliabilityLayers.ECOSYSTEM), visible: true, zIndex: 50 });
++    this.dataLayerService.addLayer({ id: 'pressure-reliability', name: 'Pressure Reliability', instance: normalizeInstance(this.reliabilityLayers.PRESSURE), visible: true, zIndex: 60 });
++    this.dataLayerService.addLayer({ id: 'ecosystem-reliability-ol', name: 'Ecosystem Reliability (OL)', instance: normalizeInstance(this.reliabilityLayers.ECOSYSTEM_OL), visible: false, zIndex: 70 });
++    this.dataLayerService.addLayer({ id: 'pressure-reliability-ol', name: 'Pressure Reliability (OL)', instance: normalizeInstance(this.reliabilityLayers.PRESSURE_OL), visible: false, zIndex: 80 });
++
++    
++    this.dataLayerService.setLayerOpacity('pressure-reliability', 0.5);
++    this.dataLayerService.setLayerOpacity('ecosystem-reliability', 0.5);
+   }
+ 
+   public clearResult() {
+     this.resultLayerGroup.clearResult();
+-    this.store.dispatch(CalculationActions.resetComparisonLegend())
++    this.store.dispatch(CalculationActions.resetComparisonLegend());
+   }
+ 
+-  public highlightArea = (statePath: StatePath, highlight: boolean) => {
+-    if (highlight) {
+-      this.areaHighlightLayer.highlightArea(statePath);
+-    } else {
+-      this.areaHighlightLayer.clearHighlight(statePath);
+-    }
+-  }
++  public highlightArea = (statePath: StatePath, highlight: boolean) =>
++    highlight ? this.areaHighlightLayer.highlightArea(statePath) : this.areaHighlightLayer.clearHighlight(statePath);
+ 
+   public showReliability = (bandType: BandType, bandNumber: number, opaqueLayer: boolean) => {
+     const layerKey = bandType + (opaqueLayer ? '' : '_OL') as keyof typeof this.reliabilityLayers;
+     this.reliabilityLayers[layerKey].highlightReliability(bandNumber);
+-  }
++  };
+ 
+-  public emitLayerChange(resultIds: number[], cmpCount: number):void {
++  public emitLayerChange(resultIds: number[], cmpCount: number): void {
+     this.resultLayerGroupChange.emit(resultIds.length);
+     this.resultLayerGroupChangeCmp.emit(cmpCount);
+     this.store.dispatch(CalculationActions.setVisibleResultLayers({ visibleResults: resultIds }));
+@@ -300,43 +309,25 @@ export class MapComponent implements AfterViewInit, OnDestroy {
+ 
+   @HostListener('window:keydown', ['$event'])
+   handleKeyDown(event: KeyboardEvent) {
+-    if (event.key === 'x' && event.altKey) {
+-      this.clearResult();
+-    }
++    if (event.key === 'x' && event.altKey) this.clearResult();
+   }
+ 
+-  private dispatchSelectionUpdate = (statePath: StatePath | undefined, expand: boolean) => {
++  private dispatchSelectionUpdate = (statePath: StatePath | undefined, expand: boolean) =>
+     this.store.dispatch(AreaActions.updateSelectedArea({ statePath, expand }));
+-  };
+ 
+   ngOnDestroy() {
+-    if (this.storeSubscription) {
+-      this.storeSubscription.unsubscribe();
+-    }
+-    if (this.areaSubscription) {
+-      this.areaSubscription.unsubscribe();
+-    }
+-    if (this.resultSubscription) {
+-      this.resultSubscription.unsubscribe();
+-    }
+-    if (this.resultDeletedSubscription) {
+-      this.resultDeletedSubscription.unsubscribe();
+-    }
+-    if (this.userSubscription) {
+-      this.userSubscription.unsubscribe();
+-    }
+-    if (this.aliasingSubscription) {
+-      this.aliasingSubscription.unsubscribe();
+-    }
+-
++    this.storeSubscription?.unsubscribe();
++    this.areaSubscription?.unsubscribe();
++    this.resultSubscription?.unsubscribe();
++    this.resultDeletedSubscription?.unsubscribe();
++    this.userSubscription?.unsubscribe();
++    this.aliasingSubscription?.unsubscribe();
+     this.selectedAreasSubscription.unsubscribe();
+     this.scenarioCloseSubscription.unsubscribe();
+     this.scenarioSubscription.unsubscribe();
+   }
+ 
+-  toggleDrawInteraction = () => {
+-    this.drawIsActive = this.areaLayer.toggleDrawInteraction();
+-  };
++  toggleDrawInteraction = () => this.drawIsActive = this.areaLayer.toggleDrawInteraction();
+ 
+   onDrawInvalid = async () => {
+     this.store.dispatch(MessageActions.addPopupMessage({
+@@ -347,43 +338,38 @@ export class MapComponent implements AfterViewInit, OnDestroy {
+         uuid: uuid()
+       }
+     }));
+-  }
++  };
+ 
+   onDrawEnd = async (polygon: Polygon) => {
+     const areaName = await this.dialogService.open(CreateUserAreaModalComponent, this.moduleRef);
+     if (typeof areaName === 'string') {
+       this.toggleDrawInteraction();
+-      const newArea = {
+-        name: areaName,
+-        polygon,
+-        description: ''
+-      };
++      const newArea = { name: areaName, polygon, description: '' };
+       this.store.dispatch(AreaActions.createUserDefinedArea(newArea));
+     }
+   };
+ 
+-  // Alt key + select area interaction
+   onSplitClick = async (feature: Feature, prevFeature: Feature) => {
+     const diff = dieCutPolygons(feature, prevFeature), prevName = prevFeature.get('name');
+     if (diff.length > 0) {
+-      const areaConf = diff.map( (p, ix) =>
+-        this.reprojectAsFragment(p, ['«', areaSliceName(prevName, ix),'»'].join(' ')) ),
+-
+-        polygonsToSave = await this.dialogService.open(SelectIntersectionComponent, this.moduleRef, {
+-          data: {
+-            areas: areaConf,
+-            multi: true,
+-            projection: 'EPSG:4326',
+-            reprojection: 'EPSG:3857',
+-            headerTextKey: 'map.split-area.modal.header',
+-            messageTextKey: diff.length > 1 ? 'map.split-area.modal.message' : 'map.split-area.modal.message-single',
+-            confirmTextKey: diff.length > 1 ? 'map.split-area.modal.confirm' : 'map.split-area.modal.confirm-single',
+-            metaDescriptionTextKey: 'map.split-area.modal.meta-description'
+-          }
+-        }) as boolean[];
++      const areaConf = diff.map((p, ix) =>
++        this.reprojectAsFragment(p, ['«', areaSliceName(prevName, ix), '»'].join(' '))
++      ),
++      polygonsToSave = await this.dialogService.open(SelectIntersectionComponent, this.moduleRef, {
++        data: {
++          areas: areaConf,
++          multi: true,
++          projection: 'EPSG:4326',
++          reprojection: 'EPSG:3857',
++          headerTextKey: 'map.split-area.modal.header',
++          messageTextKey: diff.length > 1 ? 'map.split-area.modal.message' : 'map.split-area.modal.message-single',
++          confirmTextKey: diff.length > 1 ? 'map.split-area.modal.confirm' : 'map.split-area.modal.confirm-single',
++          metaDescriptionTextKey: 'map.split-area.modal.meta-description'
++        }
++      }) as boolean[];
+ 
+       polygonsToSave.forEach((p, ix) => {
+-        if(p) {
++        if (p) {
+           this.store.dispatch(AreaActions.createUserDefinedArea({
+             name: areaSliceName(prevFeature.get('name'), ix),
+             polygon: MapComponent.convertToSave(areaConf[ix].polygon),
+@@ -392,122 +378,77 @@ export class MapComponent implements AfterViewInit, OnDestroy {
+         }
+       });
+     }
+-  }
++  };
+ 
+-  // (Alt + Shift) keys + select area interaction
+   onMergeClick = async (lastFeature: Feature) => {
+-
+-    // Some readability have been sacrificed for the convenience of
+-    // utilizing existing component logic (and versatility of integers).
+-    // The MergeAreasModal component will return either:
+-    // the numeric index of the input areas + 1,
+-    // 0 if the user opts to save the merged area as a new area,
+-    // -1 if the user cancels the operation
+-    //
+-    // To access the input arrays we, however arbitrarily, subtract 1
+-    // from the return value and treat -1 as the special case to indicate
+-    // new area creation.
+-    const selectedFeatures =
+-      [...(this.areaLayer.getFeaturesByStatePaths(this.selectedAreas) || []), lastFeature],
+-      names = selectedFeatures.map(f => f.get('name')),
+-      paths = selectedFeatures.map(f => f.get('statePath')),
+-      merged = turfMergeAll(selectedFeatures);
+-
+-    if(merged !== null) {
++    const selectedFeatures = [
++      ...(this.areaLayer.getFeaturesByStatePaths(this.selectedAreas) || []),
++      lastFeature
++    ],
++    names = selectedFeatures.map(f => f.get('name')),
++    paths = selectedFeatures.map(f => f.get('statePath')),
++    merged = turfMergeAll(selectedFeatures);
++
++    if (merged !== null) {
+       const areaIndexToSave = await this.dialogService.open(MergeAreasModalComponent, this.moduleRef, {
+-        data : {
+-          areas: [this.reprojectAsFragment(merged, '')],
+-          paths,
+-          names
+-        }
++        data: { areas: [this.reprojectAsFragment(merged, '')], paths, names }
+       }) as number - 1;
+ 
+       if (areaIndexToSave >= -1) {
+-
+         const areaToSave = {
+           id: areaIndexToSave === -1 ? 0 : paths[areaIndexToSave][1],
+-          name: areaIndexToSave === -1 ?
+-            names[0] + ' extension' : names[areaIndexToSave],
++          name: areaIndexToSave === -1 ? names[0] + ' extension' : names[areaIndexToSave],
+           polygon: MapComponent.convertToSave(merged!),
+-          description: ['"', names[0], '" extended by "', names[1], '"' ].join('')
+-        }
+-
+-        if (areaIndexToSave === -1) {
++          description: ['"', names[0], '" extended by "', names[1], '"'].join('')
++        };
++        if (areaIndexToSave === -1)
+           this.store.dispatch(AreaActions.createUserDefinedArea(areaToSave));
+-        } else {
++        else
+           this.store.dispatch(AreaActions.updateUserDefinedArea(areaToSave));
+-        }
+       }
+     }
+-  }
++  };
+ 
+-  onDownloadClick = async (path: string) => {
+-    document.location.href = env.apiBaseUrl + '/areas/download?path=' + path;
+-  }
++  onDownloadClick = async (path: string) => document.location.href = `${env.apiBaseUrl}/areas/download?path=${path}`;
+ 
+-  // The virtual transform methods on OpenLayers Geometry subclasses
+-  // apparently does not support the EPSG:6326 projection used by turfjs
+   convert6326(polygon: Polygon): Geometry {
+     return this.geoJson!.writeGeometryObject(
+-      this.geoJson!.readGeometry(polygon, { featureProjection: 'EPSG:4326', dataProjection: 'EPSG:6326'}),
+-      { featureProjection: 'EPSG:4326'})
++      this.geoJson!.readGeometry(polygon, { featureProjection: 'EPSG:4326', dataProjection: 'EPSG:6326' }),
++      { featureProjection: 'EPSG:4326' }
++    );
+   }
+ 
+-  reprojectAsFragment(p: Polygon, description: string) : AreaSelectionConfig {
+-    return {
+-      polygon: this.convert6326(p),
+-      metaDescription: description
+-    };
++  reprojectAsFragment(p: Polygon, description: string): AreaSelectionConfig {
++    return { polygon: this.convert6326(p), metaDescription: description };
+   }
+ 
+-  static convertToSave(polygon : unknown): Polygon {
+-     const transformed = (polygon as Polygon).type === 'MultiPolygon' ?
+-        new MultiPolygon((polygon as GeoJSON.MultiPolygon).coordinates) :
+-        new OLPolygon((polygon as GeoJSON.Polygon).coordinates);
++  static convertToSave(polygon: unknown): Polygon {
++    const transformed = (polygon as Polygon).type === 'MultiPolygon'
++      ? new MultiPolygon((polygon as GeoJSON.MultiPolygon).coordinates)
++      : new OLPolygon((polygon as GeoJSON.Polygon).coordinates);
+     transformed.transform('EPSG:3857', 'EPSG:4326');
+-
+-    return {  type:        transformed.getType().toString(),
+-              coordinates: transformed.getCoordinates() };
++    return { type: transformed.getType().toString(), coordinates: transformed.getCoordinates() };
+   }
+ 
+-  public center() {
+-    this.map!.getView().animate({ center: env.map.center, duration: 250 });
+-  }
+-
+-  public zoomIn() {
+-    this.setZoom(this.map!.getView()!.getZoom()! + 1);
+-  }
+-
+-  public zoomOut() {
+-    this.setZoom(this.map!.getView()!.getZoom()! - 1);
+-  }
++  public center() { this.map!.getView().animate({ center: env.map.center, duration: 250 }); }
++  public zoomIn() { this.setZoom(this.map!.getView()!.getZoom()! + 1); }
++  public zoomOut() { this.setZoom(this.map!.getView()!.getZoom()! - 1); }
+ 
+-  private setZoom = (zoomLevel: number, duration = 250, center?: Coordinate) => {
++  private setZoom = (zoomLevel: number, duration = 250, center?: Coordinate) =>
+     this.map!.getView().animate({ zoom: zoomLevel, duration }, { center });
+-  };
+ 
+-  public zoomToArea = (statePaths: StatePath[]) => {
+-    this.areaLayer.zoomToArea(statePaths);
+-  };
++  public zoomToArea = (statePaths: StatePath[]) => this.areaLayer.zoomToArea(statePaths);
+ 
+   public zoomToExtent(extent: Extent, duration: number) {
+     const padding = env.map.zoomPadding;
+-    this.map!.getView().fit(extent, {
+-      padding: [padding, padding, padding, /*40 rem=*/400], // TODO: set last element to width of left side panel, if
+-      // open
+-      // TODO observe state of sidebar toggle
+-      duration
+-    });
++    this.map!.getView().fit(extent, { padding: [padding, padding, padding, 400], duration });
+   }
+ 
+   public setMapOpacity(opacity: number) {
+-    // The event object is sometimes emitted when using this function
+-    // in an input event, which makes the opacity reset to 1
+-    if (this.background)
+-      this.background.setOpacity(opacity);
++    if (this.background) this.background.setOpacity(opacity);
+   }
+ }
+ 
+ function areaSliceName(areaName: string, index: number): string {
+-  return areaName + ' slice - ' + (index + 1);
++  return `${areaName} slice - ${index + 1}`;
+ }
+diff --git a/package-lock.json b/package-lock.json
+new file mode 100644
+index 00000000..698873cd
+--- /dev/null
++++ b/package-lock.json
+@@ -0,0 +1,6 @@
++{
++  "name": "workspace",
++  "lockfileVersion": 3,
++  "requires": true,
++  "packages": {}
++}
