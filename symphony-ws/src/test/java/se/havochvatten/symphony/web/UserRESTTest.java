@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import se.havochvatten.symphony.dto.AreaImportResponse;
-import se.havochvatten.symphony.dto.UploadedUserDefinedAreaDto;
+import se.havochvatten.symphony.dto.UploadedAreaDto;
 import se.havochvatten.symphony.dto.UserDefinedAreaDto;
 
 import java.io.File;
@@ -17,7 +17,6 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.*;
-import static org.junit.Assert.assertEquals;
 
 public class UserRESTTest extends RESTTest {
     private static String areaName = "UserRESTTest";
@@ -247,7 +246,7 @@ public class UserRESTTest extends RESTTest {
             statusCode(200).
             extract();
 
-        var dto = result.body().as(UploadedUserDefinedAreaDto.class);
+        var dto = result.body().as(UploadedAreaDto.class);
 		assertEquals("epsg3006", dto.featureIdentifiers.get(0));
 
         var result2 = given().
