@@ -66,6 +66,9 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   @Output() resultLayerGroupChangeCmp = new EventEmitter<number>();
   drawIsActive = false;
 
+  layerManagerExpanded = false; // Start minimized
+
+
   private map?: OLMap;
   private readonly storeSubscription?: Subscription;
   private readonly resultSubscription?: Subscription;
@@ -81,7 +84,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private reliabilitySubject$?: Observable<ReliabilityMap | null>;
   private reliabilitySubscription$?: Subscription;
 
- 
+
   private background?: BackgroundLayer;
   private areaLayer!: AreaLayer;
   private areaHighlightLayer!: AreaHighlightLayer;
@@ -148,7 +151,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       this.setZoom(env.map.initialZoom);
     });
 
-    
+
     this.resultSubscription = this.calcService.resultReady$.subscribe((result: StaticImageOptions) => {
       this.resultLayerGroup.addResult(result);
       const resultId = uuid();
@@ -283,7 +286,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.dataLayerService.addLayer({ id: 'ecosystem-reliability-ol', name: 'Ecosystem Reliability (OL)', instance: normalizeInstance(this.reliabilityLayers.ECOSYSTEM_OL), visible: false, zIndex: 70 });
     this.dataLayerService.addLayer({ id: 'pressure-reliability-ol', name: 'Pressure Reliability (OL)', instance: normalizeInstance(this.reliabilityLayers.PRESSURE_OL), visible: false, zIndex: 80 });
 
-    
+
     this.dataLayerService.setLayerOpacity('pressure-reliability', 0.5);
     this.dataLayerService.setLayerOpacity('ecosystem-reliability', 0.5);
   }
@@ -446,6 +449,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
 
   public setMapOpacity(opacity: number) {
     if (this.background) this.background.setOpacity(opacity);
+  }
+
+  public toggleLayerManager() {
+    this.layerManagerExpanded = !this.layerManagerExpanded;
   }
 }
 

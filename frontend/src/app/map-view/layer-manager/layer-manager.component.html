@@ -1,46 +1,81 @@
-<div class="layer-manager">
-  <h3>Layer Manager</h3>
+<div class="layer-manager" [class.collapsed]="!isExpanded" cdkDrag cdkDragBoundary=".map-container">
 
-  <div
-    cdkDropList
-    (cdkDropListDropped)="drop($event)"
-    class="layer-list"
-  >
-    <div
-      class="layer-item"
-      *ngFor="let layer of layers"
-      cdkDrag
-    >
-      <span class="drag-handle" cdkDragHandle title="Reorder layer">☰</span>
+  <!-- Header - draggable area -->
+  <div class="layer-manager-header" cdkDragHandle>
+    <h3>Layer Manager</h3>
+    <i class="info-icon" title="Information about layer management (coming soon)">ℹ️</i>
+  </div>
 
-      <input
-        type="checkbox"
-        [checked]="layer.visible"
-        (change)="toggleLayer(layer)"
-      />
+  <!-- Content area - scrollable -->
+  <div class="layer-manager-content">
 
-      
-      <span class="layer-name">{{ layer.name }}</span>
-
-      
-      <input
-        class="opacity-slider"
-        type="range"
-        min="0"
-        max="100"
-        [value]="(layer.opacity ?? 1) * 100"
-        (input)="changeOpacity(layer, $event.target.value)"
-        title="Adjust opacity"
-      />
-
-    
-      <button
-        class="remove-btn"
-        title="Remove layer"
-        (click)="removeLayer(layer)"
-      >
-        ✕
-      </button>
+    <!-- Primary Layers Section -->
+    <div class="layer-section primary-layers">
+      <div class="section-title">Map Layers</div>
+      <div class="layer-list-static">
+        <div class="layer-item" *ngFor="let layer of primaryLayers">
+          <input
+            type="checkbox"
+            [checked]="layer.visible"
+            (change)="toggleLayer(layer)"
+          />
+          <span class="layer-name">{{ layer.name }}</span>
+          <input
+            class="opacity-slider"
+            type="range"
+            min="0"
+            max="100"
+            [value]="(layer.opacity ?? 1) * 100"
+            (input)="changeOpacity(layer, +$any($event.target).value)"
+            title="Adjust opacity"
+          />
+        </div>
+      </div>
     </div>
+
+    <!-- Secondary Layers Section - draggable/reorderable -->
+    <div class="layer-section secondary-layers" *ngIf="secondaryLayers.length > 0">
+      <div class="section-title">Active Layers</div>
+      <div
+        cdkDropList
+        (cdkDropListDropped)="drop($event)"
+        class="layer-list"
+      >
+        <div
+          class="layer-item"
+          *ngFor="let layer of secondaryLayers"
+          cdkDrag
+        >
+          <span class="drag-handle" cdkDragHandle title="Reorder layer">☰</span>
+
+          <input
+            type="checkbox"
+            [checked]="layer.visible"
+            (change)="toggleLayer(layer)"
+          />
+
+          <span class="layer-name">{{ layer.name }}</span>
+
+          <input
+            class="opacity-slider"
+            type="range"
+            min="0"
+            max="100"
+            [value]="(layer.opacity ?? 1) * 100"
+            (input)="changeOpacity(layer, +$any($event.target).value)"
+            title="Adjust opacity"
+          />
+
+          <button
+            class="remove-btn"
+            title="Remove layer"
+            (click)="removeLayer(layer)"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
