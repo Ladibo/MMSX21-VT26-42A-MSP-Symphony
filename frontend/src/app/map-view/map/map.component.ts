@@ -40,6 +40,8 @@ import { ScenarioLayer } from '@src/app/map-view/map/layers/scenario-layer';
 import AreaLayer from '@src/app/map-view/map/layers/area-layer';
 import { Extent } from 'ol/extent';
 import { DataLayerService } from '@src/app/map-view/map/layers/data-layer.service';
+import { LayerStyleService } from '@src/app/map-view/map/layers/layer-style.service';
+import { ResultLayerService } from '@src/app/map-view/map/layers/result-layer.service';
 import { isEqual } from "@shared/common.util";
 import { dieCutPolygons, turfMergeAll } from "@shared/turf-helper/turf-helper";
 import { SelectIntersectionComponent } from "@shared/select-intersection/select-intersection.component";
@@ -81,7 +83,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   private reliabilitySubject$?: Observable<ReliabilityMap | null>;
   private reliabilitySubscription$?: Subscription;
 
- 
   private background?: BackgroundLayer;
   private areaLayer!: AreaLayer;
   private areaHighlightLayer!: AreaHighlightLayer;
@@ -107,13 +108,22 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     private dialogService: DialogService,
     private translateService: TranslateService,
     private dataLayerService: DataLayerService,
+    private layerStyleService: LayerStyleService,
+    private resultLayerService: ResultLayerService,
     private moduleRef: NgModuleRef<never>
   ) {
     this.userSubscription = this.store
       .select(UserSelectors.selectBaseline).pipe(isNotNullOrUndefined())
       .subscribe((baseline) => {
         this.baselineName = baseline.name;
-        this.bandLayer = new BandLayer(baseline.name, dataLayerService, this.store, this.aliasing);
+        // LayerStyleService passed in as the new 4th argument
+        this.bandLayer = new BandLayer(
+          baseline.name,
+          dataLayerService,
+          this.store,
+          this.layerStyleService,
+          this.aliasing
+        );
         this.map!.getLayers().insertAt(1, this.bandLayer);
       });
 
@@ -148,24 +158,12 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       this.setZoom(env.map.initialZoom);
     });
 
-    
     this.resultSubscription = this.calcService.resultReady$.subscribe((result: StaticImageOptions) => {
       this.resultLayerGroup.addResult(result);
-      const resultId = uuid();
-      this.dataLayerService.addLayer({
-        id: `result-${resultId}`,
-        name: `Model Result`,
-        instance: this.resultLayerGroup,
-        visible: true
-      });
     });
 
     this.resultDeletedSubscription = this.calcService.resultRemoved$.subscribe(() => {
       this.resultLayerGroup.clearResult();
-      const allLayers = this.dataLayerService.getAllLayers();
-      allLayers
-        .filter(l => l.id.startsWith('result-'))
-        .forEach(l => this.dataLayerService.removeLayer(l.id));
     });
 
     this.aliasingSubscription = this.store.select(UserSelectors.selectAliasing).subscribe(aliasing => {
@@ -198,15 +196,13 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       pixelRatio: 1
     });
 
-    this.dataLayerService.setMap(this.map);
-
     const boundaries = await firstValueFrom(
       this.store.select(AreaSelectors.selectBoundaryFeatures).pipe(
         skipWhile(value => !value || value.features.length === 0)
       )
     );
 
-    this.resultLayerGroup = new ResultLayerGroup(this, this.dataLayerService);
+    this.resultLayerGroup = new ResultLayerGroup(this, this.layerStyleService, this.resultLayerService);
     this.map.addLayer(this.resultLayerGroup);
 
     this.geoJson = new GeoJSON({ featureProjection: this.map.getView().getProjection() });
@@ -265,27 +261,6 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.map!.addLayer(this.areaLayer);
     this.map!.addLayer(this.scenarioLayer);
     this.map!.addLayer(this.areaHighlightLayer);
-
-    const normalizeInstance = (inst: any) => {
-      if (!inst) return inst;
-      if (typeof inst.getLayer === 'function') return inst.getLayer();
-      if (typeof inst.getOlLayer === 'function') return inst.getOlLayer();
-      return inst;
-    };
-
-    this.dataLayerService.addLayer({ id: 'background-layer', name: 'Background', instance: normalizeInstance(this.background), visible: true, zIndex: 0 });
-    this.dataLayerService.addLayer({ id: 'area-layer', name: 'User Areas', instance: normalizeInstance(this.areaLayer), visible: true, zIndex: 10 });
-    this.dataLayerService.addLayer({ id: 'scenario-layer', name: 'Scenario', instance: normalizeInstance(this.scenarioLayer), visible: true, zIndex: 20 });
-    this.dataLayerService.addLayer({ id: 'highlight-layer', name: 'Highlights', instance: normalizeInstance(this.areaHighlightLayer), visible: true, zIndex: 30 });
-    this.dataLayerService.addLayer({ id: 'result-layer-group', name: 'Model Results', instance: normalizeInstance(this.resultLayerGroup), visible: true, zIndex: 40 });
-    this.dataLayerService.addLayer({ id: 'ecosystem-reliability', name: 'Ecosystem Reliability', instance: normalizeInstance(this.reliabilityLayers.ECOSYSTEM), visible: true, zIndex: 50 });
-    this.dataLayerService.addLayer({ id: 'pressure-reliability', name: 'Pressure Reliability', instance: normalizeInstance(this.reliabilityLayers.PRESSURE), visible: true, zIndex: 60 });
-    this.dataLayerService.addLayer({ id: 'ecosystem-reliability-ol', name: 'Ecosystem Reliability (OL)', instance: normalizeInstance(this.reliabilityLayers.ECOSYSTEM_OL), visible: false, zIndex: 70 });
-    this.dataLayerService.addLayer({ id: 'pressure-reliability-ol', name: 'Pressure Reliability (OL)', instance: normalizeInstance(this.reliabilityLayers.PRESSURE_OL), visible: false, zIndex: 80 });
-
-    
-    this.dataLayerService.setLayerOpacity('pressure-reliability', 0.5);
-    this.dataLayerService.setLayerOpacity('ecosystem-reliability', 0.5);
   }
 
   public clearResult() {

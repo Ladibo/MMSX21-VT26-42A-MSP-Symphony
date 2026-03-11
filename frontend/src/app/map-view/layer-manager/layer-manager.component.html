@@ -8,36 +8,33 @@
   >
     <div
       class="layer-item"
-      *ngFor="let layer of layers"
+      *ngFor="let item of layers"
       cdkDrag
     >
       <span class="drag-handle" cdkDragHandle title="Reorder layer">☰</span>
 
       <input
         type="checkbox"
-        [checked]="layer.visible"
-        (change)="toggleLayer(layer)"
+        [checked]="true"
+        (change)="toggleLayer(item)"
       />
 
-      
-      <span class="layer-name">{{ layer.name }}</span>
+      <span class="layer-name">{{ item.kind === 'band' ? item.band.title : item.entry.name }}</span>
 
-      
       <input
         class="opacity-slider"
         type="range"
         min="0"
         max="100"
-        [value]="(layer.opacity ?? 1) * 100"
-        (input)="changeOpacity(layer, $event.target.value)"
+        [value]="item.kind === 'band' ? (layerStyleService.getOpacity(item.type, item.band.bandNumber) * 100) : (layerStyleService.getResultOpacity(item.entry.id) * 100)"
+        (input)="changeLayerOpacity(item, $any($event.target).value)"
         title="Adjust opacity"
       />
 
-    
       <button
         class="remove-btn"
         title="Remove layer"
-        (click)="removeLayer(layer)"
+        (click)="removeLayer(item)"
       >
         ✕
       </button>

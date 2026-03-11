@@ -5,6 +5,7 @@ import { ImageStatic } from 'ol/source';
 import { AppSettings } from '@src/app/app.settings';
 import { StaticImageOptions } from '@data/calculation/calculation.interfaces';
 import { DataLayerService } from '@src/app/map-view/map/layers/data-layer.service';
+import { LayerStyleService } from '@src/app/map-view/map/layers/layer-style.service';
 import ImageSource from 'ol/source/Image';
 import { SymphonyLayerGroup } from "@src/app/map-view/map/layers/symphony-layer";
 import RenderEvent from "ol/render/Event";
@@ -15,6 +16,7 @@ import { MetadataActions } from "@data/metadata";
 class DataLayer extends ImageLayer<ImageSource> {
   constructor(opts: StaticImageOptions) {
     super({
+      // TODO: It would be more convenient to make use of a tiled protocol here: => WM(TS)
       source: new ImageStatic(opts)
     });
   }
@@ -35,10 +37,21 @@ class BandLayer extends SymphonyLayerGroup {
     private baseline: string,
     private dataLayerService: DataLayerService,
     private store: Store<State>,
+    private layerStyleService: LayerStyleService,
     antialias: boolean
   ) {
     super();
     this.antialias = antialias;
+
+    // When opacity changes in LayerStyleService, apply immediately to loaded OL layers
+    this.layerStyleService.getOpacityChanges().subscribe(() => {
+      this.loadedBands.ecoComponents.forEach((layer, bandNumber) => {
+        layer.setOpacity(this.layerStyleService.getOpacity('ECOSYSTEM', bandNumber));
+      });
+      this.loadedBands.pressures.forEach((layer, bandNumber) => {
+        layer.setOpacity(this.layerStyleService.getOpacity('PRESSURE', bandNumber));
+      });
+    });
   }
 
   protected renderHandler = (evt: RenderEvent) =>
@@ -46,82 +59,59 @@ class BandLayer extends SymphonyLayerGroup {
 
   public setVisibleBands(bandType: BandType, bands: Band[]) {
     const ecoType = bandType === 'ECOSYSTEM',
-      layerBands = ecoType ? this.loadedBands.ecoComponents : this.loadedBands.pressures,
-      visibleBandNumbers = ecoType
-        ? this.visibleBandNumbers.ecoComponents
-        : this.visibleBandNumbers.pressures;
+      layerBands =
+        ecoType ? this.loadedBands.ecoComponents : this.loadedBands.pressures,
+      visibleBandNumbers =
+        ecoType ? this.visibleBandNumbers.ecoComponents : this.visibleBandNumbers.pressures;
 
-
+    // remove layers no longer visible
     const bandNumbers = bands.map(band => band.bandNumber);
-
     layerBands.forEach((layer: Layer, bandNumber: number) => {
       if (!bandNumbers.includes(bandNumber)) {
         this.getLayers().remove(layer);
         visibleBandNumbers.delete(bandNumber);
-
-        const type = ecoType ? 'ECOSYSTEM' : 'PRESSURE';
-        this.dataLayerService.removeLayer(`${type.toLowerCase()}-${bandNumber}`);
       }
     });
 
+    // add newly visible layers
     bands.forEach((band: Band) => {
       if (!visibleBandNumbers.has(band.bandNumber)) {
+        // already loaded layers don't require fetching
         if (layerBands.has(band.bandNumber)) {
-          
           const layer = layerBands.get(band.bandNumber)!;
           if (!this.getLayers().getArray().includes(layer)) {
+            // guard necessary due oddity in OpenLayers collections impl. Could be a bug.
+            // Opting for a simple if branch here over a verbose try-catch block.
+            // https://github.com/openlayers/openlayers/blob/f2c05afbd128428035f51945bbc
             this.getLayers().push(layer);
           }
-
-      
-          const type = ecoType ? 'ECOSYSTEM' : 'PRESSURE';
-          this.dataLayerService.setLayerVisibility(`${type.toLowerCase()}-${band.bandNumber}`, true);
-          visibleBandNumbers.add(band.bandNumber);
         } else {
-          
           const type = ecoType ? 'ECOSYSTEM' : 'PRESSURE';
-          this.dataLayerService
-            .getDataLayer(this.baseline, type, band.bandNumber)
-            .subscribe(response => {
+          this.dataLayerService.getDataLayer(this.baseline, type, band.bandNumber).subscribe(
+            response => {
               const extentHeader = response.headers.get('SYM-Image-Extent');
-              if (!extentHeader || !response.body) return;
-
-              const imageOpts = {
-                url: URL.createObjectURL(response.body),
-                imageExtent: JSON.parse(extentHeader),
-                calculationId: NaN,
-                projection: AppSettings.MAP_PROJECTION,
-                attributions:
-                  band.meta.mapAcknowledgement ??
-                  band.meta.authorOrganisation ??
-                  '',
-                interpolate: this.antialias
-              };
-
-              const layer = new DataLayer(imageOpts);
-              this.getLayers().push(layer);
-              layerBands.set(band.bandNumber, layer);
-
-              layer.on('prerender', this.renderHandler);
-
-             
-              const opacity = (band.layerOpacity ?? 100) / 100;
-              this.setBandLayerOpacity(bandType, band.bandNumber, opacity);
-
-            
-              this.dataLayerService.addLayer({
-                id: `${type.toLowerCase()}-${band.bandNumber}`,
-                name: `${type} ${band.bandNumber}`,
-                instance: layer,
-                visible: true,
-                opacity,
-                zIndex: ecoType ? 100 + band.bandNumber : 200 + band.bandNumber
-              });
-
-              this.store.dispatch(
-                MetadataActions.setLoadedState({ band, value: true })
-              );
-              visibleBandNumbers.add(band.bandNumber);
+              if (extentHeader) {
+                if (!response.body) {
+                  return;
+                }
+                const imageOpts = {
+                  url: URL.createObjectURL(response.body),
+                  imageExtent: JSON.parse(extentHeader),
+                  calculationId: NaN,
+                  projection: AppSettings.MAP_PROJECTION,
+                  attributions: band.meta.mapAcknowledgement ?? band.meta.authorOrganisation ?? '',
+                  interpolate: this.antialias
+                };
+                const layer = new DataLayer(imageOpts);
+                this.getLayers().push(layer);
+                layerBands.set(band.bandNumber, layer);
+                layer.on('prerender', this.renderHandler);
+                this.setBandLayerOpacity(bandType, band.bandNumber, (band.layerOpacity ?? 100) / 100);
+                this.store.dispatch(MetadataActions.setLoadedState({ band, value: true }));
+                visibleBandNumbers.add(band.bandNumber);
+              } else {
+                console.error("Image for band " + band.bandNumber + " does not have any extent header.");
+              }
             });
         }
       }
@@ -130,17 +120,9 @@ class BandLayer extends SymphonyLayerGroup {
 
   private setBandLayerOpacity(type: BandType, layerNumber: number, opacity: number) {
     if (type === 'ECOSYSTEM') {
-      const layer = this.loadedBands.ecoComponents.get(layerNumber);
-      if (layer) {
-        layer.setOpacity(opacity);
-        this.dataLayerService.setLayerOpacity(`ecosystem-${layerNumber}`, opacity * 100);
-      }
+      this.loadedBands.ecoComponents.get(layerNumber)!.setOpacity(opacity);
     } else {
-      const layer = this.loadedBands.pressures.get(layerNumber);
-      if (layer) {
-        layer.setOpacity(opacity);
-        this.dataLayerService.setLayerOpacity(`pressure-${layerNumber}`, opacity * 100);
-      }
+      this.loadedBands.pressures.get(layerNumber)!.setOpacity(opacity);
     }
   }
 }

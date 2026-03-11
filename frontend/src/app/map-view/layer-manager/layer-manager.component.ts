@@ -1,7 +1,25 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { DataLayerService, LayerRecord } from '../map/layers/data-layer.service';
+import { Store } from '@ngrx/store';
+import { State } from '@src/app/app-reducer';
+import { Band, BandType } from '@data/metadata/metadata.interfaces';
+import { MetadataActions, MetadataSelectors } from '@data/metadata';
+import { LayerStyleService } from '../map/layers/layer-style.service';
+import { ResultLayerService, ResultEntry } from '../map/layers/result-layer.service';
+
+export interface BandLayerItem {
+  kind: 'band';
+  band: Band;
+  type: BandType;
+}
+
+export interface ResultLayerItem {
+  kind: 'result';
+  entry: ResultEntry;
+}
+
+export type LayerItem = BandLayerItem | ResultLayerItem;
 
 @Component({
   selector: 'app-layer-manager',
@@ -9,36 +27,70 @@ import { DataLayerService, LayerRecord } from '../map/layers/data-layer.service'
   styleUrls: ['./layer-manager.component.scss']
 })
 export class LayerManagerComponent implements OnInit, OnDestroy {
-  layers: LayerRecord[] = [];
+  layers: LayerItem[] = [];
   private sub?: Subscription;
 
-  constructor(private dataLayerService: DataLayerService) {}
+  constructor(
+    private store: Store<State>,
+    public layerStyleService: LayerStyleService,
+    private resultLayerService: ResultLayerService
+  ) {}
 
   ngOnInit() {
-    this.sub = this.dataLayerService.layers$.subscribe(layers => {
-      this.layers = [...layers].sort((a, b) => (b.zIndex ?? 0) - (a.zIndex ?? 0));
+    this.sub = combineLatest([
+      this.store.select(MetadataSelectors.selectVisibleBands),
+      this.resultLayerService.results$
+    ]).subscribe(([components, results]) => {
+      const bands: BandLayerItem[] = [
+        ...components.ecoComponent.map(b => ({ kind: 'band' as const, band: b, type: 'ECOSYSTEM' as BandType })),
+        ...components.pressureComponent.map(b => ({ kind: 'band' as const, band: b, type: 'PRESSURE' as BandType }))
+      ];
+      const resultItems: ResultLayerItem[] = results.map(r => ({ kind: 'result' as const, entry: r }));
+      this.layers = [...bands, ...resultItems];
     });
   }
 
   ngOnDestroy() {
-    if (this.sub) this.sub.unsubscribe();
+    this.sub?.unsubscribe();
   }
 
-  toggleLayer(layer: LayerRecord) {
-    this.dataLayerService.setLayerVisibility(layer.id, !layer.visible);
+  getLayerName(item: LayerItem): string {
+    return item.kind === 'band' ? item.band.title : item.entry.name;
   }
 
-  changeOpacity(layer: LayerRecord, value: number) {
-    this.dataLayerService.setLayerOpacity(layer.id, value);
+  getLayerOpacity(item: LayerItem): number {
+    return item.kind === 'band'
+      ? this.layerStyleService.getOpacity(item.type, item.band.bandNumber) * 100
+      : this.layerStyleService.getResultOpacity(item.entry.id) * 100;
   }
 
-  removeLayer(layer: LayerRecord) {
-    this.dataLayerService.removeLayer(layer.id);
+  toggleLayer(item: LayerItem) {
+    if (item.kind === 'band') {
+      this.store.dispatch(MetadataActions.setVisibility({ band: item.band, value: false }));
+    }
+    // Results do not have a visibility toggle in the store — removing is the equivalent
   }
 
-  drop(event: CdkDragDrop<LayerRecord[]>) {
+  changeLayerOpacity(item: LayerItem, value: string) {
+    const opacity = Number(value) / 100;
+    if (item.kind === 'band') {
+      this.layerStyleService.setOpacity(item.type, item.band.bandNumber, opacity);
+    } else {
+      this.layerStyleService.setResultOpacity(item.entry.id, opacity);
+      item.entry.layer.setOpacity(opacity);
+    }
+  }
+
+  removeLayer(item: LayerItem) {
+    if (item.kind === 'band') {
+      this.store.dispatch(MetadataActions.setVisibility({ band: item.band, value: false }));
+    } else {
+      this.resultLayerService.remove(item.entry.id);
+      this.layerStyleService.clearResultOpacity(item.entry.id);
+    }
+  }
+
+  drop(event: CdkDragDrop<LayerItem[]>) {
     moveItemInArray(this.layers, event.previousIndex, event.currentIndex);
-    const newOrderIds = this.layers.map(l => l.id);
-    this.dataLayerService.reorder(newOrderIds);
   }
 }

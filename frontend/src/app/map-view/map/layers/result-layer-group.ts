@@ -7,12 +7,17 @@ import Static from 'ol/source/ImageStatic';
 import { SymphonyLayerGroup } from "@src/app/map-view/map/layers/symphony-layer";
 import { MapComponent } from "@src/app/map-view/map/map.component";
 import { AppSettings } from "@src/app/app.settings";
-import { DataLayerService } from '@src/app/map-view/map/layers/data-layer.service';
+import { LayerStyleService } from '@src/app/map-view/map/layers/layer-style.service';
+import { ResultLayerService } from '@src/app/map-view/map/layers/result-layer.service';
 
 export class ResultLayerGroup extends SymphonyLayerGroup {
   private calculationLayers = new Map<number, ImageLayer<Static>>();
 
-  constructor(private map: MapComponent, private dataLayerService?: DataLayerService) {
+  constructor(
+    private map: MapComponent,
+    private layerStyleService: LayerStyleService,
+    private resultLayerService: ResultLayerService
+  ) {
     super();
   }
 
@@ -44,16 +49,11 @@ export class ResultLayerGroup extends SymphonyLayerGroup {
       imageLayers.push(cpl);
       this.setLayers(imageLayers);
 
-      if (this.dataLayerService) {
-        this.dataLayerService.addLayer({
-          id: `result-${result.calculationId}`,
-          name: `Result ${result.calculationId}`,
-          instance: cpl,
-          visible: true,
-          opacity: 1,
-          zIndex: 500 + result.calculationId 
-        });
-      }
+      this.resultLayerService.add({
+        id: result.calculationId,
+        name: `Result ${result.calculationId}`,
+        layer: cpl
+      });
     }
 
     this.layerChange();
@@ -66,24 +66,16 @@ export class ResultLayerGroup extends SymphonyLayerGroup {
       imageLayers.remove(cl);
       this.calculationLayers.delete(id);
       this.setLayers(imageLayers);
-
-   
-      if (this.dataLayerService) {
-        this.dataLayerService.removeLayer(`result-${id}`);
-      }
+      this.resultLayerService.remove(id);
+      this.layerStyleService.clearResultOpacity(id);
     }
     this.layerChange();
   }
 
   public clearResult() {
-    
-    if (this.dataLayerService) {
-      const allLayers = this.dataLayerService.getAllLayers();
-      allLayers
-        .filter(l => l.id.startsWith('result-'))
-        .forEach(l => this.dataLayerService!.removeLayer(l.id));
-    }
-
+    this.resultLayerService.clear();
+    // Clear opacity entries for all tracked results
+    this.calculationLayers.forEach((_, id) => this.layerStyleService.clearResultOpacity(id));
     this.calculationLayers = new Map<number, ImageLayer<Static>>();
     this.setLayers(new Collection<BaseLayer>());
     this.layerChange();
@@ -108,15 +100,15 @@ export class ResultLayerGroup extends SymphonyLayerGroup {
       this.calculationLayers.set(calcId, newLayer);
       layers.push(newLayer);
 
-      if (this.dataLayerService) {
-        this.dataLayerService.setLayerOpacity(`result-${calcId}`, 100);
-      }
+      // Re-register the rebuilt layer instance and restore preserved opacity
+      this.resultLayerService.add({
+        id: calcId,
+        name: `Result ${calcId}`,
+        layer: newLayer
+      });
+      newLayer.setOpacity(this.layerStyleService.getResultOpacity(calcId));
     });
     this.setLayers(new Collection(layers));
     this.changed();
   }
 }
-
-
-
-
