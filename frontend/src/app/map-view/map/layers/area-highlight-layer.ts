@@ -50,4 +50,20 @@ export class AreaHighlightLayer extends CachedVectorLayers {
       this.getLayers().remove(layer);
     }
   }
+
+  public setOpacity(opacity: number): void {
+    this.getLayers().forEach(layer => {
+      if (layer && typeof layer.setOpacity === 'function') {
+        layer.setOpacity(opacity);
+      }
+    });
+  }
+
+  public setVisible(visible: boolean): void {
+    this.getLayers().forEach(layer => {
+      if (layer && typeof layer.setVisible === 'function') {
+        layer.setVisible(visible);
+      }
+    });
+  }
 }

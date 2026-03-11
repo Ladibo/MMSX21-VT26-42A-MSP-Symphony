@@ -15,9 +15,11 @@ export class LayerManagerComponent implements OnInit, OnDestroy {
   primaryLayers: LayerRecord[] = [];
   secondaryLayers: LayerRecord[] = [];
 
+  editingLayerId: string | null = null;
+  editingName: string = '';
+
   private sub?: Subscription;
 
-  // IDs of layers that should be in the primary section
   private readonly primaryLayerIds = [
     'background-layer',
     'area-layer',
@@ -30,7 +32,6 @@ export class LayerManagerComponent implements OnInit, OnDestroy {
     this.sub = this.dataLayerService.layers$.subscribe(layers => {
       this.layers = [...layers].sort((a, b) => (b.zIndex ?? 0) - (a.zIndex ?? 0));
 
-      // Split layers into primary and secondary
       this.primaryLayers = this.layers.filter(l => this.primaryLayerIds.includes(l.id));
       this.secondaryLayers = this.layers.filter(l => !this.primaryLayerIds.includes(l.id));
     });
@@ -55,12 +56,32 @@ export class LayerManagerComponent implements OnInit, OnDestroy {
   drop(event: CdkDragDrop<LayerRecord[]>) {
     moveItemInArray(this.secondaryLayers, event.previousIndex, event.currentIndex);
 
-    // Reconstruct full order: primary layers first, then reordered secondary
-    const newOrderIds = [
-      ...this.primaryLayers.map(l => l.id),
-      ...this.secondaryLayers.map(l => l.id)
-    ];
+    const secondaryIds = this.secondaryLayers.map(l => l.id);
+    this.dataLayerService.reorderSecondary(secondaryIds);
+  }
 
-    this.dataLayerService.reorder(newOrderIds);
+  startEditing(layer: LayerRecord) {
+    this.editingLayerId = layer.id;
+    this.editingName = layer.name;
+  }
+
+  cancelEditing() {
+    this.editingLayerId = null;
+    this.editingName = '';
+  }
+
+  saveLayerName(layer: LayerRecord) {
+    if (this.editingName.trim() && this.editingName !== layer.name) {
+      this.dataLayerService.renameLayer(layer.id, this.editingName.trim());
+    }
+    this.cancelEditing();
+  }
+
+  onEditKeydown(event: KeyboardEvent, layer: LayerRecord) {
+    if (event.key === 'Enter') {
+      this.saveLayerName(layer);
+    } else if (event.key === 'Escape') {
+      this.cancelEditing();
+    }
   }
 }

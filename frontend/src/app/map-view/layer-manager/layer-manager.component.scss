@@ -1,14 +1,14 @@
 .layer-manager {
   position: absolute;
-  top: 100px;
-  right: 20px;
+  top: 700px;
+  right: 10px;
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   font-family: 'Roboto', sans-serif;
   font-size: 13px;
   z-index: 2000;
-  width: 280px;
+  width: 340px;
   max-height: 600px;
   display: flex;
   flex-direction: column;
@@ -17,7 +17,6 @@
     display: none;
   }
 
-  // Header - draggable area
   .layer-manager-header {
     display: flex;
     align-items: center;
@@ -48,14 +47,12 @@
     }
   }
 
-  // Scrollable content area
   .layer-manager-content {
     overflow-y: auto;
     overflow-x: hidden;
     max-height: 520px;
     padding: 8px;
 
-    // Custom scrollbar styling
     &::-webkit-scrollbar {
       width: 6px;
     }
@@ -75,7 +72,6 @@
     }
   }
 
-  // Layer sections
   .layer-section {
     margin-bottom: 12px;
 
@@ -88,20 +84,8 @@
       padding: 0 4px;
       letter-spacing: 0.5px;
     }
-
-    &.primary-layers {
-      .layer-item {
-        cursor: default;
-
-        // No drag handle for primary layers
-        .drag-handle {
-          display: none;
-        }
-      }
-    }
   }
 
-  // Layer lists
   .layer-list,
   .layer-list-static {
     display: flex;
@@ -109,8 +93,7 @@
     gap: 4px;
   }
 
-  // Individual layer item
-  .layer-item {
+    .layer-item {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -124,7 +107,6 @@
       background: #f0f0f0;
     }
 
-    // Drag handle (only for secondary layers)
     .drag-handle {
       cursor: grab;
       user-select: none;
@@ -141,7 +123,6 @@
       }
     }
 
-    // Checkbox
     input[type="checkbox"] {
       cursor: pointer;
       flex-shrink: 0;
@@ -149,7 +130,6 @@
       height: 16px;
     }
 
-    // Layer name
     .layer-name {
       flex-grow: 1;
       overflow: hidden;
@@ -157,17 +137,35 @@
       white-space: nowrap;
       color: #333;
       font-size: 13px;
+      cursor: pointer;
+      padding: 2px 4px;
+      border-radius: 3px;
+
+      &:hover {
+        background: rgba(0, 123, 255, 0.1);
+      }
     }
 
-    // Opacity slider
+    .layer-name-edit {
+      flex-grow: 1;
+      font-size: 13px;
+      padding: 2px 4px;
+      border: 1px solid #007bff;
+      border-radius: 3px;
+      outline: none;
+
+      &:focus {
+        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+      }
+    }
+
     .opacity-slider {
-      width: 70px;
+      width: 80px;
       flex-shrink: 0;
       cursor: pointer;
       accent-color: #007bff;
     }
 
-    // Remove button
     .remove-btn {
       border: none;
       background: none;
@@ -180,29 +178,6 @@
 
       &:hover {
         color: #a02834;
-      }
-    }
-  }
-
-  // Fix CDK drag preview issues
-  ::ng-deep {
-    // Hide the placeholder (the white box you're seeing)
-    .cdk-drag-placeholder {
-      opacity: 0.4;
-      background: #e0e0e0 !important;
-      border: 1px dashed #999 !important;
-    }
-
-    // Style the preview element being dragged
-    .cdk-drag-preview {
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-      opacity: 0.9;
-    }
-
-    // Don't show preview when dragging the whole window
-    .layer-manager.cdk-drag-preview {
-      .layer-manager-content {
-        pointer-events: none;
       }
     }
   }

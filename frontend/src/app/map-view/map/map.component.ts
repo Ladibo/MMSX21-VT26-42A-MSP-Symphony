@@ -276,15 +276,39 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       return inst;
     };
 
-    this.dataLayerService.addLayer({ id: 'background-layer', name: 'Background', instance: normalizeInstance(this.background), visible: true, zIndex: 0 });
-    this.dataLayerService.addLayer({ id: 'area-layer', name: 'User Areas', instance: normalizeInstance(this.areaLayer), visible: true, zIndex: 10 });
-    this.dataLayerService.addLayer({ id: 'scenario-layer', name: 'Scenario', instance: normalizeInstance(this.scenarioLayer), visible: true, zIndex: 20 });
-    this.dataLayerService.addLayer({ id: 'highlight-layer', name: 'Highlights', instance: normalizeInstance(this.areaHighlightLayer), visible: true, zIndex: 30 });
+    this.dataLayerService.addLayer({
+      id: 'background-layer',
+      name: this.translateService.instant('map.layer-manager.layer-names.background'),
+      instance: normalizeInstance(this.background),
+      visible: true,
+      zIndex: 0
+    });
+    this.dataLayerService.addLayer({
+      id: 'area-layer',
+      name: this.translateService.instant('map.layer-manager.layer-names.user-areas'),
+      instance: normalizeInstance(this.areaLayer),
+      visible: true,
+      zIndex: 10
+    });
+    this.dataLayerService.addLayer({
+      id: 'scenario-layer',
+      name: this.translateService.instant('map.layer-manager.layer-names.scenario'),
+      instance: normalizeInstance(this.scenarioLayer),
+      visible: true,
+      zIndex: 20
+    });
+    this.dataLayerService.addLayer({
+      id: 'highlight-layer',
+      name: this.translateService.instant('map.layer-manager.layer-names.highlights'),
+      instance: normalizeInstance(this.areaHighlightLayer),
+      visible: true,
+      zIndex: 30
+    });
     this.dataLayerService.addLayer({ id: 'result-layer-group', name: 'Model Results', instance: normalizeInstance(this.resultLayerGroup), visible: true, zIndex: 40 });
-    this.dataLayerService.addLayer({ id: 'ecosystem-reliability', name: 'Ecosystem Reliability', instance: normalizeInstance(this.reliabilityLayers.ECOSYSTEM), visible: true, zIndex: 50 });
-    this.dataLayerService.addLayer({ id: 'pressure-reliability', name: 'Pressure Reliability', instance: normalizeInstance(this.reliabilityLayers.PRESSURE), visible: true, zIndex: 60 });
-    this.dataLayerService.addLayer({ id: 'ecosystem-reliability-ol', name: 'Ecosystem Reliability (OL)', instance: normalizeInstance(this.reliabilityLayers.ECOSYSTEM_OL), visible: false, zIndex: 70 });
-    this.dataLayerService.addLayer({ id: 'pressure-reliability-ol', name: 'Pressure Reliability (OL)', instance: normalizeInstance(this.reliabilityLayers.PRESSURE_OL), visible: false, zIndex: 80 });
+    // this.dataLayerService.addLayer({ id: 'ecosystem-reliability', name: 'Ecosystem Reliability', instance: normalizeInstance(this.reliabilityLayers.ECOSYSTEM), visible: true, zIndex: 50 });
+    // this.dataLayerService.addLayer({ id: 'pressure-reliability', name: 'Pressure Reliability', instance: normalizeInstance(this.reliabilityLayers.PRESSURE), visible: true, zIndex: 60 });
+    // this.dataLayerService.addLayer({ id: 'ecosystem-reliability-ol', name: 'Ecosystem Reliability (OL)', instance: normalizeInstance(this.reliabilityLayers.ECOSYSTEM_OL), visible: false, zIndex: 70 });
+    // this.dataLayerService.addLayer({ id: 'pressure-reliability-ol', name: 'Pressure Reliability (OL)', instance: normalizeInstance(this.reliabilityLayers.PRESSURE_OL), visible: false, zIndex: 80 });
 
 
     this.dataLayerService.setLayerOpacity('pressure-reliability', 0.5);

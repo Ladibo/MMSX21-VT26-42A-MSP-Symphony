@@ -102,7 +102,39 @@ export class DataLayerService {
     this.emitLayers();
   }
 
-  
+  reorderSecondary(secondaryIds: string[]): void {
+    const allLayers = this.layersSubject.value;
+
+    const primaryLayerIds = ['background-layer', 'area-layer', 'scenario-layer'];
+    const primaryLayers = allLayers.filter(l => primaryLayerIds.includes(l.id));
+    const secondaryLayers = allLayers.filter(l => !primaryLayerIds.includes(l.id));
+
+    const reorderedSecondary = secondaryIds.map(id =>
+      secondaryLayers.find(l => l.id === id)!
+    );
+
+    const baseZIndex = 100;
+    const count = reorderedSecondary.length;
+
+    reorderedSecondary.forEach((layer, index) => {
+      layer.zIndex = baseZIndex + (count - 1 - index);
+      if (layer.instance?.setZIndex) {
+        layer.instance.setZIndex(layer.zIndex);
+      }
+    });
+
+    this.layersSubject.next([...primaryLayers, ...reorderedSecondary]);
+  }
+
+  renameLayer(id: string, newName: string): void {
+    const layer = this.layers.find(l => l.id === id);
+    if (layer) {
+      layer.name = newName;
+      this.emitLayers();
+    }
+  }
+
+
   removeLayer(layerId: string) {
     const idx = this.layers.findIndex(l => l.id === layerId);
     if (idx === -1) return;
@@ -233,7 +265,7 @@ export class DataLayerService {
     this.layersSubject.next([...this.layers]);
   }
 
-  
+
   public getDataLayer(baseline: string, type: BandType, bandNumber: number) {
     const url = `${env.apiBaseUrl}/datalayer/${type.toLowerCase()}/${bandNumber}/${baseline}`;
     const params = new HttpParams().set('crs', encodeURIComponent(AppSettings.MAP_PROJECTION));
