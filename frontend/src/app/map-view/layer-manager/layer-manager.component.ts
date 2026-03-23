@@ -7,6 +7,7 @@ import { Band, BandType } from '@data/metadata/metadata.interfaces';
 import { MetadataActions, MetadataSelectors } from '@data/metadata';
 import { LayerStyleService } from '../map/layers/layer-style.service';
 import { ResultLayerService, ResultEntry } from '../map/layers/result-layer.service';
+import { CalculationService } from '@data/calculation/calculation.service'; // ADDED
 
 export interface BandLayerItem {
   kind: 'band';
@@ -33,7 +34,8 @@ export class LayerManagerComponent implements OnInit, OnDestroy {
   constructor(
     private store: Store<State>,
     public layerStyleService: LayerStyleService,
-    private resultLayerService: ResultLayerService
+    private resultLayerService: ResultLayerService,
+    private calcService: CalculationService // ADDED
   ) {}
 
   ngOnInit() {
@@ -85,7 +87,10 @@ export class LayerManagerComponent implements OnInit, OnDestroy {
     if (item.kind === 'band') {
       this.store.dispatch(MetadataActions.setVisibility({ band: item.band, value: false }));
     } else {
-      this.resultLayerService.remove(item.entry.id);
+      // CHANGED: mirrors calculation-history eye-slash behavior exactly.
+      // resultRemoved$ triggers map.component → resultLayerGroup → resultLayerService,
+      // so the layer disappears from map and Layer Manager automatically.
+      this.calcService.removeResultPixels(item.entry.id);
       this.layerStyleService.clearResultOpacity(item.entry.id);
     }
   }
