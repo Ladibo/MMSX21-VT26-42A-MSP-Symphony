@@ -68,10 +68,12 @@
           <span class="timestamp">{{ calculation.timestamp | date: 'yyyy-MM-dd HH:mm' }}</span>
         </div>
         <div class="list-actions" *ngIf="!(isMultiMode() || (comparedCalculationsRepeat$ | async)?.includes(calculation.id))">
-          <app-icon *ngIf="!resultIsVisible(calculation.id)" iconType="eye" (click)="loadResult(calculation.id); $event.stopPropagation()"
-                    title="{{ 'map.history.show-result' | translate }}"></app-icon>
-          <app-icon *ngIf="resultIsVisible(calculation.id)" iconType="eye-slash" (click)="removeResult(calculation.id); $event.stopPropagation()"
-                    title="{{ 'map.history.hide-result' | translate }}"></app-icon>
+          <app-icon *ngIf="resultIsVisible(calculation.id)" iconType="eye" (click)="removeResult(calculation.id); $event.stopPropagation()"
+                    title="{{ 'map.history.hide-result' | translate }}">
+          </app-icon>
+          <app-icon *ngIf="!resultIsVisible(calculation.id)" iconType="eye-slash" (click)="loadResult(calculation.id); $event.stopPropagation()"
+                    title="{{ 'map.history.show-result' | translate }}">
+          </app-icon>
           <app-icon iconType="report" (click)="showReport(calculation.id); $event.stopPropagation()"
                     title="{{ 'map.history.show-report' | translate: { calculationName: calculation.name } }}">
           </app-icon>
