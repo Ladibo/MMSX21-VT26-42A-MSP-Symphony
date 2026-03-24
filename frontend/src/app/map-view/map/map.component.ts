@@ -162,8 +162,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       this.resultLayerGroup.addResult(result);
     });
 
-    this.resultDeletedSubscription = this.calcService.resultRemoved$.subscribe(() => {
-      this.resultLayerGroup.clearResult();
+    this.resultDeletedSubscription = this.calcService.resultRemoved$.subscribe((id: number) => {
+    this.resultLayerGroup.removeResult(id);
     });
 
     this.aliasingSubscription = this.store.select(UserSelectors.selectAliasing).subscribe(aliasing => {
