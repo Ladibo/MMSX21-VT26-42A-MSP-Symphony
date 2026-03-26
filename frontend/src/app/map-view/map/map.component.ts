@@ -6,7 +6,8 @@ import {
   Input,
   NgModuleRef,
   OnDestroy,
-  Output
+  Output,
+  ViewChild
 } from '@angular/core';
 import { Coordinate } from 'ol/coordinate';
 import { firstValueFrom, Observable, skipWhile, Subscription } from 'rxjs';
@@ -56,6 +57,7 @@ import {
   BandType,
   ReliabilityMap,
 } from "@data/metadata/metadata.interfaces";
+import { LayerManagerComponent } from '../layer-manager/layer-manager.component';
 
 @Component({
   selector: 'app-map',
@@ -66,7 +68,11 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   @Input() mapCenter?: Coordinate;
   @Output() resultLayerGroupChange = new EventEmitter<number>();
   @Output() resultLayerGroupChangeCmp = new EventEmitter<number>();
+  @ViewChild(LayerManagerComponent) layerManager?: LayerManagerComponent;
+
   drawIsActive = false;
+
+  layerManagerExpanded = true; // Start minimized
 
   private map?: OLMap;
   private readonly storeSubscription?: Subscription;
@@ -261,6 +267,15 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.map!.addLayer(this.areaLayer);
     this.map!.addLayer(this.scenarioLayer);
     this.map!.addLayer(this.areaHighlightLayer);
+
+    setTimeout(() => {
+      this.layerManager?.setPrimaryLayerInstances({
+        background: this.background,
+        userAreas: this.areaLayer,
+        scenario: this.scenarioLayer,
+        highlights: this.areaHighlightLayer
+      });
+    }, 0);
   }
 
   public clearResult() {
@@ -422,8 +437,13 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   public setMapOpacity(opacity: number) {
     if (this.background) this.background.setOpacity(opacity);
   }
+  public toggleLayerManager() {
+    this.layerManagerExpanded = !this.layerManagerExpanded;
+  }
 }
 
 function areaSliceName(areaName: string, index: number): string {
   return `${areaName} slice - ${index + 1}`;
 }
+
+

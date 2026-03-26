@@ -1,7 +1,7 @@
 <div class="map-container">
 
   <div id="map" class="map" #map></div>
-  
+
   <app-map-toolbar
     [drawIsActive]="drawIsActive"
     (zoomIn)="zoomIn()"
@@ -9,12 +9,16 @@
     (clearResult)="clearResult()"
     (toggleDraw)="toggleDrawInteraction()"
     (setMapOpacity)="setMapOpacity($event)"
+    [layerManagerActive]="layerManagerExpanded"
+    (toggleLayerManager)="toggleLayerManager()"
   ></app-map-toolbar>
 
 
-  <app-layer-manager class="layer-manager-panel"></app-layer-manager>
+<app-layer-manager
+  class="layer-manager-panel"
+  [isExpanded]="layerManagerExpanded">
+</app-layer-manager>
 
-  
   <app-footer></app-footer>
 
 

@@ -1,43 +1,118 @@
-<div class="layer-manager">
-  <h3>Layer Manager</h3>
+<div class="layer-manager" [class.collapsed]="!isExpanded" cdkDrag>
 
-  <div
-    cdkDropList
-    (cdkDropListDropped)="drop($event)"
-    class="layer-list"
-  >
-    <div
-      class="layer-item"
-      *ngFor="let item of layers"
-      cdkDrag
-    >
-      <span class="drag-handle" cdkDragHandle title="Reorder layer">☰</span>
+  <div class="layer-manager-header" cdkDragHandle>
+    <h3>{{ 'map.layer-manager.title' | translate }}</h3>
+    <i
+      class="info-icon"
+      [title]="'map.layer-manager.info' | translate">ℹ️</i>
+  </div>
 
-      <input
-        type="checkbox"
-        [checked]="true"
-        (change)="toggleLayer(item)"
-      />
+  <div class="layer-manager-content">
 
-      <span class="layer-name">{{ item.kind === 'band' ? item.band.title : item.entry.name }}</span>
+    <div class="layer-section primary-layers">
+      <div class="section-title">{{ 'map.layer-manager.sections.map-layers' | translate }}</div>
+      <div class="layer-list-static">
+        <div class="layer-item" *ngFor="let layer of primaryLayers">
+          <input
+            type="checkbox"
+            [checked]="layer.visible"
+            (change)="togglePrimaryLayer(layer)"
+            [title]="'map.layer-manager.tooltips.toggle-visibility' | translate"
+          />
 
-      <input
-        class="opacity-slider"
-        type="range"
-        min="0"
-        max="100"
-        [value]="item.kind === 'band' ? (layerStyleService.getOpacity(item.type, item.band.bandNumber) * 100) : (layerStyleService.getResultOpacity(item.entry.id) * 100)"
-        (input)="changeLayerOpacity(item, $any($event.target).value)"
-        title="Adjust opacity"
-      />
+          <span
+            class="layer-name"
+            *ngIf="editingLayerId !== getPrimaryLayerId(layer)"
+            (click)="startEditingPrimary(layer)"
+            [title]="'map.layer-manager.tooltips.rename-layer' | translate">
+            {{ getPrimaryLayerName(layer) }}
+          </span>
 
-      <button
-        class="remove-btn"
-        title="Remove layer"
-        (click)="removeLayer(item)"
-      >
-        ✕
-      </button>
+          <input
+            type="text"
+            class="layer-name-edit"
+            *ngIf="editingLayerId === getPrimaryLayerId(layer)"
+            [(ngModel)]="editingName"
+            (blur)="savePrimaryLayerName(layer)"
+            (keydown)="onEditKeydownPrimary($event, layer)"
+            [autofocus]="true"
+          />
+
+          <input
+            class="opacity-slider"
+            type="range"
+            min="0"
+            max="100"
+            [value]="getPrimaryLayerOpacity(layer)"
+            (input)="changePrimaryOpacity(layer, +$any($event.target).value)"
+            [title]="'map.layer-manager.tooltips.adjust-opacity' | translate"
+          />
+        </div>
+      </div>
     </div>
+
+    <div class="layer-section secondary-layers" *ngIf="secondaryLayers.length > 0">
+      <div class="section-title">{{ 'map.layer-manager.sections.active-layers' | translate }}</div>
+      <div
+        cdkDropList
+        (cdkDropListDropped)="drop($event)"
+        class="layer-list"
+      >
+        <div
+          class="layer-item"
+          *ngFor="let item of secondaryLayers"
+          cdkDrag
+        >
+          <span
+            class="drag-handle"
+            cdkDragHandle
+            [title]="'map.layer-manager.tooltips.reorder-layer' | translate">☰</span>
+
+          <input
+            type="checkbox"
+            checked
+            (change)="toggleSecondaryLayer(item)"
+            [title]="'map.layer-manager.tooltips.toggle-visibility' | translate"
+          />
+
+          <span
+            class="layer-name"
+            *ngIf="editingLayerId !== getSecondaryLayerId(item)"
+            (click)="startEditingSecondary(item)"
+            [title]="'map.layer-manager.tooltips.rename-layer' | translate">
+            {{ getSecondaryLayerName(item) }}
+          </span>
+
+          <input
+            type="text"
+            class="layer-name-edit"
+            *ngIf="editingLayerId === getSecondaryLayerId(item)"
+            [(ngModel)]="editingName"
+            (blur)="saveSecondaryLayerName(item)"
+            (keydown)="onEditKeydownSecondary($event, item)"
+            [autofocus]="true"
+          />
+
+          <input
+            class="opacity-slider"
+            type="range"
+            min="0"
+            max="100"
+            [value]="getSecondaryLayerOpacity(item)"
+            (input)="changeSecondaryOpacity(item, $any($event.target).value)"
+            [title]="'map.layer-manager.tooltips.adjust-opacity' | translate"
+          />
+
+          <button
+            class="remove-btn"
+            [title]="'map.layer-manager.tooltips.remove-layer' | translate"
+            (click)="removeSecondaryLayer(item)"
+          >
+            ✕
+          </button>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

@@ -12,10 +12,12 @@ import { Subscription } from "rxjs";
 export class MapToolbarComponent implements OnDestroy {
   @Input() hasResults = false;
   @Input() drawIsActive = false;
+  @Input() layerManagerActive = false;
   @Output() zoomIn: EventEmitter<void> = new EventEmitter<void>();
   @Output() zoomOut: EventEmitter<void> = new EventEmitter<void>();
   @Output() clearResult: EventEmitter<void> = new EventEmitter<void>();
   @Output() toggleDraw: EventEmitter<void> = new EventEmitter<void>();
+  @Output() toggleLayerManager = new EventEmitter<void>();
 
   private readonly aliasingSubscription$: Subscription;
 
@@ -51,5 +53,9 @@ export class MapToolbarComponent implements OnDestroy {
 
   ngOnDestroy(): void {
     this.aliasingSubscription$.unsubscribe();
+  }
+
+  onToggleLayerManager() {
+    this.toggleLayerManager.emit();
   }
 }
