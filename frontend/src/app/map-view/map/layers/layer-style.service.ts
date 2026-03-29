@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { BandType } from '@data/metadata/metadata.interfaces';
-import { isNgTemplate } from '@angular/compiler';
 
 @Injectable({ providedIn: 'root' })
 export class LayerStyleService {
@@ -12,6 +11,9 @@ export class LayerStyleService {
 
   private opacityMap = new Map<string, number>();
   private opacitySubject = new BehaviorSubject<Map<string, number>>(new Map());
+
+  private visibilityMap = new Map<string, boolean>();
+  private visibilitySubject = new BehaviorSubject<Map<string, boolean>>(new Map());
 
   private bandKey(type: BandType, bandNumber: number): string {
     return `${type.toLowerCase()}-${bandNumber}`;
@@ -34,6 +36,19 @@ export class LayerStyleService {
 
   getOpacityChanges(): Observable<Map<string, number>> {
     return this.opacitySubject.asObservable();
+  }
+
+  setBandVisibility(type: BandType, bandNumber: number, visible: boolean): void {
+    this.visibilityMap.set(this.bandKey(type, bandNumber), visible);
+    this.visibilitySubject.next(new Map(this.visibilityMap));
+  }
+
+  getBandVisibility(type: BandType, bandNumber: number): boolean {
+    return this.visibilityMap.get(this.bandKey(type, bandNumber)) ?? true;
+  }
+
+  getVisibilityChanges(): Observable<Map<string, boolean>> {
+    return this.visibilitySubject.asObservable();
   }
 
   // --- Results ---

@@ -41,6 +41,8 @@ import { DownloadCompoundComparisonDialogComponent } from './compound-comparison
 import { ReliabilityLegendComponent } from "@src/app/map-view/reliability-legend/reliability-legend.component";
 
 import { LayerManagerComponent } from './layer-manager/layer-manager.component';
+import { AutoSelectDirective } from './layer-manager/auto-select.directive';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -72,7 +74,8 @@ import { LayerManagerComponent } from './layer-manager/layer-manager.component';
     CompoundComparisonListDialogComponent,
     DownloadCompoundComparisonDialogComponent,
     ReliabilityLegendComponent,
-    LayerManagerComponent
+    LayerManagerComponent,
+    AutoSelectDirective
   ],
   imports: [
     SharedModule,
@@ -83,7 +86,8 @@ import { LayerManagerComponent } from './layer-manager/layer-manager.component';
     MatProgressSpinnerModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatRadioModule
+    MatRadioModule,
+    DragDropModule
   ],
   providers: [AnchorPipe, DialogService],
   exports: [MainViewComponent, ComparisonComponent]
