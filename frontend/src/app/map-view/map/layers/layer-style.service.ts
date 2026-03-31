@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { BandType } from '@data/metadata/metadata.interfaces';
-import { isNgTemplate } from '@angular/compiler';
 
 @Injectable({ providedIn: 'root' })
 export class LayerStyleService {
@@ -12,6 +11,12 @@ export class LayerStyleService {
 
   private opacityMap = new Map<string, number>();
   private opacitySubject = new BehaviorSubject<Map<string, number>>(new Map());
+
+  private visibilityMap = new Map<string, boolean>();
+  private visibilitySubject = new BehaviorSubject<Map<string, boolean>>(new Map());
+
+  private zIndexMap = new Map<string, number>();
+  private zIndexSubject = new BehaviorSubject<Map<string, number>>(new Map());
 
   private bandKey(type: BandType, bandNumber: number): string {
     return `${type.toLowerCase()}-${bandNumber}`;
@@ -36,6 +41,19 @@ export class LayerStyleService {
     return this.opacitySubject.asObservable();
   }
 
+  setBandVisibility(type: BandType, bandNumber: number, visible: boolean): void {
+    this.visibilityMap.set(this.bandKey(type, bandNumber), visible);
+    this.visibilitySubject.next(new Map(this.visibilityMap));
+  }
+
+  getBandVisibility(type: BandType, bandNumber: number): boolean {
+    return this.visibilityMap.get(this.bandKey(type, bandNumber)) ?? true;
+  }
+
+  getVisibilityChanges(): Observable<Map<string, boolean>> {
+    return this.visibilitySubject.asObservable();
+  }
+
   // --- Results ---
 
   setResultOpacity(id: number, opacity: number): void {
@@ -50,5 +68,26 @@ export class LayerStyleService {
   clearResultOpacity(id: number): void {
     this.opacityMap.delete(this.resultKey(id));
     this.opacitySubject.next(new Map(this.opacityMap));
+  }
+
+  // --- Z-Index / Layer Order ---
+
+  getZIndexChanges(): Observable<Map<string, number>> {
+    return this.zIndexSubject.asObservable();
+  }
+
+  reorderSecondaryLayers(orderedItems: Array<
+    { kind: 'band'; type: BandType; bandNumber: number } |
+    { kind: 'result'; id: number }
+  >): void {
+    const baseZIndex = 100;
+    const count = orderedItems.length;
+    orderedItems.forEach((item, index) => {
+      const key = item.kind === 'band'
+        ? this.bandKey(item.type, item.bandNumber)
+        : this.resultKey(item.id);
+      this.zIndexMap.set(key, baseZIndex + (count - 1 - index));
+    });
+    this.zIndexSubject.next(new Map(this.zIndexMap));
   }
 }

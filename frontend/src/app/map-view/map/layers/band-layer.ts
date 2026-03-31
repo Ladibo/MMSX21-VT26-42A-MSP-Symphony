@@ -52,6 +52,28 @@ class BandLayer extends SymphonyLayerGroup {
         layer.setOpacity(this.layerStyleService.getOpacity('PRESSURE', bandNumber));
       });
     });
+
+    // When visibility changes in LayerStyleService, apply immediately to loaded OL layers
+    this.layerStyleService.getVisibilityChanges().subscribe(() => {
+      this.loadedBands.ecoComponents.forEach((layer, bandNumber) => {
+        layer.setVisible(this.layerStyleService.getBandVisibility('ECOSYSTEM', bandNumber));
+      });
+      this.loadedBands.pressures.forEach((layer, bandNumber) => {
+        layer.setVisible(this.layerStyleService.getBandVisibility('PRESSURE', bandNumber));
+      });
+    });
+
+    // When z-index order changes, apply immediately to loaded OL layers
+    this.layerStyleService.getZIndexChanges().subscribe(zIndexMap => {
+      this.loadedBands.ecoComponents.forEach((layer, bandNumber) => {
+        const zIndex = zIndexMap.get(`ecosystem-${bandNumber}`);
+        if (zIndex !== undefined) layer.setZIndex(zIndex);
+      });
+      this.loadedBands.pressures.forEach((layer, bandNumber) => {
+        const zIndex = zIndexMap.get(`pressure-${bandNumber}`);
+        if (zIndex !== undefined) layer.setZIndex(zIndex);
+      });
+    });
   }
 
   protected renderHandler = (evt: RenderEvent) =>

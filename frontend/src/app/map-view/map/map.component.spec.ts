@@ -6,11 +6,18 @@ import { MapToolbarComponent } from './map-toolbar/map-toolbar.component';
 import { MapOpacitySliderComponent } from './map-opacity-slider/map-opacity-slider.component';
 import { CoreModule } from '@src/app/core/core.module';
 import { ToolbarButtonComponent, ToolbarZoomButtonsComponent } from './toolbar-button/toolbar-button.component';
+import { LayerManagerComponent } from '../layer-manager/layer-manager.component';
+import { AutoSelectDirective } from '../layer-manager/auto-select.directive';
 import { SharedModule } from '@shared/shared.module';
 import { TranslationSetupModule } from '@src/app/app-translation-setup.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { initialState as metadata } from '@data/metadata/metadata.reducers';
 import { initialState as area } from '@data/area/area.reducers';
 import { initialState as scenario } from '@data/scenario/scenario.reducers';
+import { initialState as calculation } from '@data/calculation/calculation.reducers';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MetadataSelectors } from '@data/metadata';
+import { CalculationSelectors } from '@data/calculation';
 import { ChangeState, ScenarioLayer } from "@src/app/map-view/map/layers/scenario-layer";
 import { BandChange } from "@data/metadata/metadata.interfaces";
 
@@ -23,22 +30,31 @@ describe('MapComponent', () => {
       imports: [
         SharedModule,
         CoreModule,
-        TranslationSetupModule
+        TranslationSetupModule,
+        DragDropModule,
+        HttpClientTestingModule
       ],
       declarations: [
         MapComponent,
         MapToolbarComponent,
         MapOpacitySliderComponent,
         ToolbarZoomButtonsComponent,
-        ToolbarButtonComponent
+        ToolbarButtonComponent,
+        LayerManagerComponent,
+        AutoSelectDirective
       ],
       providers: [provideMockStore({
         initialState: {
-          metadata: metadata,
-          area: area,
-          scenario: scenario,
+          metadata,
+          area,
+          scenario,
+          calculation,
           user: { baseline: undefined }
-        }
+        },
+        selectors: [
+          { selector: MetadataSelectors.selectVisibleBands, value: { ecoComponent: [], pressureComponent: [] } },
+          { selector: CalculationSelectors.selectCalculations, value: [] }
+        ]
       })]
     }).compileComponents();
     fixture = TestBed.createComponent(MapComponent);

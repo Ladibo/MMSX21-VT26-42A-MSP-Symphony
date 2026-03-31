@@ -19,6 +19,13 @@ export class ResultLayerGroup extends SymphonyLayerGroup {
     private resultLayerService: ResultLayerService
   ) {
     super();
+
+    this.layerStyleService.getZIndexChanges().subscribe(zIndexMap => {
+      this.calculationLayers.forEach((layer, calcId) => {
+        const zIndex = zIndexMap.get(`result-${calcId}`);
+        if (zIndex !== undefined) layer.setZIndex(zIndex);
+      });
+    });
   }
 
   private resetOptions(image: ImageStatic, calcId: number): StaticImageOptions {
