@@ -1,0 +1,59 @@
+<!-- Single async subscription via object context — avoids multiple pipes -->
+<ng-container *ngIf="{ isAdmin: isAdmin$ | async } as ctx">
+
+  <nav class="support-nav" [attr.aria-label]="'support.title' | translate">
+    <a
+      *ngFor="let item of navItems"
+      class="nav-tab"
+      [class.active]="activePage === item.id"
+      [title]="item.labelKey | translate"
+      (click)="selectPage(item.id)"
+      (keydown.enter)="selectPage(item.id)"
+      tabindex="0"
+      role="button"
+    >
+      <app-icon [iconType]="item.icon"></app-icon>
+    </a>
+
+    <div
+      *ngIf="ctx.isAdmin"
+      class="admin-indicator"
+      [title]="'support.admin-mode' | translate"
+    >
+      <app-icon iconType="padlock"></app-icon>
+    </div>
+  </nav>
+
+  <main class="support-content">
+    <app-support-manual
+      *ngIf="activePage === 'manual'"
+      [isAdmin]="ctx.isAdmin"
+    ></app-support-manual>
+
+    <app-support-faq
+      *ngIf="activePage === 'faq'"
+      [isAdmin]="ctx.isAdmin"
+    ></app-support-faq>
+
+    <app-support-troubleshooting
+      *ngIf="activePage === 'troubleshooting'"
+      [isAdmin]="ctx.isAdmin"
+    ></app-support-troubleshooting>
+
+    <app-support-quick-guide
+      *ngIf="activePage === 'quick-guide'"
+      [isAdmin]="ctx.isAdmin"
+    ></app-support-quick-guide>
+
+    <app-support-changelog
+      *ngIf="activePage === 'changelog'"
+      [isAdmin]="ctx.isAdmin"
+    ></app-support-changelog>
+
+    <app-support-contact
+      *ngIf="activePage === 'contact'"
+      [isAdmin]="ctx.isAdmin"
+    ></app-support-contact>
+  </main>
+
+</ng-container>

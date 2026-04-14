@@ -1,0 +1,20 @@
+<div class="page-header">
+  <h2>{{ 'support.manual.title' | translate }}</h2>
+</div>
+
+<div *ngIf="isAdmin" class="admin-bar">
+  <app-icon iconType="padlock"></app-icon>
+  <span class="admin-label">{{ 'support.admin.manual-hint' | translate }}</span>
+  <button type="button" (click)="uploadManual()">
+    <app-icon iconType="open-folder"></app-icon>
+    {{ 'support.admin.upload-pdf' | translate }}
+  </button>
+</div>
+
+<p class="intro-text">{{ 'support.manual.description' | translate }}</p>
+
+<!-- PDF placeholder — replace with embed/viewer when PDF is uploaded -->
+<div class="manual-placeholder">
+  <app-icon iconType="open-folder"></app-icon>
+  <p>{{ 'support.manual.placeholder' | translate }}</p>
+</div>

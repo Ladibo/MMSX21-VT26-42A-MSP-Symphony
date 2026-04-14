@@ -1,0 +1,14 @@
+@import 'src/app/support/support-page';
+
+:host {
+  display: block;
+}
+
+app-accordion-box {
+  display: block;
+  margin-bottom: 0.6rem;
+
+  ::ng-deep article {
+    max-width: 100%;
+  }
+}

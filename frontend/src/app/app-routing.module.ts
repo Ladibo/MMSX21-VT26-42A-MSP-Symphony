@@ -39,6 +39,12 @@ const routes: Routes = [
     canActivate: [AuthenticationGuard]
     // data: { headerTitle: 'Symphony' }
   },
+  {
+    path: 'support',
+    loadChildren: () => import('./support/support.module').then(m => m.SupportModule),
+    canActivate: [AuthenticationGuard],
+    data: { headerTitle: 'Symphony' }
+  },
   { path: '', redirectTo: '/map', pathMatch: 'full' }
 ];
 

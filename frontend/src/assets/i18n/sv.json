@@ -590,10 +590,14 @@
         "calculations": "Beräkningar",
         "files": "Filer"
     },
+    "header": {
+        "back-to-map": "Tillbaka till kartan"
+    },
     "user-menu": {
         "help": "Hjälp",
         "about": "Om",
         "support": "Support",
+        "support-page": "Support",
         "profile": "Min profil",
         "change-language": "Ändra språk",
         "logout": "Logga ut"
@@ -726,6 +730,114 @@
                 "title": "Importen lyckades",
                 "message-single" : "Importerat område: \"{{ topLayerName }}\"",
                 "message-multi" : "Importerade {{ layersCount }} områden."
+            }
+        }
+    },
+    "support": {
+        "title": "Support",
+        "admin-mode": "Adminläge",
+        "nav": {
+            "manual": "Användarmanual",
+            "faq": "Vanliga frågor",
+            "troubleshooting": "Felsökning",
+            "quick-guide": "Snabbguide",
+            "changelog": "Ändringslogg",
+            "contact": "Kontakt"
+        },
+        "admin": {
+            "manual-hint": "Ladda upp en PDF för att ersätta manualplatshållaren.",
+            "upload-pdf": "Ladda upp PDF",
+            "faq-hint": "Lägg till, redigera eller ta bort FAQ-poster.",
+            "add-item": "Lägg till",
+            "troubleshooting-hint": "Lägg till, redigera eller ta bort felsökningsposter.",
+            "quick-guide-hint": "Redigera stegen i snabbguiden.",
+            "edit-steps": "Redigera steg",
+            "changelog-hint": "Lägg till en ny versionspost.",
+            "add-entry": "Lägg till post",
+            "contact-hint": "Redigera kontaktlistan.",
+            "edit-contacts": "Redigera kontakter"
+        },
+        "manual": {
+            "title": "Användarmanual",
+            "description": "Användarmanualen innehåller detaljerad vägledning om hur du använder Symphony.",
+            "placeholder": "Ingen manual har laddats upp ännu."
+        },
+        "faq": {
+            "title": "Vanliga frågor",
+            "intro": "Hitta svar på vanliga frågor om Symphony.",
+            "items": {
+                "faq-1": {
+                    "question": "Hur skapar jag ett nytt scenario?",
+                    "answer": "Navigera till kartvyn och använd scenariopanelen på vänster sida för att skapa och hantera scenarier."
+                },
+                "faq-2": {
+                    "question": "Hur kör jag en beräkning?",
+                    "answer": "Välj ett område, konfigurera ditt scenario och klicka sedan på beräkningsknappen i scenariopanelen."
+                },
+                "faq-3": {
+                    "question": "Hur exporterar jag resultat?",
+                    "answer": "Öppna en beräkningsrapport och använd verktygsfältet för att exportera som CSV, GeoTIFF eller PNG."
+                }
+            }
+        },
+        "troubleshooting": {
+            "title": "Felsökning",
+            "intro": "Steg-för-steg-vägledning för att lösa kända problem.",
+            "items": {
+                "item-1": {
+                    "question": "Beräkningen tar lång tid — vad ska jag göra?",
+                    "answer": "Stora områden eller många aktiva lager kan sakta ner beräkningar. Prova att minska områdets storlek eller avmarkera oanvända lager. Kontakta din systemadministratör om problemet kvarstår."
+                },
+                "item-2": {
+                    "question": "Kartlagren visas inte efter att jag navigerat tillbaka.",
+                    "answer": "Det kan hända efter att du navigerat bort från och tillbaka till kartan. Försök ladda om sidan. Om problemet kvarstår, logga ut och in igen."
+                }
+            }
+        },
+        "quick-guide": {
+            "title": "Snabbstartguide",
+            "intro": "Ny i Symphony? Följ dessa steg för att köra din första kumulativa påverkanberäkning.",
+            "steps": {
+                "step-1": {
+                    "title": "Logga in och öppna kartan",
+                    "description": "Logga in med dina uppgifter. Du hamnar i kartans huvudvy över Östersjön."
+                },
+                "step-2": {
+                    "title": "Välj ett område",
+                    "description": "Använd Områdespanelen till vänster för att välja ett fördefinierat område, eller rita ditt eget med ritverktygen."
+                },
+                "step-3": {
+                    "title": "Skapa eller aktivera ett scenario",
+                    "description": "Öppna Scenariopanelen och skapa ett nytt scenario. Välj vilka naturvärdeskomponenter och belastningar som ska ingå."
+                },
+                "step-4": {
+                    "title": "Kör beräkningen",
+                    "description": "Klicka på Beräkna i scenariopanelen. Resultaten visas som ett färgkodat lager på kartan och en nedladdningsbar rapport."
+                }
+            }
+        },
+        "changelog": {
+            "title": "Ändringslogg",
+            "intro": "En sammanfattning av betydande förändringar och nya funktioner i Symphony.",
+            "entries": {
+                "entry-2-0-0": {
+                    "title": "Symphony 2.0 — Huvudversion",
+                    "description": "Uppgraderad till Jakarta EE 10 och WildFly 36. Differentierat zonverktyg, sammansatta jämförelser och förbättrad batchbearbetning för multi-scenarioberäkningar."
+                },
+                "entry-1-5-0": {
+                    "title": "Symphony 1.5 — Scenarioförbättringar",
+                    "description": "Scenariokopia, intensitetsöverskrivningar per område samt CSV/ODS-export för beräkningsrapporter introducerades."
+                }
+            }
+        },
+        "contact": {
+            "title": "Kontakta support",
+            "intro": "Behöver du mer hjälp? Kontakta teamet som ansvarar för denna Symphony-installation.",
+            "entries": {
+                "contact-1": {
+                    "name": "Systemadministratör",
+                    "role": "Teknisk support och systemåtkomst"
+                }
             }
         }
     },

@@ -1,0 +1,15 @@
+@import 'src/app/support/support-page';
+
+:host {
+  display: block;
+}
+
+app-accordion-box {
+  display: block;
+  margin-bottom: 0.6rem;
+
+  // Let accordions span the readable-width column, overriding the 34rem cap.
+  ::ng-deep article {
+    max-width: 100%;
+  }
+}

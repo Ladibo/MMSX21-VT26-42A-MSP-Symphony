@@ -1,0 +1,70 @@
+@import 'src/app/support/support-page';
+@import 'src/styles/hav-colors';
+
+:host {
+  display: block;
+}
+
+.changelog-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.changelog-entry {
+  display: flex;
+  gap: 2rem;
+  padding: 1.6rem 0;
+  border-bottom: 1px solid $hav-coldgrey;
+
+  &:first-child {
+    border-top: 1px solid $hav-coldgrey;
+  }
+
+  .entry-meta {
+    flex-shrink: 0;
+    width: 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    padding-top: 0.2rem;
+
+    .version-badge {
+      background: $hav-turquoise;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 600;
+      padding: 0.2rem 0.7rem;
+      border-radius: 3px;
+      font-family: monospace;
+      white-space: nowrap;
+    }
+
+    .entry-date {
+      font-size: 1.2rem;
+      color: $hav-darkgrey;
+    }
+  }
+
+  .entry-body {
+    flex: 1;
+
+    strong {
+      display: block;
+      font-size: 1.5rem;
+      color: $hav-darkturquoise;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      margin: 0;
+      font-size: 1.4rem;
+      line-height: 1.5;
+      color: $hav-darkergrey;
+    }
+  }
+}

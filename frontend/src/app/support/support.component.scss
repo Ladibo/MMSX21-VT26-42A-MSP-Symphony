@@ -1,0 +1,77 @@
+@import 'src/styles/hav-colors';
+@import 'src/styles/constants';
+@import 'src/styles/margins';
+
+// The host IS the flex row — nav strip + content area side by side.
+:host {
+  display: flex;
+  height: calc(100vh - #{$header-height});
+  overflow: hidden;
+}
+
+// Left icon strip — exact visual match to the map's slide-view nav-tabs.
+.support-nav {
+  width: 4rem;
+  background: white;
+  border-right: 1px solid #979797;
+  display: flex;
+  flex-direction: column;
+  padding-top: 2rem;
+  flex-shrink: 0;
+  z-index: 1;
+
+  .nav-tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2.3rem;
+    height: 4.4rem;
+    width: 4rem;
+    color: white;
+    background-color: $hav-turquoise;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 0.8rem;
+    cursor: pointer;
+    transition: width ease-in-out 200ms;
+    text-decoration: none;
+    user-select: none;
+
+    &.active,
+    &:hover {
+      width: 4.4rem;
+      background-color: white;
+      color: $hav-turquoise;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $hav-lightturquoise;
+      outline-offset: -2px;
+    }
+  }
+
+  // Admin indicator at the bottom of the strip — faint padlock icon.
+  .admin-indicator {
+    margin-top: auto;
+    margin-bottom: $xs-margin;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3.2rem;
+    font-size: 1.8rem;
+    color: $hav-lightturquoise;
+    opacity: 0.6;
+    cursor: default;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// Right content area — scrollable, full remaining width.
+.support-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: $m-margin $xl-margin;
+  background: white;
+}

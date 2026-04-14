@@ -7,6 +7,7 @@ export interface UserSettings {
 
 export interface User {
   username: string;
+  admin?: boolean;
   settings?: UserSettings | undefined | never;
 }
 

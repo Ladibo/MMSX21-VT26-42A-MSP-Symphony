@@ -1,0 +1,29 @@
+@import 'src/app/support/support-page';
+@import 'src/styles/hav-colors';
+
+:host {
+  display: block;
+}
+
+.manual-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  min-height: 28rem;
+  border: 2px dashed $hav-coldgrey;
+  border-radius: 4px;
+  background: #fafafa;
+  color: $hav-darkgrey;
+  font-size: 1.4rem;
+
+  app-icon {
+    font-size: 4rem;
+    color: $hav-darkcoldgrey;
+  }
+
+  p {
+    margin: 0;
+  }
+}

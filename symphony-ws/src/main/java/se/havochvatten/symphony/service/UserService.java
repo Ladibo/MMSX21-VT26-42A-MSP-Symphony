@@ -247,11 +247,12 @@ public class UserService {
         return true;
     }
 
-    public UserDto getUser(Principal user) throws IOException {
+    public UserDto getUser(Principal user, boolean isAdmin) throws IOException {
         UserSettings settings = em.find(UserSettings.class, user.getName());
         return new UserDto(
             user.getName(),
-            settings == null ? Map.of() : mapper.readerFor(Map.class).readValue(settings.getSettings())
+            settings == null ? Map.of() : mapper.readerFor(Map.class).readValue(settings.getSettings()),
+            isAdmin
         );
     }
 

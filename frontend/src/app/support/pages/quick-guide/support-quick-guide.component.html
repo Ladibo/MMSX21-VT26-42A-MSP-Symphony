@@ -1,0 +1,24 @@
+<div class="page-header">
+  <h2>{{ 'support.quick-guide.title' | translate }}</h2>
+</div>
+
+<div *ngIf="isAdmin" class="admin-bar">
+  <app-icon iconType="padlock"></app-icon>
+  <span class="admin-label">{{ 'support.admin.quick-guide-hint' | translate }}</span>
+  <button type="button" (click)="editSteps()">
+    <app-icon iconType="edit"></app-icon>
+    {{ 'support.admin.edit-steps' | translate }}
+  </button>
+</div>
+
+<p class="intro-text">{{ 'support.quick-guide.intro' | translate }}</p>
+
+<ol class="steps">
+  <li *ngFor="let step of steps; let i = index" class="step">
+    <div class="step-number">{{ i + 1 }}</div>
+    <div class="step-content">
+      <strong>{{ ('support.quick-guide.steps.' + step.key + '.title') | translate }}</strong>
+      <p>{{ ('support.quick-guide.steps.' + step.key + '.description') | translate }}</p>
+    </div>
+  </li>
+</ol>

@@ -590,10 +590,14 @@
         "calculations": "Calculations",
         "files": "Files"
     },
+    "header": {
+        "back-to-map": "Back to map"
+    },
     "user-menu": {
         "help": "Help",
         "about": "About",
         "support": "Support",
+        "support-page": "Support",
         "profile": "My profile",
         "change-language": "Change language",
         "logout": "Log out"
@@ -726,6 +730,114 @@
                 "title": "Import successful",
                 "message-single" : "Imported area: \"{{ topLayerName }}\"",
                 "message-multi" : "Imported {{ layersCount }} areas"
+            }
+        }
+    },
+    "support": {
+        "title": "Support",
+        "admin-mode": "Admin mode",
+        "nav": {
+            "manual": "User Manual",
+            "faq": "FAQ",
+            "troubleshooting": "Troubleshooting",
+            "quick-guide": "Quick Guide",
+            "changelog": "Changelog",
+            "contact": "Contact"
+        },
+        "admin": {
+            "manual-hint": "Upload a PDF to replace the manual placeholder.",
+            "upload-pdf": "Upload PDF",
+            "faq-hint": "Add, edit or remove FAQ items.",
+            "add-item": "Add item",
+            "troubleshooting-hint": "Add, edit or remove troubleshooting items.",
+            "quick-guide-hint": "Edit the getting-started steps.",
+            "edit-steps": "Edit steps",
+            "changelog-hint": "Add a new release entry.",
+            "add-entry": "Add entry",
+            "contact-hint": "Edit the contact list.",
+            "edit-contacts": "Edit contacts"
+        },
+        "manual": {
+            "title": "User Manual",
+            "description": "The user manual contains detailed guidance on how to use Symphony.",
+            "placeholder": "No manual has been uploaded yet."
+        },
+        "faq": {
+            "title": "Frequently Asked Questions",
+            "intro": "Find answers to common questions about using Symphony.",
+            "items": {
+                "faq-1": {
+                    "question": "How do I create a new scenario?",
+                    "answer": "Navigate to the map view and use the scenario panel on the left side to create and manage scenarios."
+                },
+                "faq-2": {
+                    "question": "How do I run a calculation?",
+                    "answer": "Select an area, configure your scenario, then click the calculate button in the scenario panel."
+                },
+                "faq-3": {
+                    "question": "How do I export results?",
+                    "answer": "Open a calculation report and use the toolbar to export as CSV, GeoTIFF, or PNG."
+                }
+            }
+        },
+        "troubleshooting": {
+            "title": "Troubleshooting",
+            "intro": "Step-by-step guidance for resolving known issues.",
+            "items": {
+                "item-1": {
+                    "question": "The calculation is taking a long time — what should I do?",
+                    "answer": "Large areas or many active layers can slow down calculations. Try reducing the area size or deselecting unused layers. If the problem persists, contact your system administrator."
+                },
+                "item-2": {
+                    "question": "The map layers are not showing after I navigate back.",
+                    "answer": "This can happen after navigating away from and back to the map. Try reloading the page. If the issue persists, log out and log back in."
+                }
+            }
+        },
+        "quick-guide": {
+            "title": "Quick Start Guide",
+            "intro": "New to Symphony? Follow these steps to run your first cumulative impact calculation.",
+            "steps": {
+                "step-1": {
+                    "title": "Log in and open the map",
+                    "description": "Log in with your credentials. You will land on the main map view of the Baltic Sea."
+                },
+                "step-2": {
+                    "title": "Select an area",
+                    "description": "Use the Areas panel on the left to select a pre-defined area, or draw your own using the drawing tools."
+                },
+                "step-3": {
+                    "title": "Create or activate a scenario",
+                    "description": "Open the Scenario panel and create a new scenario. Choose which ecosystem components and pressures to include."
+                },
+                "step-4": {
+                    "title": "Run the calculation",
+                    "description": "Click Calculate in the scenario panel. Results are shown as a colour-coded layer on the map and a downloadable report."
+                }
+            }
+        },
+        "changelog": {
+            "title": "Changelog",
+            "intro": "A record of significant changes and new features released in Symphony.",
+            "entries": {
+                "entry-2-0-0": {
+                    "title": "Symphony 2.0 — Major release",
+                    "description": "Upgraded to Jakarta EE 10 and WildFly 36. Added differential zoning tool, compound comparisons, and improved batch processing for multi-scenario calculations."
+                },
+                "entry-1-5-0": {
+                    "title": "Symphony 1.5 — Scenario improvements",
+                    "description": "Introduced scenario copy, per-area intensity overrides, and CSV/ODS export for calculation reports."
+                }
+            }
+        },
+        "contact": {
+            "title": "Contact Support",
+            "intro": "Need further help? Reach out to the team responsible for this Symphony installation.",
+            "entries": {
+                "contact-1": {
+                    "name": "System Administrator",
+                    "role": "Technical support & system access"
+                }
             }
         }
     },

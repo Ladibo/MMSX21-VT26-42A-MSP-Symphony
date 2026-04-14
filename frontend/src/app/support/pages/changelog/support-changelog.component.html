@@ -1,0 +1,27 @@
+<div class="page-header">
+  <h2>{{ 'support.changelog.title' | translate }}</h2>
+</div>
+
+<div *ngIf="isAdmin" class="admin-bar">
+  <app-icon iconType="padlock"></app-icon>
+  <span class="admin-label">{{ 'support.admin.changelog-hint' | translate }}</span>
+  <button type="button" (click)="addEntry()">
+    <app-icon iconType="plus"></app-icon>
+    {{ 'support.admin.add-entry' | translate }}
+  </button>
+</div>
+
+<p class="intro-text">{{ 'support.changelog.intro' | translate }}</p>
+
+<ul class="changelog-list">
+  <li *ngFor="let entry of entries" class="changelog-entry">
+    <div class="entry-meta">
+      <span class="version-badge">{{ entry.version }}</span>
+      <span class="entry-date">{{ entry.date }}</span>
+    </div>
+    <div class="entry-body">
+      <strong>{{ ('support.changelog.entries.' + entry.titleKey + '.title') | translate }}</strong>
+      <p>{{ ('support.changelog.entries.' + entry.descriptionKey + '.description') | translate }}</p>
+    </div>
+  </li>
+</ul>
