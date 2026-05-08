@@ -40,6 +40,11 @@
       margin-left: $xs-margin;
       color: inherit;
       flex: 0;
+
+      &.title-link {
+        cursor: pointer;
+        user-select: none;
+      }
     }
 
     ::ng-deep app-icon {
@@ -67,6 +72,10 @@
     app-menu {
       flex: 0 1 200px;
     }
+  }
+
+  .back-button {
+    margin-left: $xs-margin;
   }
 
   .flag {

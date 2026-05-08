@@ -2,10 +2,12 @@ import { Component, Input, OnInit, NgModuleRef } from '@angular/core';
 import { Store } from '@ngrx/store';
 import {
   faInfoCircle,
-  faDoorClosed, IconDefinition, faGlobe,
+  faDoorClosed, IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
 import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
 import { trigger, style, transition, animate, keyframes } from '@angular/animations';
+import { Router } from '@angular/router';
 
 import { environment } from '@src/environments/environment';
 import { State } from '@src/app/app-reducer';
@@ -53,11 +55,17 @@ export class HeaderComponent implements OnInit {
     ['user', false]
   ]);
   user$: Observable<User | undefined>;
+  showBackButton$: Observable<boolean>;
 
   constructor(private store: Store<State>,
               private dialogService: DialogService,
-              private moduleRef: NgModuleRef<never>) {
+              private moduleRef: NgModuleRef<never>,
+              private router: Router) {
     this.user$ = this.store.select(UserSelectors.selectUser);
+    this.showBackButton$ = this.router.events.pipe(
+      startWith(null),
+      map(() => !this.router.url.startsWith('/map'))
+    );
   }
 
   ngOnInit() {
@@ -65,6 +73,12 @@ export class HeaderComponent implements OnInit {
       throw new Error('Input property `title` is required.');
     }
     this.userMenuItems = [
+      {
+        name: 'user-menu.support-page',
+        icon: gmHelpCircle,
+        url: '/support',
+        click: () => this.goToSupportPage()
+      },
       {
         name: 'user-menu.change-language',
         icon: gmGlobe,
@@ -128,6 +142,14 @@ export class HeaderComponent implements OnInit {
   openManual = () => {
     if(environment.externManual)
       window.open(environment.externManual, '_blank');
+  }
+
+  goToSupportPage = () => {
+    this.router.navigateByUrl('/support');
+  }
+
+  goToMap = () => {
+    this.router.navigateByUrl('/map');
   }
 }
 

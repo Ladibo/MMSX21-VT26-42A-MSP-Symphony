@@ -1,0 +1,27 @@
+<div class="page-header">
+  <h2>{{ 'support.contact.title' | translate }}</h2>
+</div>
+
+<div *ngIf="isAdmin" class="admin-bar">
+  <app-icon iconType="padlock"></app-icon>
+  <span class="admin-label">{{ 'support.admin.contact-hint' | translate }}</span>
+  <button type="button" (click)="editContacts()">
+    <app-icon iconType="edit"></app-icon>
+    {{ 'support.admin.edit-contacts' | translate }}
+  </button>
+</div>
+
+<p class="intro-text">{{ 'support.contact.intro' | translate }}</p>
+
+<ul class="contact-list">
+  <li *ngFor="let contact of contacts" class="contact-card">
+    <div class="contact-icon">
+      <app-icon iconType="user"></app-icon>
+    </div>
+    <div class="contact-info">
+      <strong>{{ ('support.contact.entries.' + contact.nameKey + '.name') | translate }}</strong>
+      <span class="contact-role">{{ ('support.contact.entries.' + contact.roleKey + '.role') | translate }}</span>
+      <a [href]="'mailto:' + contact.email" class="contact-email">{{ contact.email }}</a>
+    </div>
+  </li>
+</ul>

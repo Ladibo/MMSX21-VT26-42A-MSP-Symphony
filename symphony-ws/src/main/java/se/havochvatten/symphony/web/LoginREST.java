@@ -79,7 +79,7 @@ public class LoginREST {
             req.login(user.getUsername(), user.getPassword());
             if (req.isUserInRole(propertiesService.getProperty("symphony.user")) || req.isUserInRole(propertiesService.getProperty("symphony.admin"))) {
                 LOG.info("User {} logged in", user.getUsername());
-                UserDto userDto = userService.getUser(req.getUserPrincipal());
+                UserDto userDto = userService.getUser(req.getUserPrincipal(), req.isUserInRole(propertiesService.getProperty("symphony.admin")));
                 return Response.ok(userDto).build();
             } else {
                 LOG.warn("Authorization failed. User {} is not member of any allowed group.",
@@ -106,7 +106,7 @@ public class LoginREST {
             // there is an existing session, return it
             LOG.info("Getting user {} from session", principal.getName());
             try {
-                UserDto user = userService.getUser(principal);
+                UserDto user = userService.getUser(principal, req.isUserInRole(propertiesService.getProperty("symphony.admin")));
                 return Response.ok(user).build();
             } catch (Exception e) {
                 LOG.error("Error getting user from session", e);

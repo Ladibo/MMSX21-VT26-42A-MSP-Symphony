@@ -1,0 +1,54 @@
+@import 'src/app/support/support-page';
+@import 'src/styles/hav-colors';
+
+:host {
+  display: block;
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.6rem;
+
+  .step-number {
+    flex-shrink: 0;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    background: $hav-turquoise;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin-top: 0.2rem;
+  }
+
+  .step-content {
+    flex: 1;
+
+    strong {
+      display: block;
+      font-size: 1.5rem;
+      color: $hav-darkturquoise;
+      margin-bottom: 0.4rem;
+    }
+
+    p {
+      margin: 0;
+      font-size: 1.4rem;
+      line-height: 1.5;
+      color: $hav-darkergrey;
+    }
+  }
+}

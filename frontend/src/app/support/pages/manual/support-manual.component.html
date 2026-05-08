@@ -1,0 +1,58 @@
+<div class="page-header">
+  <h2>{{ 'support.manual.title' | translate }}</h2>
+</div>
+
+<div *ngIf="error" class="error-bar">
+  {{ error | translate }}
+</div>
+
+<ng-container *ngIf="!editing; else editorView">
+  <div *ngIf="isAdmin" class="admin-bar">
+    <app-icon iconType="padlock"></app-icon>
+    <span class="admin-label">{{ 'support.admin.manual-hint' | translate }}</span>
+    <button type="button" (click)="startEdit()">
+      <app-icon iconType="edit"></app-icon>
+      {{ 'support.admin.edit-manual' | translate }}
+    </button>
+  </div>
+
+  <div #viewerEl class="manual-viewer" (click)="onViewerClick($event)">
+    <markdown
+      [data]="content"
+      (ready)="addHeadingIds(viewerEl)"
+      class="manual-content"
+    ></markdown>
+  </div>
+</ng-container>
+
+<ng-template #editorView>
+  <div class="editor-toolbar">
+    <span class="admin-label">
+      <app-icon iconType="padlock"></app-icon>
+      {{ 'support.admin.editing-manual' | translate }}
+    </span>
+    <div class="editor-actions">
+      <button type="button" (click)="cancelEdit()" [disabled]="saving">
+        {{ 'support.manual.cancel' | translate }}
+      </button>
+      <button type="button" class="primary" (click)="save()" [disabled]="saving">
+        {{ saving ? ('support.manual.saving' | translate) : ('support.manual.save' | translate) }}
+      </button>
+    </div>
+  </div>
+
+  <div class="split-editor">
+    <textarea
+      class="editor-pane"
+      [(ngModel)]="editContent"
+      spellcheck="false"
+    ></textarea>
+    <div #previewEl class="preview-pane" (click)="onViewerClick($event)">
+      <markdown
+        [data]="editContent"
+        (ready)="addHeadingIds(previewEl)"
+        class="manual-content"
+      ></markdown>
+    </div>
+  </div>
+</ng-template>

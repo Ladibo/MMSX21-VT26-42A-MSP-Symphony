@@ -1,8 +1,16 @@
 <div class="header-top">
   <div class="header-overlay"></div>
-  <h1>
+  <h1 (click)="goToMap()" class="title-link">
     {{ title }}
   </h1>
+  <app-icon-button
+    *ngIf="showBackButton$ | async"
+    class="back-button"
+    icon="sidebar-arrow-left"
+    [onDarkBackground]="true"
+    [label]="'header.back-to-map' | translate"
+    (iconClick)="goToMap()">
+  </app-icon-button>
   <img class="flag" src="assets/Sweden-SwAM-white-horizontal-no-borders.svg"
        alt="{{ 'branding.SI-Sweden' | translate }} : {{ 'branding.SwAM' | translate }}"/>
   <app-user-menu-toggle [user]="user$ | async" (click)="toggleOpenMenu('USER')"></app-user-menu-toggle>

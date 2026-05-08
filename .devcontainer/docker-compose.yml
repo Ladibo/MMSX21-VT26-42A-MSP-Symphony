@@ -4,11 +4,20 @@ services:
       context: .
       dockerfile: Dockerfile
     environment:
-      - JAVA_OPTS=-Xmx10G -Xms2G
+      - JAVA_OPTS=-Xmx10G -Xms2G -Djava.awt.headless=true
     volumes:
-      - ..:/workspace:cached
-      - ~/.gitconfig:/vscode/.gitconfig
-      - ~/.ssh:/vscode/.ssh:ro
+      - type: bind
+        source: /home/ladiboavid/symphony
+        target: /workspace
+        consistency: cached
+      - type: bind
+        source: /home/ladiboavid/.gitconfig
+        target: /vscode/.gitconfig
+      - type: bind
+        source: /home/ladiboavid/.ssh
+        target: /vscode/.ssh
+        read_only: true
+      - claude-home:/home/vscode/.claude
     ports:
       - "8080:8080"
       - "9990:9990"
@@ -46,3 +55,4 @@ services:
 volumes:
   ldap-data:
   ldap-config:
+  claude-home:

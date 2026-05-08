@@ -107,12 +107,17 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       .subscribe((baseline) => {
         this.baselineName = baseline.name;
         this.bandLayer = new BandLayer(baseline.name, dataLayerService, this.store, this.aliasing);
-        this.map!.getLayers().insertAt(1, this.bandLayer); // on top of background layer
+        // this.map may not exist yet if baseline was already in the store when this
+        // component was constructed (return navigation). In that case ngAfterViewInit
+        // will insert the layer once the map is ready.
+        if (this.map) {
+          this.map.getLayers().insertAt(1, this.bandLayer);
+        }
       });
 
     this.storeSubscription = this.store
       .select(MetadataSelectors.selectVisibleBands)
-      .subscribe(components => { // FIXME
+      .subscribe(components => {
         this.bandLayer?.setVisibleBands('ECOSYSTEM', components.ecoComponent);
         this.bandLayer?.setVisibleBands('PRESSURE', components.pressureComponent);
       });
@@ -197,6 +202,13 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       }),
       pixelRatio: 1 // to fix tile size to 256x256
     });
+
+    // If the baseline was already in the store when this component was constructed
+    // (happens on return navigation), the userSubscription fired synchronously before
+    // this.map existed and could not insert bandLayer. Insert it now.
+    if (this.bandLayer) {
+      this.map.getLayers().insertAt(1, this.bandLayer);
+    }
 
     const areaObservable = this.store.select(AreaSelectors.selectAreaFeatures),
       boundaries = await firstValueFrom(this.store.select(AreaSelectors.selectBoundaryFeatures).pipe(
@@ -332,6 +344,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.selectedAreasSubscription.unsubscribe();
     this.scenarioCloseSubscription.unsubscribe();
     this.scenarioSubscription.unsubscribe();
+    this.map?.dispose();
   }
 
   toggleDrawInteraction = () => {

@@ -38,3 +38,8 @@ export const selectAliasing = createSelector(
   selectUserState,
   (state: State) => state.aliasing
 )
+
+export const selectIsAdmin = createSelector(
+  selectUserState,
+  (state: State) => state.user?.admin === true
+)

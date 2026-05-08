@@ -25,6 +25,7 @@ import { LoginModule } from './login/login.module';
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatButtonModule } from "@angular/material/button";
 import { MatRadioModule } from "@angular/material/radio";
+import { MarkdownModule } from 'ngx-markdown';
 
 @NgModule({
   declarations: [AppComponent],
@@ -59,7 +60,8 @@ import { MatRadioModule } from "@angular/material/radio";
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     TranslationSetupModule,
     CalculationReportModule,
-    LoginModule
+    LoginModule,
+    MarkdownModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

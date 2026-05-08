@@ -1,740 +1,858 @@
 {
-    "login": {
-        "username": "Username",
-        "password": "Password",
-        "login": "Log in",
-        "forgot-password": "Forgot password?",
-        "request-password": "Request new password",
-        "no-account": "Are you an external user and lacking login credentials?",
-        "request-account": "Request an account",
-        "peek-password": "Reveal the password",
-        "hide-password": "Hide the password",
-        "error": {
-            "invalid-credentials": "Wrong username or password.",
-            "system-unavailable": "System is not available, try again later."
-        }
-    },
-    "map": {
-        "background-transparency": "Background map transparency",
-        "click-area": "Click to select area.",
-        "location-within-scenario": "The area overlaps with the active scenario.",
-        "areas": "Areas",
-        "matrix": "Matrix",
-        "no-active-scenario": "Activate a scenario to make changes",
-        "scenariowide-settings": "Scenario-wide settings",
-        "no-selected-area": "No area selected",
-        "reset-preselected": "Reset",
-        "reset-preselected-description": "Reset selected components/pressures and intensity values",
-        "selection-overlap": "Unable to select overlapping areas",
-        "open-compound-data-list": "Compound comparisons ({{ count }})",
-        "intensity": {
-            "ecosystems": "Ecosystem Components",
-            "pressures": "Pressures",
-            "override": "Override group setting",
-            "select-all": "Select all",
-            "deselect-all": "Deselect all"
-        },
-        "confirm-reset": {
-            "modal": {
-                "header": "Confirm reset",
-                "message": "Reset selected components/pressures?",
-                "message-scenario": "Reset selected components/pressures and any changes to intensity in the active scenario ({{ scenario }})?",
-                "cancel": "Cancel",
-                "confirm": "Reset"
-            }
-        },
-        "split-area": {
-            "modal": {
-                "header": "Differential zoning tool",
-                "message": "Select which slices to save as new areas.",
-                "message-single": "Confirm saving this slice as a new area.",
-                "confirm": "Save selected areas",
-                "confirm-single": "Save to \"User-created Areas\"",
-                "meta-description": "Will be named:"
-            }
-        },
-        "merge-areas": {
-            "modal": {
-                "header": "Merge two areas",
-                "message": "Confirm saving the merged area.",
-                "message-alts": "Save the merged area as a new area, or overwrite an existing area.",
-                "confirm": "Merge areas",
-                "save-new": "Save new area",
-                "save-overwrite": "Overwrite existing area: « {{ name }} »"
-            }
-        },
-        "active-scenario": {
-            "header": "Active scenario",
-            "area": "Area:",
-            "exit": "Exit"
-        },
-        "batch-progress": {
-            "header-in-progress": "Batch calculation in progress",
-            "header-cancelled": "Cancelled batch calculation",
-            "header-finished": "Completed batch calculation",
-            "message": "Calculating.. ({{ count }} of {{ total }} scenarios completed)",
-            "cancel": "Cancel",
-            "remove-finished": "Hide completed batch status",
-            "cancelled-run": {
-                "title": "Batch calculation cancelled",
-                "message": "The batch calculation was cancelled. The results of the calculations that were completed are available in the History tab."
-            }
-        },
-        "editor": {
-            "title": "Scenarios",
-            "areas": {
-                "title": "Scenario areas",
-                "remove": {
-                    "button" : "Remove area",
-                    "label": "Remove this area from the current scenario",
-                    "modal": {
-                        "title": "Remove area from scenario",
-                        "message": "Är du säker på att du vill ta bort området &ldquo;{{ area }}&rdquo; från scenario &laquo;&nbsp;{{ scenario }}&nbsp;&raquo;&nbsp;?",
-                        "message-last": "&ldquo;{{ area }}&rdquo; är det enda området som omfattas av det aktuella scenariot. Om du tar bort det tas därmed även scenariot: &laquo;&nbsp;{{ scenario }}&nbsp;&raquo; bort.",
-                        "confirm": "Remove"
-                    }
-                },
-                "specific-settings": "Specific settings have been made for this area:\n{{ feature-changes }}",
-                "loading-matrices": "Loading sensitivity matrices",
-                "add-scenario-label": "Add selected areas to the active scenario",
-                "add-scenario-label-single": "Add {{ area }} to the active scenario",
-                "select-area-first-label": "Start by selecting an area"
-            },
-            "split-scenario-settings": {
-                "title": "Multiple area actions",
-                "detail": "Generate a new scenario for each included area or run a batch calculation on the included areas individually. Note that the latter action will not generate new scenarios.",
-                "set-batch-name": "Batch name to use for generated scenarios",
-                "apply-scenario-changes": "Apply scenario-level intensity changes",
-                "apply-area-changes": "Apply specific area changes to their corresponding scenarios/calculations",
-                "enter-batch-mode": "Enter batch selection mode (applicable to \"Generate\" action only)",
-                "generate": "Generate",
-                "batch-calculate": "Calculate"
-            },
-            "set-arbitrary-matrix": {
-                "title": "Set sensitivity matrix and calculation area",
-                "detail": "No default matrix coupling could be determined for the area \"{{ areaName }}\".\nTo allow the inclusion of this area in a calculation, an arbitrary sensitivity matrix and corresponding MSP area must first be set",
-                "caution": "Note that cancelling this action will exclude the area from the scenario.",
-                "calculation-area": "Calculation area",
-                "select-matrix-placeholder": "Select sensitivity matrix",
-                "select-area-placeholder": "Select area for normalizing values",
-                "set-matrix-and-normalization": "Set matrix and normalization"
-            },
-            "operation": {
-                "title": "Algorithm",
-                "choose": "Choose algorithm",
-                "CumulativeImpact": {
-                    "title": "Cumulative impact"
-                },
-                "RarityAdjustedCumulativeImpact": {
-                    "title": "Rarity-adjusted cumulative impact",
-                    "options": {
-                        "domain": {
-                            "title": "Rarity index domain",
-                            "description": "Calculate rarity indices based on:",
-                            "GLOBAL": "Data grid extent",
-                            "LOCAL": "Calculated area extent"
-                        }
-                    }
-                }
-            },
-            "band-pressures": {
-                "intensity": "Edit intensity",
-                "percentage": "Percentage",
-                "constant-increase": "Constant",
-                "show-intensity": "Show intensity controls",
-                "hide-intensity": "Hide intensity controls",
-                "show-reliability": "Show reliability",
-                "hide-reliability": "Hide reliability",
-                "note": "If you have modified any values in the data layers, you can save these modifications as new layers, and reuse them in other calculations.",
-                "no-scenario-selected": "Select a scenario to adjust intensity values"
-            },
-            "matrix": {
-                "sensitivity-matrix": "Sensitivity matrix",
-                "default-matrix": "Default matrix",
-                "alt-matrix": "Alternate matrix",
-                "user-matrix": "User-defined matrix",
-                "choose-matrix": "Choose matrix",
-                "choose-area-type": "Choose area type (optional)",
-                "choose-area-type-matrix": "Select matrix for area type",
-                "no-area-type": "( none )",
-                "edited-matrixes": "Previously edited matrices",
-                "edit-matrix": "Edit matrix",
-                "upload-file": "Upload file",
-                "note": "Here you can modify the sensitivity matrix for different areas. You can also choose to use an uploaded sensitivity matrix.",
-                "table": {
-                    "edit-name": "Edit",
-                    "delete": "Delete matrix",
-                    "close": "Close",
-                    "save": "Save matrix",
-                    "save-as": "Save as new matrix",
-                    "name-exists": "Cannot save.\nThe matrix name specified (\"{{ takenName }}\") is in use.",
-                    "immutable-note": "The matrix \"{{ immutableName }}\" is read-only.",
-                    "save-as-tip": "First change the matrix name to allow saving as new",
-                    "confirm-delete": {
-                        "header": "Delete matrix",
-                        "message": "Confirm removal of the sensitivity matrix \"{{ matrixToDelete }}\".<br>This action cannot be undone.",
-                        "confirm": "Delete"
-                    },
-                    "changes": {
-                        "header": "Unsaved changes",
-                        "message": "Save or abandon the stated changes to \"{{ matrixName }}\"{{ newNotice }}?",
-                        "immutable-message": "The editor has unsaved changes.<br>Save the modified matrix as \"{{ suggestedName }}\", or abandon current changes?",
-                        "new-notice": "(new matrix)",
-                        "save": "Save",
-                        "abandon": "Abandon"
-                    }
-                }
-            },
-            "normalization": {
-                "title": "Result Colormap",
-                "description": "Set maximum value based on",
-                "area": "Maximum value in computed area",
-                "domain": "{{ ordinalPercentileValue }} percentile in MSP area",
-                "mean-plus-stddev": "Mean + multiple of \nstandard deviation:",
-                "custom": "User-defined value:",
-                "custom-value": "Value"
-            },
-            "changes": {
-                "title": "Scenario Changes",
-                "no-changes": "No changes",
-                "make-changes-hint": "Make changes in the Ecosystem or Pressures tabs.",
-                "clear-change": "Clear change",
-                "units": "u.",
-                "collapse": "Hide changes",
-                "collapsed-count": "Show {{ count }} changes",
-                "clear-change-modal" : {
-                    "header": "Clear change",
-                    "message": "Confirm removal of change: <em>{{ changeDescription }}</em>",
-                    "confirm": "Clear"
-                }
-            },
-            "changes-overview" : {
-                "title": "Scenario changes overview",
-                "show-overview": "Show an overview of all changes",
-                "global-changes": "Global changes",
-                "show-all": "Show all",
-                "edit-value": "Modify change",
-                "confirm-change": "Confirm change",
-                "discard-change": "Discard change",
-                "relative-label": "Percentage",
-                "absolute-label": "Constant",
-                "close": "Close"
-            },
-            "area-changes": {
-                "title": "Scenario Area Changes"
-            },
-            "transfer-changes" : {
-                "title": "Transfer changes",
-                "tooltip": "Transfer changes from an existing scenario or scenario area",
-                "use-scenario-wide": "Use scenario-wide changes",
-                "select-scenario": "Select a scenario",
-                "select-scenario-detail": "Specify a scenario or area from which to transfer changes",
-                "area-changes": "Scenario Areas with changes available",
-                "overwrite": "Check to replace changes (otherwise the selected changes are appended)"
-            },
-            "copy-scenario": {
-                "label": "Copy scenario",
-                "title": "Copy scenario: options",
-                "new-scenario-name": "New scenario name",
-                "copy-specifier": "{{ scenario }} (copy)",
-                "include-scenario-changes": "Include Scenario-level changes",
-                "area-changes-to-include": "Select which area changes to be mirrored in the copied scenario",
-                "areas-without-changes": "The following areas of the scenario lack specific changes: {{ areas-list }}",
-                "create-copy": "Create copy",
-                "cancel": "Cancel"
-            },
-            "select-area-message": "Select an area to calculate. Start with selecting an area and then make any adjustments to nature values or pressures in the left panel.",
-            "fetching-matrices": "Fetching information on area's sensitivity matrices...",
-            "map-layer": "Map layer",
-            "list": {
-                "user-scenarios": "User Scenarios",
-                "add-scenario-label": "Create new grouped scenario",
-                "add-scenario-label-single": "Create new scenario for {{area}}",
-                "overlap": "Cannot create scenario for overlapping areas",
-                "scenario-name": "Untitled scenario",
-                "scenario-name-template": "Scenario {{area}}",
-                "select-area-first-label": "Start by selecting areas for the scenario.",
-                "no-scenarios": "No scenarios",
-                "add-scenarios-hint": "Create a scenario by clicking on the + above.",
-                "scenario-area": "{{ scenario }}\nArea: {{ area-feature }}",
-                "show-report-label": "Open the latest calculation report",
-                "more-areas-single": "+ an additional area ..",
-                "more-areas": "+ {{ more }} more areas ..",
-                "filter-hint": "Filter scenarios by name",
-                "select-all-for-batch": "Select all",
-                "select-all-for-batch-filtered": "Select visible",
-                "deselect-all-for-batch": "Deselect all",
-                "none-selected": "No scenarios selected",
-                "delete-selected": "Delete selected scenarios",
-                "batch-tools": {
-                    "enter-batch-mode": "Enter batch selection mode",
-                    "exit-batch-mode": "Exit batch selection mode",
-                    "batch-too-small": "Select at least two scenarios",
-                    "run-batch": "Batch calculate the selected scenarios"
-                }
-            },
-            "clear": "Clear",
-            "close": "❮",
-            "delete": {
-                "label": "Delete",
-                "tooltip": "Delete scenario",
-                "modal": {
-                    "title": "Delete scenario",
-                    "message": "Are you sure you want to delete &laquo;&nbsp;{{ scenario }}&nbsp;&raquo;",
-                    "title-many": "Delete selected scenarios",
-                    "message-many": "Confirm deletion of <strong>{{ count }}</strong> scenarios?",
-                    "delete": "Delete",
-                    "cancel": "Cancel"
-                }
-            },
-            "coastal-areas": {
-                "title": "Coastal Areas",
-                "include-coast": "Include coast"
-            },
-            "select-intersection": {
-                "header": "Multiple default matrix couplings",
-                "message": "The selected area has ambiguous standard matrix couplings.<br>Below are suggested valid area divisions that correspond to each standard matrix.<br>Choose which of these to include in the scenario.",
-                "default-matrix": "Default matrix for this area:",
-                "confirm-selection": "Use selected areas"
-            },
-            "calculate": "Calculate",
-            "unsaved-changes": "Unsaved changes",
-            "save-changes": "Save changes",
-            "saved-by-user": "Changes saved",
-            "saved-by-user-time": "Last saved: {{ timestamp }}"
-        },
-        "metadata": {
-            "label": "Show metadata",
-            "header": "Metadata regarding {{ layerType }}: {{ layerName }}",
-            "close": "Close",
-            "theme": "theme",
-            "ecosystem": "ecosystem",
-            "pressure": "pressure",
-            "no-info": "Metadatum missing.",
-            "properties": {
-                "accessuserestrictions": "Access and use restrictions",
-                "authoremail": "Author email address",
-                "authororganisation": "Author organisation",
-                "dataowner": "Data owner",
-                "dataprocessing": "Data processing",
-                "datasources": "Data sources",
-                "datecreated": "Date created",
-                "descriptivekeywords": "Keywords",
-                "format": "Format",
-                "limitationsforsymphony": "Known limitations",
-                "lineage": "Lineage",
-                "maintenanceinformation": "Maintenance information",
-                "mapacknowledgement": "Map acknowledgement",
-                "marineplanarea": "Marine spatial planning area",
-                "metadatadate": "Date",
-                "metadataemail": "Email address",
-                "metadatafilename": "File name",
-                "metadatalanguage": "Language",
-                "metadataorganisation": "Organisation",
-                "methodsummary": "Method summary",
-                "owneremail": "Owner email address",
-                "otherrestrictions": "Other restrictions",
-                "rasterfilename": "Raster data file name",
-                "rasterspatialreferencesystem": "Raster coordinate reference system",
-                "recommendations": "Recommendations",
-                "resourcetype": "Resource type",
-                "securityclassification": "Security classification",
-                "status": "Status",
-                "summary": "Summary",
-                "symphonycategory": "Category",
-                "symphonydatatype": "",
-                "symphonytheme": "Metadata group",
-                "temporalperiod": "Period",
-                "theme": "Theme",
-                "topiccategory": "Topic category",
-                "uselimitations": "Usage limitations",
-                "valuerange": "Value range"
-            }
-        },
-        "toolbar": {
-            "zoom-in": "Zoom in",
-            "zoom-out": "Zoom ut",
-            "clear-results": "Remove results from map",
-            "anti-alias-on": "Enable edge smoothing",
-            "anti-alias-off": "Disable edge smoothing",
-            "search-area": "Search for area",
-            "draw-area": "Draw area",
-            "open-area": "Open saved area",
-            "save-area": "Save drawn area"
-        },
-        "arrange-layers": "Arrange layers",
-        "area": {
-            "sea-plan": "MSP areas",
-            "county": "Municipalities and Counties",
-            "protected": "Protected areas",
-            "surface-water": "Swedish waterbodies managed under the EU Water Framework Directive",
-            "user-created": "User-created Areas",
-            "no-areas": "No areas",
-            "search": {
-                "label": "Search for area",
-                "placeholder": "Search for area",
-                "clear": "Clear search"
-            }
-        },
-        "eco-component": {
-            "search": {
-                "label": "Search for nature value",
-                "placeholder": "Search for nature value",
-                "no-matches": "No matches"
-            }
-        },
-        "pressure": {
-            "search": {
-                "label": "Search for pressure",
-                "placeholder": "Search for pressure"
-            }
-        },
-        "history": {
-            "title": "Previous calculations",
-            "loading": "Loading calculations...",
-            "baseline-calculations": "Baseline Calculations",
-            "previous-calculations": "Previous Calculations",
-            "placeholder": "No calculations performed",
-            "show-report": "Open calculation report “{{ calculationName }}”",
-            "delete": "Delete saved calculation result “{{ calculationName }}”",
-            "filter-hint": "Filter calculations by name",
-            "show-result": "Show result in map view",
-            "hide-result": "Hide result in map view",
-            "visible-result": "Result is currently visible in map view",
-            "purged-result": "Data for this result has been purged\nThis will take a little longer to load because the result needs to be recalculated first.",
-            "edit-name": {
-                "label": "Rename",
-                "header": "Enter a new name for the calculation"
-            },
-            "delete-modal" : {
-                "header": "Delete calculation",
-                "message": "Confirm deletion of previously saved calculation result: <em>“{{ calculationName }}”</em>",
-                "header-multiple": "Delete calculations",
-                "message-multiple": "Confirm deletion of <strong>{{ count }}</strong> calculation results?",
-                "message-single": "Confirm deletion of this calculation result?",
-                "cancel": "Cancel",
-                "confirm": "Delete"
-            },
-            "generate-comparison-modal": {
-                "header": "Generate compound comparison",
-                "message": "Set a title for the compound comparison result.",
-                "placeholder": "Set a title",
-                "calculate": "Calculate"
-            },
-            "multi-mode": {
-                "delete-selected": "Delete selected calculations",
-                "generate-comparison": "Generate comparison data",
-                "none-selected": "No calculations selected"
-            }
-        },
-        "compare": {
-            "title": "Compare calculations",
-            "compare": "Compare Calculations",
-            "base-scenario": "Calculation A",
-            "implicit-baseline": "Implied baseline",
-            "explicit-baseline": "Select a calculation",
-            "include-unchanged": "Include unchanged scenarios",
-            "reverse-projected": "Reverse comparison order",
-            "what-if-scenario": "Calculation B",
-            "select-calculation": "Select a calculation",
-            "select-base-calculation-first": "Select calculation A first",
-            "no-matching-calculations": "No matching calculations",
-            "base-scenario-suggestion": "(typically your baseline analysis)",
-            "what-if-scenario-suggestion": "(typically your new scenario analysis)",
-            "select-scale": "Customize color scale",
-            "scale-constant": "Constant maximum",
-            "scale-dynamic": "Dynamic maximum"
-        },
-        "user-area": {
-            "create": {
-                "label": "Draw new area",
-                "modal": {
-                    "title": "Name your new area",
-                    "placeholder": "My area 1",
-                    "save": "Save",
-                    "close": "Close"
-                },
-                "invalid-area" : {
-                    "title": "Invalid area extent",
-                    "message": "User defined areas must overlap at least one other area having a default matrix coupling"
-                }
-            },
-            "upload": {
-                "label": "Upload new area",
-                "modal": {
-                    "title": "Import area",
-                    "fileformat-note": "Files in <a href='https://www.geopackage.org/' target='_blank'>OGC GeoPackage</a>-format are supported.",
-                    "notice": {
-                        "WGS84-reprojection": "Imported coordinates will be reprojected to <em>EPSG:4326 (WGS 84)",
-                        "multi-layer-pre": "The selected GeoPackage contains these layers:",
-                        "multi-layer-all": "They will be imported as separate areas."
-                    },
-                    "import": "Confirm import",
-                    "cancel": "Cancel"
-                },
-                "error": {
-                    "NOT_A_GEOPACKAGE": "The chosen file is not a GeoPackage",
-                    "GEOPACKAGE_NO_FEATURES": "GeoPackage does not contain any areas."
-                }
-            },
-            "rename": {
-                "label": "Rename area",
-                "header": "Edit area name"
-            },
-            "edit": {
-                "label": "Edit area"
-            },
-            "expand": {
-                "label": "Expand area group"
-            },
-            "delete": {
-                "label": "Delete",
-                "modal": {
-                    "header": "Delete area",
-                    "message": "Are you sure you want to delete &laquo;&nbsp;{{ userAreaName }}&nbsp;&raquo;&nbsp;?",
-                    "header-multiple": "Delete selected areas",
-                    "message-multiple": "Confirm deletion of <strong>{{ count }}</strong> areas."
-                }
-            },
-            "share": {
-                "label": "Share"
-            },
-            "none-selected": "No user areas have been marked for deletion",
-            "delete-selected": "Delete selected user areas"
-        },
-        "color-scale": {
-            "result": "Cumulative impact",
-            "comparison": "Relative pressure difference",
-            "ecosystem": "Ecosystem value",
-            "pressure": "Pressure intensity",
-            "reliability": {
-                "title": "Reliability",
-                "low": "Low reliability",
-                "high": "High reliability"
-            }
-        },
-        "area-selection-hint": {
-            "emphasis": "Select / deselect multiple areas",
-            "detail": "using {{ ctrlButton }} + click."
-        },
-        "special-actions-hint": {
-            "emphasis": "Cut or merge area",
-            "detail": "{{ altButton }} + click in the map view splits by intersection, {{ altButton }} + Shift + click merges."
-        },
-        "merge-areas-hint" : {
-            "emphasis": "Merge areas",
-            "detail": "{{ altButton }} + Shift + click on final area in the map to merge selected."
-        },
-        "compound-data-list": {
-            "title": "Compound comparisons",
-            "compound-comparison-data": "Compound comparison data",
-            "calculation-basis-info": "The comparative values are based on the following calculations",
-            "more": "more",
-            "delete": "Delete compound comparison",
-            "none-selected": "No compound comparisons selected",
-            "delete-selected": "Delete selected compound comparisons",
-            "download": {
-                "header": "Download compound comparison",
-                "select-format": "Select format to download",
-                "format": {
-                    "json": "As data (JSON)",
-                    "ods": "As spreadsheet (ODS)"
-                },
-                "include-unchanged": "Include unchanged results",
-                "include-combined-dataset": "Include combined dataset",
-                "confirm": "Download"
-            },
-            "filter-hint": "Filter list item by name",
-            "delete-modal": {
-                "header": "Delete compound comparison",
-                "header-multiple": "Delete compound comparisons",
-                "message": "Confirm deletion of compound comparison: <em>“{{ comparisonName }}”</em>",
-                "message-multiple": "Confirm deletion of <strong>{{ count }}</strong> compound comparisons?",
-                "message-single": "Confirm deletion of this compound comparison?"
-            },
-            "terms": {
-                "total": "Total",
-                "sum": "Sum",
-                "baseline": "Baseline",
-                "difference": "Difference",
-                "pixels": "Number of pixels",
-                "non-planar": "Non-planar projection",
-                "scenarioTitle": "Scenario title",
-                "scenario": "Scenario",
-                "combined": "Combined dataset"
-            }
-        },
-        "area-options": {
-            "get-shapefile": "Download shapefile bundle (.zip)"
-        }
-    },
-    "controls": {
-        "open": "Open",
-        "close": "Close",
-        "save": "Save",
-        "delete": "Delete",
-        "accordion": {
-            "expand": "Expand",
-            "contract": "Contract"
-        },
-        "multi-mode-list": {
-            "enter": "Enter multi-selection mode",
-            "exit": "Exit multi-selection mode"
-        }
-    },
-    "rename": {
-        "placeholder": "Enter a new name"
-    },
-    "main-menu": {
-        "projects": "Project",
-        "calculations": "Calculations",
-        "files": "Files"
-    },
-    "user-menu": {
-        "help": "Help",
-        "about": "About",
-        "support": "Support",
-        "profile": "My profile",
-        "change-language": "Change language",
-        "logout": "Log out"
-    },
-    "about-dialog": {
-        "system-name": "Symphony",
-        "build": "Build",
-        "third-party-software": "Built using the following third party software:",
-        "close": "Thank you"
-    },
-    "popup-message": {
-        "INFO": "Information",
-        "SUCCESS": "Process succeeded",
-        "ERROR": "An Error Occurred",
-        "WARNING": "Slow process"
-    },
-    "confirmation-modal": {
-        "cancel": "Cancel",
-        "confirm": "OK"
-    },
-    "change-language-modal": {
-        "header": "Change language",
-        "apply": "Apply",
-        "languages": {
-            "en": "English",
-            "sv": "Swedish",
-            "fr": "French"
-        }
-    },
-    "report": {
-        "calculation": {
-            "title": "Calculation Report"
-        },
-        "comparison": {
-            "title": "Calculation Comparison Report",
-            "vs": "and"
-        },
-        "common" : {
-            "not-measurable": "(not measurable)"
-        },
-        "cumulative-effect-etc": {
-            "baseline": "Baseline version",
-            "operation": "Algorithm",
-            "title": "Cumulative effect",
-            "relative-diff": "Relative change",
-            "total": "Total",
-            "average": "Average",
-            "min": "Min",
-            "max": "Max",
-            "std-dev": "Std. Dev",
-            "calculated-area": "Calculated area",
-            "km2": "km²",
-            "no-area": "N/A",
-            "no-area-desc": "Area cannot be measured",
-            "normalization": {
-                "title": "Result colorscale",
-                "domain": "{{ ordinalPercentileValue }} percentile",
-                "area": "Maximum value in area",
-                "custom": "User-defined value",
-                "mean-plus-stddev": "Average {{ positiveOrNegative }} standard deviation ⨯ {{ stddevMultiplier }}",
-                "domain-desc": "The result is normalized with regard to the range that {{ percentileValue }}% of data points in the respective marine spatial planning area belong to (including coastal areas)."
-            },
-            "comparison": {
-                "legend-desc": "The image shows the relative difference in total cumulative impact between the base and what-if scenario."
-            }
-        },
-        "sensitivity-matrices": {
-            "title": "Sensitivity matrix",
-            "area-type-matrices": "Matrices per area type",
-            "all-areas": "All areas"
-        },
-        "histogram": {
-            "caption": "Histogram",
-            "interval": "Interval",
-            "cumulative-proportion": "Cumulative proportion",
-            "middle-of-range": "Middle of range"
-        },
-        "highest-impact": {
-            "ecocomponent": "Nature values with highest impact",
-            "pressure": "Pressures with highest impact"
-        },
-        "sankey": {
-            "sankey-single": {
-                "title": "Sankey diagram",
-                "description": "This Sankey diagram shows the relationship between the pressures and the nature values. The thickness of the arrows are proportional to the size of the pressures and their impact on the natural values. Values below {{ chartThreshold }} are not included in the diagram."
-            },
-            "sankey-cmp-positive": {
-                "title": "Sankey diagram (increasing)",
-                "description": "This Sankey diagram shows the relationship between the pressures whose impact increases on different natural values in scenario B, relative to scenario A. The thickness of the arrows are proportional to the increase of each pressure between the two specified scenarios, with respect to the affected nature values. Values below {{ chartThreshold }} are not included in the diagram."
-            },
-            "sankey-cmp-negative": {
-                "title": "Sankey diagram (decreasing)",
-                "description": "This Sankey diagram shows the relationship between the pressures whose impact decreases on different natural values in scenario B, relative to scenario A. The thickness of the arrows are proportional to the amount each pressure is alleviated between the two specified scenarios, with respect to the affected nature values. Values below {{ chartThreshold }} are not included in the diagram."
-            }
-        },
-        "scenario-changes": {
-            "title": "Scenario Parameters",
-            "percent-change-with": "Percent change with <strong>{{percent}}%</strong>",
-            "constant-offset-with": "Constant offset of <strong>{{offset}}</strong> units",
-            "and": "and",
-            "base-changes": "Common changes",
-            "area-changes": "Area-specific changes",
-            "no-changes": "No changes"
-        },
-        "impact-table": {
-            "ecoComponent": "Impact per nature value",
-            "pressure": "Impact per pressure",
-            "cumulative": "Cumulative",
-            "percentage-of-total": "% of Total"
-        },
-        "toolbar": {
-            "export-csv": "Export as CSV",
-            "export-geotiff": "Export as GeoTIFF",
-            "open-in-new-tab": "Open in new tab",
-            "print": "Print"
-        },
-        "description": "Calculations of the cumulative environmental impact is made using the Swedish Agency for Marine and Water Management's application Symphony.",
-        "more-info": "For more information about Symphony please visit ",
-        "link": "https://www.havochvatten.se/en/eu-and-international/marine-spatial-planning/swedish-marine-spatial-planning/the-marine-spatial-planning-process/development-of-plan-proposals/symphony---a-tool-for-ecosystem-based-marine-spatial-planning.html",
-        "fetching-report": "Fetching report",
-        "error-message": "An error occurred. There is no report to show now. Please check options and try a calculation again."
-    },
-    "branding": {
-        "SwAM": "Swedish Agency for Marine and Water Management",
-        "SI-Sweden": "Sweden"
-    },
-    "api-messages": {
-        "areas": {
-            "import-success" : {
-                "title": "Import successful",
-                "message-single" : "Imported area: \"{{ topLayerName }}\"",
-                "message-multi" : "Imported {{ layersCount }} areas"
-            }
-        }
-    },
-    "list-sorting-options" : {
-        "indicate-order" : "Indicate ordering as {{ orderHint }}",
-        "AlphaAsc" : "alphabetical, ascending (A-Z)",
-        "AlphaDesc" : "alphabetical, descending (Z-A)",
-        "DateAsc" : "ascending by date (oldest first)",
-        "DateDesc" : "descending by date (newest first)",
-        "None" : "unsorted"
+  "login": {
+    "username": "Username",
+    "password": "Password",
+    "login": "Log in",
+    "forgot-password": "Forgot password?",
+    "request-password": "Request new password",
+    "no-account": "Are you an external user and lacking login credentials?",
+    "request-account": "Request an account",
+    "peek-password": "Reveal the password",
+    "hide-password": "Hide the password",
+    "error": {
+      "invalid-credentials": "Wrong username or password.",
+      "system-unavailable": "System is not available, try again later."
     }
+  },
+  "map": {
+    "background-transparency": "Background map transparency",
+    "click-area": "Click to select area.",
+    "location-within-scenario": "The area overlaps with the active scenario.",
+    "areas": "Areas",
+    "matrix": "Matrix",
+    "no-active-scenario": "Activate a scenario to make changes",
+    "scenariowide-settings": "Scenario-wide settings",
+    "no-selected-area": "No area selected",
+    "reset-preselected": "Reset",
+    "reset-preselected-description": "Reset selected components/pressures and intensity values",
+    "selection-overlap": "Unable to select overlapping areas",
+    "open-compound-data-list": "Compound comparisons ({{ count }})",
+    "intensity": {
+      "ecosystems": "Ecosystem Components",
+      "pressures": "Pressures",
+      "override": "Override group setting",
+      "select-all": "Select all",
+      "deselect-all": "Deselect all"
+    },
+    "confirm-reset": {
+      "modal": {
+        "header": "Confirm reset",
+        "message": "Reset selected components/pressures?",
+        "message-scenario": "Reset selected components/pressures and any changes to intensity in the active scenario ({{ scenario }})?",
+        "cancel": "Cancel",
+        "confirm": "Reset"
+      }
+    },
+    "split-area": {
+      "modal": {
+        "header": "Differential zoning tool",
+        "message": "Select which slices to save as new areas.",
+        "message-single": "Confirm saving this slice as a new area.",
+        "confirm": "Save selected areas",
+        "confirm-single": "Save to \"User-created Areas\"",
+        "meta-description": "Will be named:"
+      }
+    },
+    "merge-areas": {
+      "modal": {
+        "header": "Merge two areas",
+        "message": "Confirm saving the merged area.",
+        "message-alts": "Save the merged area as a new area, or overwrite an existing area.",
+        "confirm": "Merge areas",
+        "save-new": "Save new area",
+        "save-overwrite": "Overwrite existing area: « {{ name }} »"
+      }
+    },
+    "active-scenario": {
+      "header": "Active scenario",
+      "area": "Area:",
+      "exit": "Exit"
+    },
+    "batch-progress": {
+      "header-in-progress": "Batch calculation in progress",
+      "header-cancelled": "Cancelled batch calculation",
+      "header-finished": "Completed batch calculation",
+      "message": "Calculating.. ({{ count }} of {{ total }} scenarios completed)",
+      "cancel": "Cancel",
+      "remove-finished": "Hide completed batch status",
+      "cancelled-run": {
+        "title": "Batch calculation cancelled",
+        "message": "The batch calculation was cancelled. The results of the calculations that were completed are available in the History tab."
+      }
+    },
+    "editor": {
+      "title": "Scenarios",
+      "areas": {
+        "title": "Scenario areas",
+        "remove": {
+          "button": "Remove area",
+          "label": "Remove this area from the current scenario",
+          "modal": {
+            "title": "Remove area from scenario",
+            "message": "Är du säker på att du vill ta bort området &ldquo;{{ area }}&rdquo; från scenario &laquo;&nbsp;{{ scenario }}&nbsp;&raquo;&nbsp;?",
+            "message-last": "&ldquo;{{ area }}&rdquo; är det enda området som omfattas av det aktuella scenariot. Om du tar bort det tas därmed även scenariot: &laquo;&nbsp;{{ scenario }}&nbsp;&raquo; bort.",
+            "confirm": "Remove"
+          }
+        },
+        "specific-settings": "Specific settings have been made for this area:\n{{ feature-changes }}",
+        "loading-matrices": "Loading sensitivity matrices",
+        "add-scenario-label": "Add selected areas to the active scenario",
+        "add-scenario-label-single": "Add {{ area }} to the active scenario",
+        "select-area-first-label": "Start by selecting an area"
+      },
+      "split-scenario-settings": {
+        "title": "Multiple area actions",
+        "detail": "Generate a new scenario for each included area or run a batch calculation on the included areas individually. Note that the latter action will not generate new scenarios.",
+        "set-batch-name": "Batch name to use for generated scenarios",
+        "apply-scenario-changes": "Apply scenario-level intensity changes",
+        "apply-area-changes": "Apply specific area changes to their corresponding scenarios/calculations",
+        "enter-batch-mode": "Enter batch selection mode (applicable to \"Generate\" action only)",
+        "generate": "Generate",
+        "batch-calculate": "Calculate"
+      },
+      "set-arbitrary-matrix": {
+        "title": "Set sensitivity matrix and calculation area",
+        "detail": "No default matrix coupling could be determined for the area \"{{ areaName }}\".\nTo allow the inclusion of this area in a calculation, an arbitrary sensitivity matrix and corresponding MSP area must first be set",
+        "caution": "Note that cancelling this action will exclude the area from the scenario.",
+        "calculation-area": "Calculation area",
+        "select-matrix-placeholder": "Select sensitivity matrix",
+        "select-area-placeholder": "Select area for normalizing values",
+        "set-matrix-and-normalization": "Set matrix and normalization"
+      },
+      "operation": {
+        "title": "Algorithm",
+        "choose": "Choose algorithm",
+        "CumulativeImpact": {
+          "title": "Cumulative impact"
+        },
+        "RarityAdjustedCumulativeImpact": {
+          "title": "Rarity-adjusted cumulative impact",
+          "options": {
+            "domain": {
+              "title": "Rarity index domain",
+              "description": "Calculate rarity indices based on:",
+              "GLOBAL": "Data grid extent",
+              "LOCAL": "Calculated area extent"
+            }
+          }
+        }
+      },
+      "band-pressures": {
+        "intensity": "Edit intensity",
+        "percentage": "Percentage",
+        "constant-increase": "Constant",
+        "show-intensity": "Show intensity controls",
+        "hide-intensity": "Hide intensity controls",
+        "show-reliability": "Show reliability",
+        "hide-reliability": "Hide reliability",
+        "note": "If you have modified any values in the data layers, you can save these modifications as new layers, and reuse them in other calculations.",
+        "no-scenario-selected": "Select a scenario to adjust intensity values"
+      },
+      "matrix": {
+        "sensitivity-matrix": "Sensitivity matrix",
+        "default-matrix": "Default matrix",
+        "alt-matrix": "Alternate matrix",
+        "user-matrix": "User-defined matrix",
+        "choose-matrix": "Choose matrix",
+        "choose-area-type": "Choose area type (optional)",
+        "choose-area-type-matrix": "Select matrix for area type",
+        "no-area-type": "( none )",
+        "edited-matrixes": "Previously edited matrices",
+        "edit-matrix": "Edit matrix",
+        "upload-file": "Upload file",
+        "note": "Here you can modify the sensitivity matrix for different areas. You can also choose to use an uploaded sensitivity matrix.",
+        "table": {
+          "edit-name": "Edit",
+          "delete": "Delete matrix",
+          "close": "Close",
+          "save": "Save matrix",
+          "save-as": "Save as new matrix",
+          "name-exists": "Cannot save.\nThe matrix name specified (\"{{ takenName }}\") is in use.",
+          "immutable-note": "The matrix \"{{ immutableName }}\" is read-only.",
+          "save-as-tip": "First change the matrix name to allow saving as new",
+          "confirm-delete": {
+            "header": "Delete matrix",
+            "message": "Confirm removal of the sensitivity matrix \"{{ matrixToDelete }}\".<br>This action cannot be undone.",
+            "confirm": "Delete"
+          },
+          "changes": {
+            "header": "Unsaved changes",
+            "message": "Save or abandon the stated changes to \"{{ matrixName }}\"{{ newNotice }}?",
+            "immutable-message": "The editor has unsaved changes.<br>Save the modified matrix as \"{{ suggestedName }}\", or abandon current changes?",
+            "new-notice": "(new matrix)",
+            "save": "Save",
+            "abandon": "Abandon"
+          }
+        }
+      },
+      "normalization": {
+        "title": "Result Colormap",
+        "description": "Set maximum value based on",
+        "area": "Maximum value in computed area",
+        "domain": "{{ ordinalPercentileValue }} percentile in MSP area",
+        "mean-plus-stddev": "Mean + multiple of \nstandard deviation:",
+        "custom": "User-defined value:",
+        "custom-value": "Value"
+      },
+      "changes": {
+        "title": "Scenario Changes",
+        "no-changes": "No changes",
+        "make-changes-hint": "Make changes in the Ecosystem or Pressures tabs.",
+        "clear-change": "Clear change",
+        "units": "u.",
+        "collapse": "Hide changes",
+        "collapsed-count": "Show {{ count }} changes",
+        "clear-change-modal": {
+          "header": "Clear change",
+          "message": "Confirm removal of change: <em>{{ changeDescription }}</em>",
+          "confirm": "Clear"
+        }
+      },
+      "changes-overview": {
+        "title": "Scenario changes overview",
+        "show-overview": "Show an overview of all changes",
+        "global-changes": "Global changes",
+        "show-all": "Show all",
+        "edit-value": "Modify change",
+        "confirm-change": "Confirm change",
+        "discard-change": "Discard change",
+        "relative-label": "Percentage",
+        "absolute-label": "Constant",
+        "close": "Close"
+      },
+      "area-changes": {
+        "title": "Scenario Area Changes"
+      },
+      "transfer-changes": {
+        "title": "Transfer changes",
+        "tooltip": "Transfer changes from an existing scenario or scenario area",
+        "use-scenario-wide": "Use scenario-wide changes",
+        "select-scenario": "Select a scenario",
+        "select-scenario-detail": "Specify a scenario or area from which to transfer changes",
+        "area-changes": "Scenario Areas with changes available",
+        "overwrite": "Check to replace changes (otherwise the selected changes are appended)"
+      },
+      "copy-scenario": {
+        "label": "Copy scenario",
+        "title": "Copy scenario: options",
+        "new-scenario-name": "New scenario name",
+        "copy-specifier": "{{ scenario }} (copy)",
+        "include-scenario-changes": "Include Scenario-level changes",
+        "area-changes-to-include": "Select which area changes to be mirrored in the copied scenario",
+        "areas-without-changes": "The following areas of the scenario lack specific changes: {{ areas-list }}",
+        "create-copy": "Create copy",
+        "cancel": "Cancel"
+      },
+      "select-area-message": "Select an area to calculate. Start with selecting an area and then make any adjustments to nature values or pressures in the left panel.",
+      "fetching-matrices": "Fetching information on area's sensitivity matrices...",
+      "map-layer": "Map layer",
+      "list": {
+        "user-scenarios": "User Scenarios",
+        "add-scenario-label": "Create new grouped scenario",
+        "add-scenario-label-single": "Create new scenario for {{area}}",
+        "overlap": "Cannot create scenario for overlapping areas",
+        "scenario-name": "Untitled scenario",
+        "scenario-name-template": "Scenario {{area}}",
+        "select-area-first-label": "Start by selecting areas for the scenario.",
+        "no-scenarios": "No scenarios",
+        "add-scenarios-hint": "Create a scenario by clicking on the + above.",
+        "scenario-area": "{{ scenario }}\nArea: {{ area-feature }}",
+        "show-report-label": "Open the latest calculation report",
+        "more-areas-single": "+ an additional area ..",
+        "more-areas": "+ {{ more }} more areas ..",
+        "filter-hint": "Filter scenarios by name",
+        "select-all-for-batch": "Select all",
+        "select-all-for-batch-filtered": "Select visible",
+        "deselect-all-for-batch": "Deselect all",
+        "none-selected": "No scenarios selected",
+        "delete-selected": "Delete selected scenarios",
+        "batch-tools": {
+          "enter-batch-mode": "Enter batch selection mode",
+          "exit-batch-mode": "Exit batch selection mode",
+          "batch-too-small": "Select at least two scenarios",
+          "run-batch": "Batch calculate the selected scenarios"
+        }
+      },
+      "clear": "Clear",
+      "close": "❮",
+      "delete": {
+        "label": "Delete",
+        "tooltip": "Delete scenario",
+        "modal": {
+          "title": "Delete scenario",
+          "message": "Are you sure you want to delete &laquo;&nbsp;{{ scenario }}&nbsp;&raquo;",
+          "title-many": "Delete selected scenarios",
+          "message-many": "Confirm deletion of <strong>{{ count }}</strong> scenarios?",
+          "delete": "Delete",
+          "cancel": "Cancel"
+        }
+      },
+      "coastal-areas": {
+        "title": "Coastal Areas",
+        "include-coast": "Include coast"
+      },
+      "select-intersection": {
+        "header": "Multiple default matrix couplings",
+        "message": "The selected area has ambiguous standard matrix couplings.<br>Below are suggested valid area divisions that correspond to each standard matrix.<br>Choose which of these to include in the scenario.",
+        "default-matrix": "Default matrix for this area:",
+        "confirm-selection": "Use selected areas"
+      },
+      "calculate": "Calculate",
+      "unsaved-changes": "Unsaved changes",
+      "save-changes": "Save changes",
+      "saved-by-user": "Changes saved",
+      "saved-by-user-time": "Last saved: {{ timestamp }}"
+    },
+    "metadata": {
+      "label": "Show metadata",
+      "header": "Metadata regarding {{ layerType }}: {{ layerName }}",
+      "close": "Close",
+      "theme": "theme",
+      "ecosystem": "ecosystem",
+      "pressure": "pressure",
+      "no-info": "Metadatum missing.",
+      "properties": {
+        "accessuserestrictions": "Access and use restrictions",
+        "authoremail": "Author email address",
+        "authororganisation": "Author organisation",
+        "dataowner": "Data owner",
+        "dataprocessing": "Data processing",
+        "datasources": "Data sources",
+        "datecreated": "Date created",
+        "descriptivekeywords": "Keywords",
+        "format": "Format",
+        "limitationsforsymphony": "Known limitations",
+        "lineage": "Lineage",
+        "maintenanceinformation": "Maintenance information",
+        "mapacknowledgement": "Map acknowledgement",
+        "marineplanarea": "Marine spatial planning area",
+        "metadatadate": "Date",
+        "metadataemail": "Email address",
+        "metadatafilename": "File name",
+        "metadatalanguage": "Language",
+        "metadataorganisation": "Organisation",
+        "methodsummary": "Method summary",
+        "owneremail": "Owner email address",
+        "otherrestrictions": "Other restrictions",
+        "rasterfilename": "Raster data file name",
+        "rasterspatialreferencesystem": "Raster coordinate reference system",
+        "recommendations": "Recommendations",
+        "resourcetype": "Resource type",
+        "securityclassification": "Security classification",
+        "status": "Status",
+        "summary": "Summary",
+        "symphonycategory": "Category",
+        "symphonydatatype": "",
+        "symphonytheme": "Metadata group",
+        "temporalperiod": "Period",
+        "theme": "Theme",
+        "topiccategory": "Topic category",
+        "uselimitations": "Usage limitations",
+        "valuerange": "Value range"
+      }
+    },
+    "toolbar": {
+      "zoom-in": "Zoom in",
+      "zoom-out": "Zoom ut",
+      "clear-results": "Remove results from map",
+      "anti-alias-on": "Enable edge smoothing",
+      "anti-alias-off": "Disable edge smoothing",
+      "search-area": "Search for area",
+      "draw-area": "Draw area",
+      "open-area": "Open saved area",
+      "save-area": "Save drawn area"
+    },
+    "arrange-layers": "Arrange layers",
+    "area": {
+      "sea-plan": "MSP areas",
+      "county": "Municipalities and Counties",
+      "protected": "Protected areas",
+      "surface-water": "Swedish waterbodies managed under the EU Water Framework Directive",
+      "user-created": "User-created Areas",
+      "no-areas": "No areas",
+      "search": {
+        "label": "Search for area",
+        "placeholder": "Search for area",
+        "clear": "Clear search"
+      }
+    },
+    "eco-component": {
+      "search": {
+        "label": "Search for nature value",
+        "placeholder": "Search for nature value",
+        "no-matches": "No matches"
+      }
+    },
+    "pressure": {
+      "search": {
+        "label": "Search for pressure",
+        "placeholder": "Search for pressure"
+      }
+    },
+    "history": {
+      "title": "Previous calculations",
+      "loading": "Loading calculations...",
+      "baseline-calculations": "Baseline Calculations",
+      "previous-calculations": "Previous Calculations",
+      "placeholder": "No calculations performed",
+      "show-report": "Open calculation report “{{ calculationName }}”",
+      "delete": "Delete saved calculation result “{{ calculationName }}”",
+      "filter-hint": "Filter calculations by name",
+      "show-result": "Show result in map view",
+      "hide-result": "Hide result in map view",
+      "visible-result": "Result is currently visible in map view",
+      "purged-result": "Data for this result has been purged\nThis will take a little longer to load because the result needs to be recalculated first.",
+      "edit-name": {
+        "label": "Rename",
+        "header": "Enter a new name for the calculation"
+      },
+      "delete-modal": {
+        "header": "Delete calculation",
+        "message": "Confirm deletion of previously saved calculation result: <em>“{{ calculationName }}”</em>",
+        "header-multiple": "Delete calculations",
+        "message-multiple": "Confirm deletion of <strong>{{ count }}</strong> calculation results?",
+        "message-single": "Confirm deletion of this calculation result?",
+        "cancel": "Cancel",
+        "confirm": "Delete"
+      },
+      "generate-comparison-modal": {
+        "header": "Generate compound comparison",
+        "message": "Set a title for the compound comparison result.",
+        "placeholder": "Set a title",
+        "calculate": "Calculate"
+      },
+      "multi-mode": {
+        "delete-selected": "Delete selected calculations",
+        "generate-comparison": "Generate comparison data",
+        "none-selected": "No calculations selected"
+      }
+    },
+    "compare": {
+      "title": "Compare calculations",
+      "compare": "Compare Calculations",
+      "base-scenario": "Calculation A",
+      "implicit-baseline": "Implied baseline",
+      "explicit-baseline": "Select a calculation",
+      "include-unchanged": "Include unchanged scenarios",
+      "reverse-projected": "Reverse comparison order",
+      "what-if-scenario": "Calculation B",
+      "select-calculation": "Select a calculation",
+      "select-base-calculation-first": "Select calculation A first",
+      "no-matching-calculations": "No matching calculations",
+      "base-scenario-suggestion": "(typically your baseline analysis)",
+      "what-if-scenario-suggestion": "(typically your new scenario analysis)",
+      "select-scale": "Customize color scale",
+      "scale-constant": "Constant maximum",
+      "scale-dynamic": "Dynamic maximum"
+    },
+    "user-area": {
+      "create": {
+        "label": "Draw new area",
+        "modal": {
+          "title": "Name your new area",
+          "placeholder": "My area 1",
+          "save": "Save",
+          "close": "Close"
+        },
+        "invalid-area": {
+          "title": "Invalid area extent",
+          "message": "User defined areas must overlap at least one other area having a default matrix coupling"
+        }
+      },
+      "upload": {
+        "label": "Upload new area",
+        "modal": {
+          "title": "Import area",
+          "fileformat-note": "Files in <a href='https://www.geopackage.org/' target='_blank'>OGC GeoPackage</a>-format are supported.",
+          "notice": {
+            "WGS84-reprojection": "Imported coordinates will be reprojected to <em>EPSG:4326 (WGS 84)",
+            "multi-layer-pre": "The selected GeoPackage contains these layers:",
+            "multi-layer-all": "They will be imported as separate areas."
+          },
+          "import": "Confirm import",
+          "cancel": "Cancel"
+        },
+        "error": {
+          "NOT_A_GEOPACKAGE": "The chosen file is not a GeoPackage",
+          "GEOPACKAGE_NO_FEATURES": "GeoPackage does not contain any areas."
+        }
+      },
+      "rename": {
+        "label": "Rename area",
+        "header": "Edit area name"
+      },
+      "edit": {
+        "label": "Edit area"
+      },
+      "expand": {
+        "label": "Expand area group"
+      },
+      "delete": {
+        "label": "Delete",
+        "modal": {
+          "header": "Delete area",
+          "message": "Are you sure you want to delete &laquo;&nbsp;{{ userAreaName }}&nbsp;&raquo;&nbsp;?",
+          "header-multiple": "Delete selected areas",
+          "message-multiple": "Confirm deletion of <strong>{{ count }}</strong> areas."
+        }
+      },
+      "share": {
+        "label": "Share"
+      },
+      "none-selected": "No user areas have been marked for deletion",
+      "delete-selected": "Delete selected user areas"
+    },
+    "color-scale": {
+      "result": "Cumulative impact",
+      "comparison": "Relative pressure difference",
+      "ecosystem": "Ecosystem value",
+      "pressure": "Pressure intensity",
+      "reliability": {
+        "title": "Reliability",
+        "low": "Low reliability",
+        "high": "High reliability"
+      }
+    },
+    "area-selection-hint": {
+      "emphasis": "Select / deselect multiple areas",
+      "detail": "using {{ ctrlButton }} + click."
+    },
+    "special-actions-hint": {
+      "emphasis": "Cut or merge area",
+      "detail": "{{ altButton }} + click in the map view splits by intersection, {{ altButton }} + Shift + click merges."
+    },
+    "merge-areas-hint": {
+      "emphasis": "Merge areas",
+      "detail": "{{ altButton }} + Shift + click on final area in the map to merge selected."
+    },
+    "compound-data-list": {
+      "title": "Compound comparisons",
+      "compound-comparison-data": "Compound comparison data",
+      "calculation-basis-info": "The comparative values are based on the following calculations",
+      "more": "more",
+      "delete": "Delete compound comparison",
+      "none-selected": "No compound comparisons selected",
+      "delete-selected": "Delete selected compound comparisons",
+      "download": {
+        "header": "Download compound comparison",
+        "select-format": "Select format to download",
+        "format": {
+          "json": "As data (JSON)",
+          "ods": "As spreadsheet (ODS)"
+        },
+        "include-unchanged": "Include unchanged results",
+        "include-combined-dataset": "Include combined dataset",
+        "confirm": "Download"
+      },
+      "filter-hint": "Filter list item by name",
+      "delete-modal": {
+        "header": "Delete compound comparison",
+        "header-multiple": "Delete compound comparisons",
+        "message": "Confirm deletion of compound comparison: <em>“{{ comparisonName }}”</em>",
+        "message-multiple": "Confirm deletion of <strong>{{ count }}</strong> compound comparisons?",
+        "message-single": "Confirm deletion of this compound comparison?"
+      },
+      "terms": {
+        "total": "Total",
+        "sum": "Sum",
+        "baseline": "Baseline",
+        "difference": "Difference",
+        "pixels": "Number of pixels",
+        "non-planar": "Non-planar projection",
+        "scenarioTitle": "Scenario title",
+        "scenario": "Scenario",
+        "combined": "Combined dataset"
+      }
+    },
+    "area-options": {
+      "get-shapefile": "Download shapefile bundle (.zip)"
+    }
+  },
+  "controls": {
+    "open": "Open",
+    "close": "Close",
+    "save": "Save",
+    "delete": "Delete",
+    "accordion": {
+      "expand": "Expand",
+      "contract": "Contract"
+    },
+    "multi-mode-list": {
+      "enter": "Enter multi-selection mode",
+      "exit": "Exit multi-selection mode"
+    }
+  },
+  "rename": {
+    "placeholder": "Enter a new name"
+  },
+  "main-menu": {
+    "projects": "Project",
+    "calculations": "Calculations",
+    "files": "Files"
+  },
+  "header": {
+    "back-to-map": "Back to map"
+  },
+  "user-menu": {
+    "help": "Help",
+    "about": "About",
+    "support": "Support",
+    "support-page": "Support",
+    "profile": "My profile",
+    "change-language": "Change language",
+    "logout": "Log out"
+  },
+  "about-dialog": {
+    "system-name": "Symphony",
+    "build": "Build",
+    "third-party-software": "Built using the following third party software:",
+    "close": "Thank you"
+  },
+  "popup-message": {
+    "INFO": "Information",
+    "SUCCESS": "Process succeeded",
+    "ERROR": "An Error Occurred",
+    "WARNING": "Slow process"
+  },
+  "confirmation-modal": {
+    "cancel": "Cancel",
+    "confirm": "OK"
+  },
+  "change-language-modal": {
+    "header": "Change language",
+    "apply": "Apply",
+    "languages": {
+      "en": "English",
+      "sv": "Swedish",
+      "fr": "French"
+    }
+  },
+  "report": {
+    "calculation": {
+      "title": "Calculation Report"
+    },
+    "comparison": {
+      "title": "Calculation Comparison Report",
+      "vs": "and"
+    },
+    "common": {
+      "not-measurable": "(not measurable)"
+    },
+    "cumulative-effect-etc": {
+      "baseline": "Baseline version",
+      "operation": "Algorithm",
+      "title": "Cumulative effect",
+      "relative-diff": "Relative change",
+      "total": "Total",
+      "average": "Average",
+      "min": "Min",
+      "max": "Max",
+      "std-dev": "Std. Dev",
+      "calculated-area": "Calculated area",
+      "km2": "km²",
+      "no-area": "N/A",
+      "no-area-desc": "Area cannot be measured",
+      "normalization": {
+        "title": "Result colorscale",
+        "domain": "{{ ordinalPercentileValue }} percentile",
+        "area": "Maximum value in area",
+        "custom": "User-defined value",
+        "mean-plus-stddev": "Average {{ positiveOrNegative }} standard deviation ⨯ {{ stddevMultiplier }}",
+        "domain-desc": "The result is normalized with regard to the range that {{ percentileValue }}% of data points in the respective marine spatial planning area belong to (including coastal areas)."
+      },
+      "comparison": {
+        "legend-desc": "The image shows the relative difference in total cumulative impact between the base and what-if scenario."
+      }
+    },
+    "sensitivity-matrices": {
+      "title": "Sensitivity matrix",
+      "area-type-matrices": "Matrices per area type",
+      "all-areas": "All areas"
+    },
+    "histogram": {
+      "caption": "Histogram",
+      "interval": "Interval",
+      "cumulative-proportion": "Cumulative proportion",
+      "middle-of-range": "Middle of range"
+    },
+    "highest-impact": {
+      "ecocomponent": "Nature values with highest impact",
+      "pressure": "Pressures with highest impact"
+    },
+    "sankey": {
+      "sankey-single": {
+        "title": "Sankey diagram",
+        "description": "This Sankey diagram shows the relationship between the pressures and the nature values. The thickness of the arrows are proportional to the size of the pressures and their impact on the natural values. Values below {{ chartThreshold }} are not included in the diagram."
+      },
+      "sankey-cmp-positive": {
+        "title": "Sankey diagram (increasing)",
+        "description": "This Sankey diagram shows the relationship between the pressures whose impact increases on different natural values in scenario B, relative to scenario A. The thickness of the arrows are proportional to the increase of each pressure between the two specified scenarios, with respect to the affected nature values. Values below {{ chartThreshold }} are not included in the diagram."
+      },
+      "sankey-cmp-negative": {
+        "title": "Sankey diagram (decreasing)",
+        "description": "This Sankey diagram shows the relationship between the pressures whose impact decreases on different natural values in scenario B, relative to scenario A. The thickness of the arrows are proportional to the amount each pressure is alleviated between the two specified scenarios, with respect to the affected nature values. Values below {{ chartThreshold }} are not included in the diagram."
+      }
+    },
+    "scenario-changes": {
+      "title": "Scenario Parameters",
+      "percent-change-with": "Percent change with <strong>{{percent}}%</strong>",
+      "constant-offset-with": "Constant offset of <strong>{{offset}}</strong> units",
+      "and": "and",
+      "base-changes": "Common changes",
+      "area-changes": "Area-specific changes",
+      "no-changes": "No changes"
+    },
+    "impact-table": {
+      "ecoComponent": "Impact per nature value",
+      "pressure": "Impact per pressure",
+      "cumulative": "Cumulative",
+      "percentage-of-total": "% of Total"
+    },
+    "toolbar": {
+      "export-csv": "Export as CSV",
+      "export-geotiff": "Export as GeoTIFF",
+      "open-in-new-tab": "Open in new tab",
+      "print": "Print"
+    },
+    "description": "Calculations of the cumulative environmental impact is made using the Swedish Agency for Marine and Water Management's application Symphony.",
+    "more-info": "For more information about Symphony please visit ",
+    "link": "https://www.havochvatten.se/en/eu-and-international/marine-spatial-planning/swedish-marine-spatial-planning/the-marine-spatial-planning-process/development-of-plan-proposals/symphony---a-tool-for-ecosystem-based-marine-spatial-planning.html",
+    "fetching-report": "Fetching report",
+    "error-message": "An error occurred. There is no report to show now. Please check options and try a calculation again."
+  },
+  "branding": {
+    "SwAM": "Swedish Agency for Marine and Water Management",
+    "SI-Sweden": "Sweden"
+  },
+  "api-messages": {
+    "areas": {
+      "import-success": {
+        "title": "Import successful",
+        "message-single": "Imported area: \"{{ topLayerName }}\"",
+        "message-multi": "Imported {{ layersCount }} areas"
+      }
+    }
+  },
+  "support": {
+    "title": "Support",
+    "admin-mode": "Admin mode",
+    "nav": {
+      "manual": "User Manual",
+      "faq": "FAQ",
+      "troubleshooting": "Troubleshooting",
+      "quick-guide": "Quick Guide",
+      "changelog": "Changelog",
+      "contact": "Contact"
+    },
+    "admin": {
+      "manual-hint": "Edit the manual content directly.",
+      "faq-hint": "Add, edit or remove FAQ items.",
+      "add-item": "Add item",
+      "troubleshooting-hint": "Add, edit or remove troubleshooting items.",
+      "quick-guide-hint": "Edit the getting-started steps.",
+      "edit-steps": "Edit steps",
+      "changelog-hint": "Add a new release entry.",
+      "add-entry": "Add entry",
+      "contact-hint": "Edit the contact list.",
+      "edit-contacts": "Edit contacts",
+      "edit-manual": "Edit manual",
+      "editing-manual": "Editing manual (admin only)"
+    },
+    "manual": {
+      "title": "User Manual",
+      "description": "The user manual contains detailed guidance on how to use Symphony.",
+      "placeholder": "No manual has been uploaded yet.",
+      "save": "Save",
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "load-error": "Failed to load the manual.",
+      "save-error": "Failed to save the manual."
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "intro": "Find answers to common questions about using Symphony.",
+      "items": {
+        "faq-1": {
+          "question": "How do I create a new scenario?",
+          "answer": "Navigate to the map view and use the scenario panel on the left side to create and manage scenarios."
+        },
+        "faq-2": {
+          "question": "How do I run a calculation?",
+          "answer": "Select an area, configure your scenario, then click the calculate button in the scenario panel."
+        },
+        "faq-3": {
+          "question": "How do I export results?",
+          "answer": "Open a calculation report and use the toolbar to export as CSV, GeoTIFF, or PNG."
+        }
+      }
+    },
+    "troubleshooting": {
+      "title": "Troubleshooting",
+      "intro": "Step-by-step guidance for resolving known issues.",
+      "items": {
+        "item-1": {
+          "question": "The calculation is taking a long time — what should I do?",
+          "answer": "Large areas or many active layers can slow down calculations. Try reducing the area size or deselecting unused layers. If the problem persists, contact your system administrator."
+        },
+        "item-2": {
+          "question": "The map layers are not showing after I navigate back.",
+          "answer": "This can happen after navigating away from and back to the map. Try reloading the page. If the issue persists, log out and log back in."
+        }
+      }
+    },
+    "quick-guide": {
+      "title": "Quick Start Guide",
+      "intro": "New to Symphony? Follow these steps to run your first cumulative impact calculation.",
+      "steps": {
+        "step-1": {
+          "title": "Log in and open the map",
+          "description": "Log in with your credentials. You will land on the main map view of the Baltic Sea."
+        },
+        "step-2": {
+          "title": "Select an area",
+          "description": "Use the Areas panel on the left to select a pre-defined area, or draw your own using the drawing tools."
+        },
+        "step-3": {
+          "title": "Create or activate a scenario",
+          "description": "Open the Scenario panel and create a new scenario. Choose which ecosystem components and pressures to include."
+        },
+        "step-4": {
+          "title": "Run the calculation",
+          "description": "Click Calculate in the scenario panel. Results are shown as a colour-coded layer on the map and a downloadable report."
+        }
+      }
+    },
+    "changelog": {
+      "title": "Changelog",
+      "intro": "A record of significant changes and new features released in Symphony.",
+      "entries": {
+        "entry-2-0-0": {
+          "title": "Symphony 2.0 — Major release",
+          "description": "Upgraded to Jakarta EE 10 and WildFly 36. Added differential zoning tool, compound comparisons, and improved batch processing for multi-scenario calculations."
+        },
+        "entry-1-5-0": {
+          "title": "Symphony 1.5 — Scenario improvements",
+          "description": "Introduced scenario copy, per-area intensity overrides, and CSV/ODS export for calculation reports."
+        }
+      }
+    },
+    "contact": {
+      "title": "Contact Support",
+      "intro": "Need further help? Reach out to the team responsible for this Symphony installation.",
+      "entries": {
+        "contact-1": {
+          "name": "System Administrator",
+          "role": "Technical support & system access"
+        }
+      }
+    }
+  },
+  "list-sorting-options": {
+    "indicate-order": "Indicate ordering as {{ orderHint }}",
+    "AlphaAsc": "alphabetical, ascending (A-Z)",
+    "AlphaDesc": "alphabetical, descending (Z-A)",
+    "DateAsc": "ascending by date (oldest first)",
+    "DateDesc": "descending by date (newest first)",
+    "None": "unsorted"
+  }
 }

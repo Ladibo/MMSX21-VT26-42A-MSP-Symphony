@@ -1,0 +1,66 @@
+@import 'src/app/support/support-page';
+@import 'src/styles/hav-colors';
+
+:host {
+  display: block;
+}
+
+.contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contact-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.4rem;
+  padding: 1.4rem 1.6rem;
+  border: 1px solid $hav-coldgrey;
+  border-radius: 4px;
+  background: #fafafa;
+
+  .contact-icon {
+    flex-shrink: 0;
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 50%;
+    background: $hav-turquoise;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin-top: 0.2rem;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+
+    strong {
+      font-size: 1.5rem;
+      color: $hav-darkturquoise;
+    }
+
+    .contact-role {
+      font-size: 1.3rem;
+      color: $hav-darkergrey;
+    }
+
+    .contact-email {
+      font-size: 1.4rem;
+      color: $hav-lightturquoise;
+      text-decoration: none;
+      margin-top: 0.3rem;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

@@ -1,0 +1,27 @@
+<div class="page-header">
+  <h2>{{ 'support.faq.title' | translate }}</h2>
+</div>
+
+<div *ngIf="isAdmin" class="admin-bar">
+  <app-icon iconType="padlock"></app-icon>
+  <span class="admin-label">{{ 'support.admin.faq-hint' | translate }}</span>
+  <button type="button" (click)="addItem()">
+    <app-icon iconType="plus"></app-icon>
+    {{ 'support.admin.add-item' | translate }}
+  </button>
+</div>
+
+<p class="intro-text">{{ 'support.faq.intro' | translate }}</p>
+
+<app-accordion-box
+  *ngFor="let item of items"
+  [open]="item.open"
+  [toggle]="toggle.bind(this, item)"
+>
+  <app-accordion-box-header>
+    {{ ('support.faq.items.' + item.key + '.question') | translate }}
+  </app-accordion-box-header>
+  <app-accordion-box-content>
+    {{ ('support.faq.items.' + item.key + '.answer') | translate }}
+  </app-accordion-box-content>
+</app-accordion-box>
