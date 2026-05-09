@@ -3,8 +3,8 @@
     <li *ngFor="let item of menuItems">
       <a
         [routerLink]="item.url ? [{ outlets: { primary: item.url, overlay: null } }] : undefined"
-        (click)="item.click ? item.click() : onNavigate()"
-        (keydown.enter)="item.click ? item.click() : onNavigate()"
+        (click)="item.click?.($event); onNavigate()"
+        (keydown.enter)="item.click?.($event); onNavigate()"
         havFocusOutline
         routerLinkActive
         [routerLinkActiveOptions]="{ exact: true }"

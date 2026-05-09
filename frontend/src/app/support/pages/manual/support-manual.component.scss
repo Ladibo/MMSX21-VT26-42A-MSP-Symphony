@@ -22,6 +22,12 @@
   padding: 0 0.5rem;
 }
 
+.manual-content {
+  display: block;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
 .editor-toolbar {
   display: flex;
   align-items: center;
@@ -98,6 +104,9 @@
     h1, h2, h3, h4 { margin-top: 1.6rem; margin-bottom: 0.6rem; }
     p { line-height: 1.6; margin-bottom: 0.8rem; }
     img { max-width: 100%; height: auto; }
+    img.inline-icon { display: inline; vertical-align: middle; max-height: 1.4em; width: auto; margin: 0 0.15em; }
+    img.thumb       { display: block; max-width: 24rem; margin: 1rem auto; }
+    img.screenshot  { display: block; max-width: 100%; margin: 1rem auto; }
     table { border-collapse: collapse; width: 100%; margin-bottom: 1rem; }
     th, td { border: 1px solid $hav-coldgrey; padding: 0.5rem 0.8rem; text-align: left; }
     th { background: lighten($hav-turquoise, 40%); }

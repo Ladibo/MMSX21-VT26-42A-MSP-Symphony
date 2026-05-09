@@ -1,19 +1,14 @@
-![United Nations Enrvironment Programme
-logo](/assets/support/sv/media/image2.png) ![Nairobi Convention
-logo](/assets/support/sv/media/image3.png) ![Sweden logo and Swedish Agency for
-Marine and Water Management
-logo](/assets/support/sv/media/image4.png)
+<img alt="United Nations Enrvironment Programme logo" src="/assets/support/sv/media/image2.png" width="103" height="75"> <img alt="Nairobi Convention logo" src="/assets/support/sv/media/image3.png" width="82" height="88"> <img alt="Sweden logo and Swedish Agency for Marine and Water Management logo" src="/assets/support/sv/media/image4.png" width="363" height="76">
 
 **WIO Symphony user manual**
 
 **SVENSKA VERSIONEN**
-sadsadas
 
 Manual edition: 19 December 2025
 
 WIO Symphony version: Symphony 1.22.0
 
-![](/assets/support/sv/media/image5.png)
+<img alt="" src="/assets/support/sv/media/image5.png" width="605" height="360">
 
 WIO Symphony stands for the **Western Indian Ocean Symphony**. It is a
 co-developed tool for the assessment of combined, or cumulative,
@@ -29,122 +24,49 @@ Symphony**](https://symphony.nairobiconvention.org/).
 
 # Content
 
-[1. Purpose, principles, partnership
-[4](#purpose-principles-partnership)](#purpose-principles-partnership)
-
-[1.1 Co-developed widely
-[4](#co-developed-widely)](#co-developed-widely)
-
-[1.3 The Nairobi Convention manages and updates
-[4](#the-nairobi-convention-manages-and-updates)](#the-nairobi-convention-manages-and-updates)
-
-[1.4 Financed by Sweden, Sida, GEF, and in-kind
-[5](#financed-by-sweden-sida-gef-and-in-kind)](#financed-by-sweden-sida-gef-and-in-kind)
-
-[2. WIO Symphony method and analyses
-[6](#wio-symphony-method-and-analyses)](#wio-symphony-method-and-analyses)
-
-[2.1 Method [6](#method)](#method)
-
-[2.2 Basic equation [7](#basic-equation)](#basic-equation)
-
-[2.3 Further analyses: rarity, one-over-many, and scenario comparisons
-[8](#further-analyses-rarity-one-over-many-and-scenario-comparisons)](#further-analyses-rarity-one-over-many-and-scenario-comparisons)
-
-[3. Main ingredients: ecosystem components, pressures, sensitivities
-[9](#main-ingredients-ecosystem-components-pressures-sensitivities)](#main-ingredients-ecosystem-components-pressures-sensitivities)
-
-[3.1 Ecosystem components
-[9](#ecosystem-components)](#ecosystem-components)
-
-[3.2 Pressures [9](#pressures)](#pressures)
-
-[3.3 Sensitivity scores [10](#sensitivity-scores)](#sensitivity-scores)
-
-[3.4 Uncertainties and limitations
-[10](#uncertainties-and-limitations)](#uncertainties-and-limitations)
-
-[3.5 Tool implementation and access
-[10](#tool-implementation-and-access)](#tool-implementation-and-access)
-
-[4. Before using the tool
-[11](#before-using-the-tool)](#before-using-the-tool)
-
-[4.1 Use WIO Symphony alongside other methods
-[11](#use-wio-symphony-alongside-other-methods)](#use-wio-symphony-alongside-other-methods)
-
-[4.2 Use at an appropriate scale -- most suitable for large areas
-[11](#use-at-an-appropriate-scale-most-suitable-for-large-areas)](#use-at-an-appropriate-scale-most-suitable-for-large-areas)
-
-[4.3 Carefully consider what to analyse: Types of analysis and elements
-to include
-[11](#carefully-consider-what-to-analyse-types-of-analysis-and-elements-to-include)](#carefully-consider-what-to-analyse-types-of-analysis-and-elements-to-include)
-
-[4.4 Feedback us your critique
-[12](#feedback-us-your-critique)](#feedback-us-your-critique)
-
-[5. User manual [13](#user-manual)](#user-manual)
-
-[5.1 Support [13](#support)](#support)
-
-[5.2 Change language [13](#change-language)](#change-language)
-
-[5.3 See software version
-[13](#see-software-version)](#see-software-version)
-
-[5.4 Important notes before composing Symphonies
-[14](#important-notes-before-composing-symphonies)](#important-notes-before-composing-symphonies)
-
-[5.2 Boundary polygons [17](#boundary-polygons)](#boundary-polygons)
-
-[5.3 View data layers [20](#view-data-layers)](#view-data-layers)
-
-[5.4 Notes on individual data layers
-[22](#notes-on-individual-data-layers)](#notes-on-individual-data-layers)
-
-[5.5 Calculate cumulative impact
-[23](#calculate-cumulative-impact)](#calculate-cumulative-impact)
-
-[5.6 Cumulative impact Calculation Report
-[28](#cumulative-impact-calculation-report)](#cumulative-impact-calculation-report)
-
-[5.7 Erase and reset [34](#erase-and-reset)](#erase-and-reset)
-
-[5.8 Create and analyse scenarios
-[36](#create-and-analyse-scenarios)](#create-and-analyse-scenarios)
-
-[5.9 Compare two scenarios
-[41](#compare-two-scenarios)](#compare-two-scenarios)
-
-[5.10 Compound comparison
-[47](#compound-comparison)](#compound-comparison)
-
-[5.11 Select, Merge or Split several polygons
-[49](#select-merge-or-split-several-polygons)](#select-merge-or-split-several-polygons)
-
-[5.12 Analyse several polygon areas
-[52](#analyse-several-polygon-areas)](#analyse-several-polygon-areas)
-
-[5.13 Batch analysis [55](#batch-analysis)](#batch-analysis)
-
-[6. Further analyses [60](#further-analyses)](#further-analyses)
-
-[6.1 MINISYM -- analysing individual pressures
-[60](#minisym-analysing-individual-pressures)](#minisym-analysing-individual-pressures)
-
-[6.2 Rarity-adjusted cumulative impact
-[65](#rarity-adjusted-cumulative-impact)](#rarity-adjusted-cumulative-impact)
-
-[6.3 Screen for Suitable Locations for new activities
-[68](#screen-for-suitable-locations-for-new-activities)](#screen-for-suitable-locations-for-new-activities)
-
-[6.4 Choose and Edit Matrix
-[71](#choose-and-edit-matrix)](#choose-and-edit-matrix)
-
-[7. Updating and new data
-[75](#updating-and-new-data)](#updating-and-new-data)
-
-[8. References [76](#references)](#references)
+- [1. Purpose, principles, partnership](#purpose-principles-partnership)
+  - [1.1 Co-developed widely](#co-developed-widely)
+  - [1.3 The Nairobi Convention manages and updates](#the-nairobi-convention-manages-and-updates)
+  - [1.4 Financed by Sweden, Sida, GEF, and in-kind](#financed-by-sweden-sida-gef-and-in-kind)
+- [2. WIO Symphony method and analyses](#wio-symphony-method-and-analyses)
+  - [2.1 Method](#method)
+  - [2.2 Basic equation](#basic-equation)
+  - [2.3 Further analyses: rarity, one-over-many, and scenario comparisons](#further-analyses-rarity-one-over-many-and-scenario-comparisons)
+- [3. Main ingredients: ecosystem components, pressures, sensitivities](#main-ingredients-ecosystem-components-pressures-sensitivities)
+  - [3.1 Ecosystem components](#ecosystem-components)
+  - [3.2 Pressures](#pressures)
+  - [3.3 Sensitivity scores](#sensitivity-scores)
+  - [3.4 Uncertainties and limitations](#uncertainties-and-limitations)
+  - [3.5 Tool implementation and access](#tool-implementation-and-access)
+- [4. Before using the tool](#before-using-the-tool)
+  - [4.1 Use WIO Symphony alongside other methods](#use-wio-symphony-alongside-other-methods)
+  - [4.2 Use at an appropriate scale -- most suitable for large areas](#use-at-an-appropriate-scale-most-suitable-for-large-areas)
+  - [4.3 Carefully consider what to analyse: Types of analysis and elements to include](#carefully-consider-what-to-analyse-types-of-analysis-and-elements-to-include)
+  - [4.4 Feedback us your critique](#feedback-us-your-critique)
+- [5. User manual](#user-manual)
+  - [5.1 Support](#support)
+  - [5.2 Change language](#change-language)
+  - [5.3 See software version](#see-software-version)
+  - [5.4 Important notes before composing Symphonies](#important-notes-before-composing-symphonies)
+  - [5.5 Boundary polygons](#boundary-polygons)
+  - [5.6 View data layers](#view-data-layers)
+  - [5.7 Notes on individual data layers](#notes-on-individual-data-layers)
+  - [5.8 Calculate cumulative impact](#calculate-cumulative-impact)
+  - [5.9 Cumulative impact Calculation Report](#cumulative-impact-calculation-report)
+  - [5.10 Erase and reset](#erase-and-reset)
+  - [5.11 Create and analyse scenarios](#create-and-analyse-scenarios)
+  - [5.12 Compare two scenarios](#compare-two-scenarios)
+  - [5.13 Compound comparison](#compound-comparison)
+  - [5.14 Select, Merge or Split several polygons](#select-merge-or-split-several-polygons)
+  - [5.15 Analyse several polygon areas](#analyse-several-polygon-areas)
+  - [5.16 Batch analysis](#batch-analysis)
+- [6. Further analyses](#further-analyses)
+  - [6.1 MINISYM -- analysing individual pressures](#minisym-analysing-individual-pressures)
+  - [6.2 Rarity-adjusted cumulative impact](#rarity-adjusted-cumulative-impact)
+  - [6.3 Screen for Suitable Locations for new activities](#screen-for-suitable-locations-for-new-activities)
+  - [6.4 Choose and Edit Matrix](#choose-and-edit-matrix)
+- [7. Updating and new data](#updating-and-new-data)
+- [8. References](#references)
 
 Cite as:
 
@@ -314,7 +236,9 @@ $$I_{sum} = \ \sum_{i = 1}^{n}{\sum_{j = 1}^{m}P_{i}{\times E}_{j} \times S_{i,j
 
 Equation 1:
 
-![](/assets/support/sv/media/image6.png)where *E* is ecosystem components, *P* is
+<img alt="" src="/assets/support/sv/media/image6-ca4a29d63.png" width="601" height="193">
+
+where *E* is ecosystem components, *P* is
 pressures from human activities, and *S* denotes the sensitivity score.
 The numbers of ecosystem components and pressures are derived from the
 underpinning data layers (maps), which are all scaled between 0 and 100.
@@ -326,18 +250,18 @@ Symphony tool, and it represents the straightforward estimate of how all
 human activities are affecting the entire marine environment. Very
 abundant ecosystems and species will hence have a strong influence on
 the results, if they are at least somewhat sensitive to pressures in the
-area. See chapter **5.5**.
+area. See chapter **5.8**.
 
 A meaningful aspect is that the cumulative impact result is broken down
 into flow charts indicating how each pressure contributes to the impact
-of each ecosystem component. See chapter **5.6**.
+of each ecosystem component. See chapter **5.9**.
 
 ### 2.3 Further analyses: rarity, one-over-many, and scenario comparisons
 
 The WIO Symphony tool enables the comparison of different scenarios,
 showing how environmental impact increase or decrease at each location
 based on the changes simulated from marine management measures or marine
-planning priorities. See chapter **5.8** and **5.9**.
+planning priorities. See chapter **5.11** and **5.12**.
 
 WIO Symphony is not restricted to estimates of full cumulative impact.
 It also enables tailor-made analyses of how selected pressures impact
@@ -598,16 +522,11 @@ tutorials in this table:
 This manual version of 19 December 2025 is based on the software version
 1.22.2.
 
-![A map of the world Description automatically
-generated](/assets/support/sv/media/image7.JPG)
+<img alt="A map of the world Description automatically generated" src="/assets/support/sv/media/image7.JPG" width="605" height="299">
 
 ### 5.1 Support
 
-Find the latest version of this manual by clicking the user icon ![A map
-of the world Description automatically
-generated](/assets/support/sv/media/image7.JPG), then click Support ![A map of the world
-Description automatically
-generated](/assets/support/sv/media/image7.JPG)
+Find the latest version of this manual by clicking the user icon <img alt="A map of the world Description automatically generated" src="/assets/support/sv/media/image7-c2ffff76f.JPG" width="23" height="25">, then click Support <img alt="A map of the world Description automatically generated" src="/assets/support/sv/media/image7-c17a1d296.JPG" width="74" height="25">
 
 (The previous manual version to this was one was from 13 December 2023
 and based on the\
@@ -619,24 +538,17 @@ version from 30 November 2022, based on the software version 1.6.0.
 
 WIO Symphony is available in three languages:
 
-- ![undefined](/assets/support/sv/media/image8.png) English
+- <img alt="undefined" src="/assets/support/sv/media/image8.png" width="38" height="19"> English
 
-- ![](/assets/support/sv/media/image9.png) French
+- <img alt="" src="/assets/support/sv/media/image9.png" width="28" height="19"> French
 
-- ![](/assets/support/sv/media/image10.png) Swedish
+- <img alt="" src="/assets/support/sv/media/image10.png" width="31" height="19"> Swedish
 
-Change language by clicking the user icon ![A map of the world
-Description automatically
-generated](/assets/support/sv/media/image7.JPG), then click Change language ![A map of
-the world Description automatically
-generated](/assets/support/sv/media/image7.JPG).
+Change language by clicking the user icon <img alt="A map of the world Description automatically generated" src="/assets/support/sv/media/image7-c2ffff76f.JPG" width="23" height="25">, then click Change language <img alt="A map of the world Description automatically generated" src="/assets/support/sv/media/image7-c47cb24bf.JPG" width="113" height="25">.
 
 ### 5.3 See software version
 
-Click the user icon ![A map of the world Description automatically
-generated](/assets/support/sv/media/image7.JPG), then click About ![A map of the world
-Description automatically
-generated](/assets/support/sv/media/image7.JPG) to see which software version you have.
+Click the user icon <img alt="A map of the world Description automatically generated" src="/assets/support/sv/media/image7-c2ffff76f.JPG" width="23" height="25">, then click About <img alt="A map of the world Description automatically generated" src="/assets/support/sv/media/image7-c683fac6f.JPG" width="74" height="25"> to see which software version you have.
 
 ### 5.4 Important notes before composing Symphonies
 
@@ -656,7 +568,7 @@ updates to the tool are incorporated to your analysis. This is
 especially important when you want to start over or begin a new
 analysis.
 
-![](/assets/support/sv/media/image11.png)
+<img alt="" src="/assets/support/sv/media/image11.png" width="605" height="155">
 
 #### Use at an appropriate scale -- large areas
 
@@ -694,11 +606,13 @@ higher cumulative impact scores tend to occur in coastal, shallow
 waters. To create a more visually informative image, consider
 **customizing the colour scale**. This scale is relative and will not
 affect your results. For further details on customization options, see
-chapter **5.5.**
+chapter **5.8.**
 
 #### The return symbol takes you to main menu
 
-![](/assets/support/sv/media/image12.png)When working in a scenario or calculation,
+<img alt="" src="/assets/support/sv/media/image12.png" width="605" height="102">
+
+When working in a scenario or calculation,
 you sometimes might feel stuck to those menus. The blue left-pointing
 arrow in the bottom left corner will **take you back to the main menu**.
 
@@ -707,7 +621,7 @@ arrow in the bottom left corner will **take you back to the main menu**.
 Clear off the colour map by **pressing the bin symbol** to the right,
 below the magnifier glasses.
 
-![](/assets/support/sv/media/image13.png)
+<img alt="" src="/assets/support/sv/media/image13.png" width="605" height="119">
 
 #### Zoom, Edge smoothing and transparency
 
@@ -717,21 +631,21 @@ toggled on or off in the map overview by clicking the pixel symbol
 below. This makes the pixels smoothened or exact. A bar that sets the
 transparency of the background map is adjustable on the bar below.
 
-![](/assets/support/sv/media/image14.png)
-![](/assets/support/sv/media/image15.png)
+<img alt="" src="/assets/support/sv/media/image14.png" width="302" height="375">
+<img alt="" src="/assets/support/sv/media/image15.png" width="301" height="375">
 
-### 5.2 Boundary polygons
+### 5.5 Boundary polygons
 
 The main page, shown below, appears when you log in to the tool, or when
 you navigate back to the *Areas* tab (the globe symbol). Boundary
 polygons are essential for all analyses in WIO Symphony. The tool
 includes several of pre-loaded shapefiles that can be used. You activate
 a boundary polygon by **unticking the eye**
-![](/assets/support/sv/media/image16.png) **symbol**. By clicking the arrow button
+<img alt="" src="/assets/support/sv/media/image16-cb9be6243.png" width="17" height="12"> **symbol**. By clicking the arrow button
 next to the list of areas, you will get an extended list of the included
 sub-areas in that categories that you can choose directly from.
 
-![](/assets/support/sv/media/image17.png)
+<img alt="" src="/assets/support/sv/media/image17.png" width="605" height="309">
 
 The *Whole grid* area represents the full WIO Symphony grid. This grid,
 or *bounding box*, spans the Western Indian Ocean and part of the
@@ -771,7 +685,7 @@ outside the grid will not contain data in calculations. Ensure that at
 least part of your polygon is within the *Whole grid*. Your created
 polygon will be saved under *User-created Areas*.
 
-![](/assets/support/sv/media/image18.png)
+<img alt="" src="/assets/support/sv/media/image18-cfd1d1dd4.png" width="598" height="432">
 
 It is also possible to upload new boundary polygons using the **Upload
 new area** symbol. Note that the file will be in a GeoPackage (gpkg)
@@ -783,14 +697,12 @@ by **cropping your shape file with the WIO Symphony boundary box** (same
 extent as the *Whole grid*). The boundary box is available and can be
 requested from <wiosym@nairobiconvention.org>.
 
-![](/assets/support/sv/media/image19.png)
+<img alt="" src="/assets/support/sv/media/image19.png" width="605" height="290">
 
 You click on a polygon to activate it for analysis. You start the
-analysis by **clicking inside the polygon** ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) **move to the *Scenarios* tab**
-![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) **press the plus**
-![](/assets/support/sv/media/image22.png) **symbol**. See chapter **5.5**.
+analysis by **clicking inside the polygon** <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> **move to the *Scenarios* tab**
+<img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> **press the plus**
+<img alt="" src="/assets/support/sv/media/image22-ce70fac16.png" width="8" height="8"> **symbol**. See chapter **5.8**.
 
 You can also merge areas to create new boundaries by clicking Alt+
 Shift+ Click, this will\
@@ -798,13 +710,11 @@ merge polygons.
 
 You will see a new area under *User-created Areas*, you might consider
 to rename your new areas by clicking *Edit area* 🡪 *Rename area*. See
-chapter 5.10
+chapter **5.13**.
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image23.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image23.JPG" width="605" height="307">
 
-![A map of the ocean Description automatically
-generated](/assets/support/sv/media/image24.JPG)
+<img alt="A map of the ocean Description automatically generated" src="/assets/support/sv/media/image24.JPG" width="605" height="305">
 
 As user, you can also download the shapefile bundle for areas. Area
 polygons can be downloaded for use in external GIS software. Simply
@@ -812,31 +722,29 @@ right-click the polygon you have selected and press *Download shapefile
 bundle* (.zip). This enables you to conduct further analyses in GIS with
 the same boundaries as in WIO Symphony.
 
-![](/assets/support/sv/media/image25.png)
+<img alt="" src="/assets/support/sv/media/image25.png" width="605" height="322">
 
-### 5.3 View data layers
+### 5.6 View data layers
 
 A total of 52 ecosystem components and 48 pressures are listed in the
 WIO Symphony tool, whereof 88 have been modelled and are available as
 data layers (maps). Clicking on the **ecosystem component** tab lets you
 view the different habitats and taxa. Similar, the **pressures** tab
 lets you view the pressures categorised by sector. **Untick the eye**
-![](/assets/support/sv/media/image16.png) **symbol to view\
+<img alt="" src="/assets/support/sv/media/image16-cb9be6243.png" width="17" height="12"> **symbol to view\
 the data**.
 
 A brief summary of metadata and data sources is available. **Press the
 info**
-![](/assets/support/sv/media/image26.png) **symbol** by each ecosystem component
+<img alt="" src="/assets/support/sv/media/image26.png" width="10" height="11"> **symbol** by each ecosystem component
 or pressure. The dialog box provides a method summary of the layer,
 including a link to access that particular layer. In addition, known
 limitations are stated, as well as value range, processor, and data
 sources.
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image27.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image27.JPG" width="605" height="304">
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image28.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image28.JPG" width="610" height="320">
 
 Some layers are still empty, but can be included in analyses,
 nonetheless. Empty layers are:
@@ -868,7 +776,7 @@ nonetheless. Empty layers are:
   -----------------------------------------------------------------------
 
 It is recommended to **close the data display again** (tick the eye
-![](/assets/support/sv/media/image16.png)symbol) before moving on, otherwise you
+<img alt="" src="/assets/support/sv/media/image16-cb9be6243.png" width="17" height="12"> symbol) before moving on, otherwise you
 might be swamped by many open data layers displayed at the same time. If
 this happens it is often easiest to simply refresh the browser and start
 over.
@@ -877,12 +785,11 @@ Some pressures and ecosystem components are listed but still not
 available (they are unticked). This is either because they are expected
 to be modelled and uploaded soon, or because they may be important for
 scenario-building (for example, *Renewable energy* installations or
-*Oilspill risk*). See chapter **5.8**.
+*Oilspill risk*). See chapter **5.11**.
 
-![A screenshot of a computer screen Description automatically
-generated](/assets/support/sv/media/image29.JPG)
+<img alt="A screenshot of a computer screen Description automatically generated" src="/assets/support/sv/media/image29.JPG" width="605" height="304">
 
-### 5.4 Notes on individual data layers
+### 5.7 Notes on individual data layers
 
 Some data layers deserve **special attention**:
 
@@ -925,38 +832,24 @@ Some data layers deserve **special attention**:
   include this ecosystem component in general analyses with many other
   ecosystem components.
 
-### 5.5 Calculate cumulative impact
+### 5.8 Calculate cumulative impact
 
 Cumulative impact is the straight-forward estimate of the impact of all
 selected pressures on all selected ecosystem components combined.
 
 You calculate cumulative impact by **selecting an area**
-![](/assets/support/sv/media/image30.JPG) ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) go to *Scenarios* ![A white calculator
-on a blue background Description automatically
-generated](/assets/support/sv/media/image31.JPG) and **click on the plus sign**![Linjepil:
-rak med hel
-fyllning](/assets/support/sv/media/image21.svg) **select/unselect data layers** in
-*Ecosystem Components* ![A white fish on a blue background Description
-automatically
-generated](/assets/support/sv/media/image32.JPG) and *Pressures*![A white person on a
-blue background Description automatically
-generated](/assets/support/sv/media/image33.JPG) to be included ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) go to *Scenario* tab
-![](/assets/support/sv/media/image34.png) ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) **rename your scenario if relevant by
+<img alt="" src="/assets/support/sv/media/image30.JPG" width="20" height="18"> <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> go to *Scenarios* <img alt="A white calculator on a blue background Description automatically generated" src="/assets/support/sv/media/image31.JPG" width="18" height="18"> and **click on the plus sign**<img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> **select/unselect data layers** in
+*Ecosystem Components* <img alt="A white fish on a blue background Description automatically generated" src="/assets/support/sv/media/image32.JPG" width="16" height="16"> and *Pressures*<img alt="A white person on a blue background Description automatically generated" src="/assets/support/sv/media/image33.JPG" width="16" height="15"> to be included <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> go to *Scenario* tab
+<img alt="" src="/assets/support/sv/media/image34.png" width="18" height="17"> <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> **rename your scenario if relevant by
 clicking on the pencil**
-![\\\\storage.slu.se\\home_2\$\\cect0003\\Documents\\PhD\\Departmental
-work\\WIO
-Symphony\\WIO_symph.png](/assets/support/sv/media/image35.png)![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) **press** **CALCULATE** button (refer to
+<img alt="\\\\storage.slu.se\\home_2\$\\cect0003\\Documents\\PhD\\Departmental work\\WIO Symphony\\WIO_symph.png" src="/assets/support/sv/media/image35.png" width="17" height="22"><img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> **press** **CALCULATE** button (refer to
 the picture below).
 
 In the ecosystem components tab and pressures tab, you are able to
 choose which data layers to include in an analysis. **Ticked data layers
 are selected and will be included**. This is true as long as there is a
 map available, which can be checked by unticking the eye
-![](/assets/support/sv/media/image16.png)symbol.
+<img alt="" src="/assets/support/sv/media/image16-cb9be6243.png" width="17" height="12"> symbol.
 
 You may wish to double-check that all your intended pressure and/or
 ecosystem components are selected. As you have noted, individual data
@@ -964,24 +857,17 @@ layers may be selected even if the category is not ticked. This is
 because some layers within the category might be available, while some
 are not.
 
-![A map of the ocean Description automatically
-generated](/assets/support/sv/media/image36.JPG)
+<img alt="A map of the ocean Description automatically generated" src="/assets/support/sv/media/image36.JPG" width="605" height="304">
 
-![A screenshot of a computer screen Description automatically
-generated](/assets/support/sv/media/image37.JPG)
+<img alt="A screenshot of a computer screen Description automatically generated" src="/assets/support/sv/media/image37.JPG" width="605" height="299">
 
-![A map of the ocean Description automatically
-generated](/assets/support/sv/media/image38.JPG)
+<img alt="A map of the ocean Description automatically generated" src="/assets/support/sv/media/image38.JPG" width="605" height="310">
 
-![A map with a blue border Description automatically generated with
-medium
-confidence](/assets/support/sv/media/image39.JPG)
+<img alt="A map with a blue border Description automatically generated with medium confidence" src="/assets/support/sv/media/image39.JPG" width="647" height="332">
 
-![A map of the state of egypt Description automatically
-generated](/assets/support/sv/media/image40.JPG)
+<img alt="A map of the state of egypt Description automatically generated" src="/assets/support/sv/media/image40.JPG" width="650" height="334">
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image41.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image41.JPG" width="656" height="324">
 
 #### The resulting map highlights areas within your region where cumulative impact is relatively high (red) and relatively low (transparent). Keep in mind that offshore areas often include fewer number of ecosystem components, making direct colour-based comparisons between coastal and offshore areas difficult. It can be reasonable to look for hotspots, both coastal and offshore, even if offshore hotspots display only moderate colour intensity options for cumulative impact calculations.
 
@@ -1040,20 +926,18 @@ impact benchmarks.
 Changes to the result colour map do not affect the impact index or
 numbers. It only changes the scale of colours. Changing colour scales
 can be done sequentially in your GIS program after downloading the
-resulting map from WIO Symphony. See chapter **5.6**.
+resulting map from WIO Symphony. See chapter **5.9**.
 
-![A map of the ocean Description automatically
-generated](/assets/support/sv/media/image42.JPG)
+<img alt="A map of the ocean Description automatically generated" src="/assets/support/sv/media/image42-c85720557.JPG" width="689" height="398">
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image43.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image43.JPG" width="673" height="329">
 
 Above the list of scenarios under the *Scenario* and *Previous
 calculations* tabs, you can filter your scenarios by name and sort by
 name or date, making it easier to find the scenarios you are looking
 for.
 
-### 5.6 Cumulative impact Calculation Report
+### 5.9 Cumulative impact Calculation Report
 
 All analyses create a *Calculation report*. The report provides both an
 overview and a detailed result.
@@ -1069,8 +953,7 @@ and summary statistics for the report. *Calculated area* is crossed
 because the WIO Symphony projection in the data raster does not allow to
 calculate the surface measurement programmatically.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image44.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image44.JPG" width="672" height="324">
 
 #### Top-5 summary table
 
@@ -1078,8 +961,7 @@ A summary of the top-5 contributing pressures and the top-5 ecosystem
 components affected are provided as numbers and bars. Note that the
 colour legend is also related to the *Colourmap* (the colours match).
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image45.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image45-ccd6e611e.JPG" width="682" height="359">
 
 #### Sankey diagrams show contribution flows
 
@@ -1097,8 +979,7 @@ your mouse across the impact flows. Keep in mind that uncertainties are
 large and numbers should be interpreted as orders of magnitude, rather
 than to decimals.
 
-![A screenshot of a calculator Description automatically
-generated](/assets/support/sv/media/image46.JPG)
+<img alt="A screenshot of a calculator Description automatically generated" src="/assets/support/sv/media/image46.JPG" width="671" height="370">
 
 #### Scenario parameters and statistics
 
@@ -1111,7 +992,7 @@ specific changes, they will be shown here, as well. These numbers, in
 even more detail, can be downloaded and analysed separately by pressing
 the **EXPORT AS CSV** button.
 
-![](/assets/support/sv/media/image47.png)![](/assets/support/sv/media/image48.png)
+<img alt="" src="/assets/support/sv/media/image47.png" width="229" height="123"><img alt="" src="/assets/support/sv/media/image48.png" width="605" height="442">
 
 #### Histogram of impact scores
 
@@ -1122,7 +1003,7 @@ the colour scale or correlating impact scores to environmental impact
 benchmarks. In areas with both coastal areas and vast offshore areas,
 the histogram will show a strong L-shape.
 
-![](/assets/support/sv/media/image49.png)
+<img alt="" src="/assets/support/sv/media/image49.png" width="577" height="396">
 
 *\*
 
@@ -1133,16 +1014,14 @@ when the report was created, how WIO Symphony was created, how to cite
 and the license, as well as the people behind the tool and its
 contributors.
 
-![A screenshot of a computer screen Description automatically
-generated](/assets/support/sv/media/image50.JPG)
+<img alt="A screenshot of a computer screen Description automatically generated" src="/assets/support/sv/media/image50.JPG" width="691" height="355">
 
 A final function in the reports is the **PRINT** button. This gives you
 the option to print or save the report as a PDF, for example.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image51.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image51-c34a9fc9a.JPG" width="693" height="302">
 
-### 5.7 Erase and reset
+### 5.10 Erase and reset
 
 Colour maps are removed by pressing the **bin** symbol. You can retrieve
 the colour map again by clicking on your scenario under the *Previous
@@ -1152,14 +1031,13 @@ well, under the *Scenarios* tab. To view the report again, press the
 **report** icon, and to **rename scenarios** press the rename icon next
 to it**.** To view it in the map frame, press the **eye** icon.
 
-![A map of the world Description automatically
-generated](/assets/support/sv/media/image52.JPG)
+<img alt="A map of the world Description automatically generated" src="/assets/support/sv/media/image52.JPG" width="684" height="325">
 
 If you wish to delete previous calculations, press the **enter
 multi-selection mode** and select the previous calculations in the list
 that you want to remove. Thereafter, click **DELETE** to delete them.
 
-![](/assets/support/sv/media/image53.png)
+<img alt="" src="/assets/support/sv/media/image53.png" width="605" height="325">
 
 Your selection of included data layers can be reset by returning to the
 pressure tab and ecosystem component tab and press the **RESET** button.
@@ -1167,10 +1045,9 @@ Now, the default selection is restored. This **reset will also remove
 changes** you have done to scenario simulations (changed/added values
 for individual pressures).
 
-![A screenshot of a computer screen Description automatically
-generated](/assets/support/sv/media/image54.JPG)
+<img alt="A screenshot of a computer screen Description automatically generated" src="/assets/support/sv/media/image54.JPG" width="685" height="273">
 
-### 5.8 Create and analyse scenarios
+### 5.11 Create and analyse scenarios
 
 A main functionality in WIO Symphony is to make changes to an area and
 compare the results with a baseline (no-change) scenario of the same
@@ -1182,28 +1059,18 @@ plan (MSP) is implemented or if a management plan of a marine protected
 area (MPA) is followed.
 
 First, select an area and create a baseline scenario by **selecting** or
-**drawing** a **boundary polygon** ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) go to *Scenario* tab, and **click a plus
-sign** ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) go to *Ecosystem components/ pressures*
-![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) select which data **layers to include**
-(ticking) ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) go to *Scenarios* tab ![Linjepil: rak
-med hel
-fyllning](/assets/support/sv/media/image21.svg) **rename your scenario** with (for
+**drawing** a **boundary polygon** <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> go to *Scenario* tab, and **click a plus
+sign** <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> go to *Ecosystem components/ pressures*
+<img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> select which data **layers to include**
+(ticking) <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> go to *Scenarios* tab <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> **rename your scenario** with (for
 example) prefix "Baseline" on the pen
-![](/assets/support/sv/media/image55.png) symbol ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) press **CALCULATE**.
+<img alt="" src="/assets/support/sv/media/image55-c64a8ed9d.png" width="10" height="10"> symbol <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press **CALCULATE**.
 
-![A map of a country Description automatically
-generated](/assets/support/sv/media/image56.JPG)
+<img alt="A map of a country Description automatically generated" src="/assets/support/sv/media/image56.JPG" width="692" height="332">
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image57.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image57.JPG" width="694" height="341">
 
-![A screenshot of a computer screen Description automatically
-generated](/assets/support/sv/media/image58.JPG)
+<img alt="A screenshot of a computer screen Description automatically generated" src="/assets/support/sv/media/image58.JPG" width="695" height="333">
 
 Then study the *Calculation Report* or other information (such as your
 draft MSP plan) and develop an understanding of appropriate changes that
@@ -1213,14 +1080,14 @@ stakeholders, or MPA documents and stakeholders if you are working with
 conservation.
 
 Press the *Return*
-![](/assets/support/sv/media/image59.png) symbol to go back and out of the current
+<img alt="" src="/assets/support/sv/media/image59-c44c30ef7.png" width="11" height="12"> symbol to go back and out of the current
 baseline scenario you just created and analysed. You may also want to
 erase the baseline colour map by pressing the **bin** symbol.
 
 Next step is to simulate the changes of pressures inside your boundary
 polygon, based on new ways of using the area. Such simulations can be
 done in four ways, first pressing the adjustment
-![](/assets/support/sv/media/image60.png) symbol:
+<img alt="" src="/assets/support/sv/media/image60.png" width="13" height="12"> symbol:
 
 1.  **Reducing a pressure by percentage**, meaning that the current
     levels of that pressure from a human activity is reduced with a
@@ -1247,8 +1114,7 @@ pressure intensity applied to each pixel in the area. For example, a
 value of 100 indicates full coverage of the pressures on every pixel
 across the entire selected area.
 
-![A screenshot of a computer screen Description automatically
-generated](/assets/support/sv/media/image61.JPG)
+<img alt="A screenshot of a computer screen Description automatically generated" src="/assets/support/sv/media/image61.JPG" width="645" height="328">
 
 Changes made in this example (see figures below):
 
@@ -1261,43 +1127,32 @@ Changes made in this example (see figures below):
 - Moved out *Shipping* from the area, thus removing shipping related
   pressures with -100%
 
-![](/assets/support/sv/media/image62.png)
+<img alt="" src="/assets/support/sv/media/image62.png" width="605" height="396">
 
-![](/assets/support/sv/media/image63.png)
+<img alt="" src="/assets/support/sv/media/image63.png" width="605" height="397">
 
-Go to *Scenarios* tab ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) **rename** your scenario with, for
-example, prefix "MSP" ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) move to the *Pressures* tab ![Linjepil:
-rak med hel
-fyllning](/assets/support/sv/media/image21.svg) make **changes to relevant pressures**,
-corresponding to your simulated plan ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) return to the *Scenarios* tab
-![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) press **CALCULATE** ![Linjepil: rak med
-hel
-fyllning](/assets/support/sv/media/image21.svg) have a look at the report ![Linjepil:
-rak med hel
-fyllning](/assets/support/sv/media/image21.svg) press the **Return** symbol to get back.
+Go to *Scenarios* tab <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> **rename** your scenario with, for
+example, prefix "MSP" <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> move to the *Pressures* tab <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> make **changes to relevant pressures**,
+corresponding to your simulated plan <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> return to the *Scenarios* tab
+<img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press **CALCULATE** <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> have a look at the report <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press the **Return** symbol to get back.
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image64.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image64.JPG" width="696" height="328">
 
 Under the *Scenario Changes*, you can show the changes you have made by
 pressing the arrow
-![](/assets/support/sv/media/image65.png) button, making sure you have not missed
+<img alt="" src="/assets/support/sv/media/image65-ccebc2cf6.png" width="15" height="12"> button, making sure you have not missed
 any before calculating. This box only shows the pressures you have
 actually changed, and does not show the ones that are removed, since
 that might be many with all the pressures removed by default. For
 pressures with values of -100%, only activities names will be shown.
 
-![](/assets/support/sv/media/image66.png)
+<img alt="" src="/assets/support/sv/media/image66.png" width="605" height="223">
 
 At the **cog wheel** icon, you have the option to transfer changes from
 an existing scenario or scenario area if you wish to apply the same
 ones. This is useful if you wish to do the pressure changes to different
 areas. Press the arrow
-![](/assets/support/sv/media/image65.png) button to view previous scenarios with
+<img alt="" src="/assets/support/sv/media/image65-ccebc2cf6.png" width="15" height="12"> button to view previous scenarios with
 changes. The round button refers to the scenario's general changes. If a
 scenario is chosen within several areas, the user is provided with an
 opportunity to choose changes from one of those areas. If the square
@@ -1307,21 +1162,18 @@ is unticked, the user can add changes. Changes in the output scenario
 will remain, although overwritten if a change to the same pressure or
 ecosystem component occurs in the scenario where it is originally from.
 
-![](/assets/support/sv/media/image67.png)
+<img alt="" src="/assets/support/sv/media/image67.png" width="605" height="205">
 
 On the **table icon** next to the **cog wheel**, there is a tabulated
 overview of all the changes made in the scenario. This intuitive table
 lets you adjust all the changes you have made, similarly like previously
 back at the *pressures* tab, however, without going back there. By
 clicking the pen
-![](/assets/support/sv/media/image55.png)button, you may adjust both the percentage
+<img alt="" src="/assets/support/sv/media/image55-c64a8ed9d.png" width="10" height="10"> button, you may adjust both the percentage
 increase/decrease and constant of the changes you made before, which is
 especially helpful for complex scenarios.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image68.JPG) ![A screenshot of a login Description
-automatically
-generated](/assets/support/sv/media/image69.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image68.JPG" width="315" height="157"> <img alt="A screenshot of a login Description automatically generated" src="/assets/support/sv/media/image69.JPG" width="309" height="151">
 
 In previous versions of WIO Symphony, when a scenario was being edited,
 the tool itself saves all changes made (to the scenario) by the user at
@@ -1338,9 +1190,9 @@ Now when the "MSP" scenario has been simulated, you might have noticed
 some differences in the reports between the "Baseline" and the "MSP"
 scenarios. However, the full comparison will be computed to have
 quantitative results, which are easier to interpret. See next chapter
-**5.9**.
+**5.12**.
 
-### 5.9 Compare two scenarios
+### 5.12 Compare two scenarios
 
 Two scenarios from the same boundary polygon(s), such as the "Baseline"
 and "MSP" scenarios, can be compared using the *Compare Calculations*
@@ -1348,23 +1200,18 @@ tab. By default, the compare calculations will be set to *Implied*
 *baseline*, which lets you automatically compare your scenario (with
 changes) to that scenario's implied baseline.
 
-Move to the *Compare Calculations* tab ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) select your "Baseline" scenario as
-Calculation A and your "MSP" scenario as Calculation B ![Linjepil: rak
-med hel
-fyllning](/assets/support/sv/media/image21.svg) press **COMPARE CALCULATIONS**. There
+Move to the *Compare Calculations* tab <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> select your "Baseline" scenario as
+Calculation A and your "MSP" scenario as Calculation B <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press **COMPARE CALCULATIONS**. There
 are two ways under *Customise colour scale* to showcase the differences.
 This enables you to compare two scenarios that both have changes that
 are different.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image70.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image70.JPG" width="605" height="294">
 
 The first adaptive colouring range for the comparison report is the
 default *Constant maximum (45%)*.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image71.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image71.JPG" width="605" height="294">
 
 The second is the *Dynamic maximum*, adapting the colour scale maximum
 to the actual max value of the specific comparison, instead of a set min
@@ -1376,8 +1223,7 @@ cumulative environmental impact. More orange-red colours equal an
 increase in cumulative impact, while more green-blue colours equal
 decreased environmental impact.
 
-![A screenshot of a graph Description automatically
-generated](/assets/support/sv/media/image72.JPG)
+<img alt="A screenshot of a graph Description automatically generated" src="/assets/support/sv/media/image72.JPG" width="605" height="479">
 
 In the associated summarizing table of Cumulative impact, the *Relative
 change* gives an indication of total outcome, across the whole area. For
@@ -1385,8 +1231,7 @@ this example, where you have increased algae farming and tourism, while
 reduced dredging, dumping and nearby shipping, the net result of the
 cumulative is -3.15%, which is positive for the environment.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image73.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image73.JPG" width="605" height="457">
 
 Being basically the same, the *Dynamic maximum* report provides
 identical information as the default Constant maximum (45%). However, as
@@ -1394,14 +1239,14 @@ previously said, the difference lies in the map illustration. Note that
 the differences on the map will be more visible in a larger area
 compared to this quite small one.
 
-![](/assets/support/sv/media/image74.png)
+<img alt="" src="/assets/support/sv/media/image74.png" width="604" height="683">
 
 Similar to a regular scenario report, the comparison report provides a
 Sankey diagram. However, this is split up in two different diagrams, one
 with increasing pressure (above) and one with decreasing pressure
 (below).
 
-![](/assets/support/sv/media/image75.png)
+<img alt="" src="/assets/support/sv/media/image75.png" width="604" height="691">
 
 Similar to a scenario report where you have done changes, the comparison
 report lists the changes under *Scenario Parameters*. Below, the section
@@ -1411,7 +1256,7 @@ Additionally, we can, in detail, see the specific relative change for
 all the included ecosystem components and pressures, which was
 summarised in the beginning of the comparison report.
 
-![](/assets/support/sv/media/image76.png)
+<img alt="" src="/assets/support/sv/media/image76.png" width="604" height="674">
 
 Comparisons can be exported as **CSV** and **GEOTIFF** files, as well as
 printed and saved, just like the regular scenario reports.
@@ -1421,7 +1266,7 @@ the planner can analyse one or several MSP zones and evaluate solutions
 in an iterative process, easy to communicate to sector representatives
 and other stakeholders.
 
-### 5.10 Compound comparison
+### 5.13 Compound comparison
 
 The compound comparison feature lets you select multiple calculations
 containing projected changes and compiles a dataset consisting of the
@@ -1431,19 +1276,19 @@ JSON data or an ODS spreadsheet document (Excel).
 
 After selecting two or more previous calculations through the
 **multi-selection mode**, click the **generate comparison data** icon
-![](/assets/support/sv/media/image77.png). This enables you to set at title for
+<img alt="" src="/assets/support/sv/media/image77.png" width="12" height="13">. This enables you to set at title for
 the compound comparison, and calculate the result via the **CALCULATE**
 button.
 
-![](/assets/support/sv/media/image78.png)
+<img alt="" src="/assets/support/sv/media/image78.png" width="605" height="309">
 
 After the calculation is done, you will get a summary of your compound
 comparisons. Once you have generated your first compound comparison, a
 new tab icon will appear called **Compound comparisons**, that show you
 previous calculations. Click the **Download compound comparison** icon
-![](/assets/support/sv/media/image79.png) to get the comparison results.­­­­­
+<img alt="" src="/assets/support/sv/media/image79.png" width="11" height="14"> to get the comparison results.­­­­­
 
-![](/assets/support/sv/media/image80.png)
+<img alt="" src="/assets/support/sv/media/image80.png" width="605" height="310">
 
 The final step provides a few choices. As previously mentioned, select
 the format to download, either as data or as spreadsheet (**JSON** or
@@ -1451,13 +1296,13 @@ the format to download, either as data or as spreadsheet (**JSON** or
 JSON, and for ODS you also have to option to include combined dataset or
 not.
 
-![](/assets/support/sv/media/image81.png)
+<img alt="" src="/assets/support/sv/media/image81.png" width="528" height="283">
 
 With this feature, you are able to compare completely different
 scenarios for different geographies. The exported data result could then
 be used for further analyses.
 
-### 5.11 Select, Merge or Split several polygons
+### 5.14 Select, Merge or Split several polygons
 
 Another functionality of the updated WIO Symphony that did not exist in
 earlier versions is to select, merge or split polygons.
@@ -1466,8 +1311,7 @@ Select multiple areas by first selecting a single area. Then, hold down
 the Ctrl key and **left**-**click** to select additional polygons.
 Selected polygons will be treated as a single entity for calculations.
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image82.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image82.JPG" width="650" height="315">
 
 You can also select two or more polygons and **merge** them into one by
 first selecting one or more, and on the final one hold **Alt** +
@@ -1478,11 +1322,9 @@ a new user-defined area, or overwriting either of the merged areas
 area). This will be saved under *User-created Areas* where you can
 rename it.
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image83.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image83.JPG" width="671" height="323">
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image84.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image84.JPG" width="674" height="321">
 
 A final function is to **cut** or **split** an area by intersection. To
 cut, first select a polygon and then hold **Alt** + **left click** to
@@ -1493,14 +1335,12 @@ on the intersection and relative complements of the active selection. By
 clicking *Save to "User-created areas"*, the intersected polygon will be
 saved there.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image85.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image85.JPG" width="661" height="320">
 
 You will see the new polygon with the inner area cut out. You can also
 rename it by using the \'Edit area\' option.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image86.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image86.JPG" width="668" height="300">
 
 To split a larger polygon into smaller areas, select the larger polygon,
 then hold Alt and click on the smaller polygons that intersect or
@@ -1508,8 +1348,7 @@ overlap with it to activate the Differential Zoning tool. Ensure that
 the areas you want to split have sections that intersect, overlap, or
 fall within the larger polygon.
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image87.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image87.JPG" width="684" height="336">
 
 Additionally, in the dialog box within the Differential Zoning tool, an
 intersecting area may provide more than one slice to save as new areas,
@@ -1517,10 +1356,9 @@ depending on how it overlaps with other areas. You can enable specific
 polygons to be saved as new areas by ticking the checkboxes in the top
 left corner. Refer to the figure below for the available options.
 
-![A screenshot of a computer screen Description automatically
-generated](/assets/support/sv/media/image88.JPG)
+<img alt="A screenshot of a computer screen Description automatically generated" src="/assets/support/sv/media/image88.JPG" width="684" height="336">
 
-### 5.12 Analyse several polygon areas
+### 5.15 Analyse several polygon areas
 
 With the merge and split polygons functionalities described in chapter
 5.10, the tool allows scenario analyses of spatial extents spanning
@@ -1532,16 +1370,14 @@ according to the MSP. Hence, the user can compare this MSP with another
 if the same areas are used, but with different changes.
 
 After selecting two or more polygons, go to the *Scenario* tab
-![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) press
-![](/assets/support/sv/media/image22.png) button. This leads you to the user
+<img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press
+<img alt="" src="/assets/support/sv/media/image22-ce70fac16.png" width="8" height="9"> button. This leads you to the user
 interface seen below. Here we can go back to the *Pressures* tab and do
 changes to our scenario, such as adding *Diving* with a 10 constant,
 increasing the diving tourism in all\
 three areas.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image89.png)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image89.png" width="605" height="502">
 
 Going back to the *Scenarios* tab, you can click either of the three
 areas in the "*Scenario areas*" list, and you will enter that specific
@@ -1554,12 +1390,7 @@ setting* to make sure this change is only for Mayotte. There is also an
 option here to RESET and remove the changes made in this specific area
 of the whole scenario.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image90.png)![A screenshot of a computer Description
-automatically
-generated](/assets/support/sv/media/image91.png)![A screenshot of a computer Description
-automatically
-generated](/assets/support/sv/media/image92.png)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image90.png" width="183" height="367"><img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image91.png" width="186" height="217"><img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image92-ccde7ef35.png" width="605" height="219">
 
 As stated in the beginning of this chapter, you may set separate
 sensitivity matrices to different areas within the same scenario, seen
@@ -1570,17 +1401,15 @@ seen by clicking the *Show an overview of all changes* button. This
 table view the general, so-called *Global changes* for all areas, and
 the individual ones. See figure below.
 
-![A screenshot of a survey Description automatically
-generated](/assets/support/sv/media/image93.png)
+<img alt="A screenshot of a survey Description automatically generated" src="/assets/support/sv/media/image93.png" width="374" height="194">
 
 When all settings you wish to apply are done, you can run the analysis
 for the whole scenario, which includes all areas and you will get a
 report of the scenario.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image94.png)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image94.png" width="605" height="417">
 
-### 5.13 Batch analysis
+### 5.16 Batch analysis
 
 This function enables multiple analyses to be conducted at the same time
 and also for using *Split calculation* in different areas.
@@ -1590,11 +1419,9 @@ analysis using Ctrl + click. Then go to Scenarios Tab and click + sign.
 You can activate the batch analysis by clicking on *Multiple area
 action*.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image95.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image95.JPG" width="697" height="336">
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image96.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image96.JPG" width="697" height="308">
 
 Then there will be a dialog box coming up, make sure to tick all the
 boxes and press **CALCULATE.** After that you will see the *Completed
@@ -1602,11 +1429,9 @@ batch calculation* in the bottom right corner. Each report will show
 each cumulative impact analysis result for each of the selected areas;
 Ambodivahibe, Nosy Hara and Ankarea.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image97.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image97-c9e714031.JPG" width="688" height="388">
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image98.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image98.JPG" width="688" height="335">
 
 If you do not want to run your analysis for the whole scenario, you can
 click the *Split scenario by area* button. A dialog box will pop up.
@@ -1614,19 +1439,16 @@ Name your batch to use for the generated scenarios and tick the boxes
 you wish to apply. The first one applies changes made for all areas
 within the scenario. The second applies the specific area changes made
 to their corresponding scenarios. The third lets you enter the batch
-mode, which will be described in chapter **5.12**. Click OK. If the
+mode, which will be described in chapter **5.15**. Click OK. If the
 third box is left unchecked, you will come back to the *Scenario* tab
 and may *Calculate* your scenario. However, if checked, you will enter
 the batch mode, as described.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image97.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image97.JPG" width="681" height="326">
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image99.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image99.JPG" width="681" height="333">
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image100.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image100.JPG" width="696" height="336">
 
 The scenario list view offers a batch mode, allowing multiple scenarios
 to be queued for sequential calculation. The idea behind it is that you
@@ -1634,7 +1456,7 @@ can generate multiple scenarios with common and/or individual settings
 in one batch. By entering the batch mode by clicking enter batch mode,
 you will get one report for each area within the same scenario, seen in
 the figure below down to the right. Press the play
-![](/assets/support/sv/media/image101.png) button to run the batch analysis. The
+<img alt="" src="/assets/support/sv/media/image101-ca8746cda.png" width="9" height="13"> button to run the batch analysis. The
 batch mode is also available directly when moving into the *Scenarios*
 tab. From here, you can make a batch analysis of previous scenarios that
 are in your scenario list. Press the *enter batch mode* button again to
@@ -1645,49 +1467,40 @@ exit it.
 ### 6.1 MINISYM -- analysing individual pressures
 
 Using the same principles as when analysing cumulative impact (chapter
-**5.5**), it can sometimes be useful to focus on a single sector or
+**5.8**), it can sometimes be useful to focus on a single sector or
 pressure. These "one-over-many" analyses gives an understanding of the
 combined impact of that specific human activity alone.
 
 Such focused analysis on only one sector or pressure is labelled as
 MINISYM.
 
-Select **one or several boundary polygons** ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) go to the *Scenarios* tab ![Linjepil:
-rak med hel
-fyllning](/assets/support/sv/media/image21.svg) press
-![](/assets/support/sv/media/image22.png) ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) go back to the *Pressures* tab
-![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) Deselect all ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) select **only one or a few associated
-pressures** ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) Go to *Ecosystem Components* and select
-**all relevant ecosystem components** ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) Go to *Scenarios* tab and click
+Select **one or several boundary polygons** <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> go to the *Scenarios* tab <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press
+<img alt="" src="/assets/support/sv/media/image22-ce70fac16.png" width="8" height="8"> <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> go back to the *Pressures* tab
+<img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> Deselect all <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> select **only one or a few associated
+pressures** <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> Go to *Ecosystem Components* and select
+**all relevant ecosystem components** <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> Go to *Scenarios* tab and click
 **CALCULATE,** which will generate an analysis as described in chapter
-**5.5** and **5.6**.
+**5.8** and **5.9**.
 
 Mind that you may have to open the pressure categories (sectors) to
 untick the underlying pressures, even if the category appears already
 unticked.
 
-![](/assets/support/sv/media/image102.JPG)
+<img alt="" src="/assets/support/sv/media/image102.JPG" width="683" height="330">
 
-![](/assets/support/sv/media/image103.JPG)
+<img alt="" src="/assets/support/sv/media/image103.JPG" width="605" height="293">
 
-![A map of the ocean Description automatically
-generated](/assets/support/sv/media/image104.JPG)
+<img alt="A map of the ocean Description automatically generated" src="/assets/support/sv/media/image104.JPG" width="605" height="293">
 
-![](/assets/support/sv/media/image105.JPG)
+<img alt="" src="/assets/support/sv/media/image105.JPG" width="605" height="291">
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image106.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image106.JPG" width="605" height="295">
 
-![A screenshot of a graph Description automatically
-generated](/assets/support/sv/media/image107.JPG)
+<img alt="A screenshot of a graph Description automatically generated" src="/assets/support/sv/media/image107.JPG" width="605" height="507">
 
-![](/assets/support/sv/media/image108.png)This example of a MINISYM analysis for
+<img alt="" src="/assets/support/sv/media/image108.png" width="297" height="228">
+
+This example of a MINISYM analysis for
 shipping pressures around the Mascarene Islands, including Mauritius,
 Réunion and Rodrigues, included only taxa and no habitats. The result
 indicates that the shipping industry predominantly affects *Dolphins*
@@ -1703,39 +1516,25 @@ analyse how all pressures combined affect a single ecosystem component.
 With this "one-over-many" analyses, you get a screening of the major
 threats to a specific habitat or taxa of interest in your area.
 
-Select your **boundary polygon** ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) go to the *Scenario* tab ![Linjepil: rak
-med hel
-fyllning](/assets/support/sv/media/image21.svg) press
-![](/assets/support/sv/media/image22.png) ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) go back to the *Ecosystem components*
-tab ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) Deselect all ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) select only **one or a few associated
-ecosystem components** ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) Go to *Pressures* and select **all
-relevant pressures** ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) Go back to *Scenarios* and click
+Select your **boundary polygon** <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> go to the *Scenario* tab <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press
+<img alt="" src="/assets/support/sv/media/image22-ce70fac16.png" width="8" height="8"> <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> go back to the *Ecosystem components*
+tab <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> Deselect all <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> select only **one or a few associated
+ecosystem components** <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> Go to *Pressures* and select **all
+relevant pressures** <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> Go back to *Scenarios* and click
 **CALCULATE** which will generate an analysis as described in chapter
-**5.5** and **5.6**.
+**5.8** and **5.9**.
 
-![A screenshot of a computer screen Description automatically
-generated](/assets/support/sv/media/image109.JPG)
+<img alt="A screenshot of a computer screen Description automatically generated" src="/assets/support/sv/media/image109-ca80cda96.JPG" width="618" height="290">
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image110.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image110.JPG" width="624" height="299">
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image111.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image111.JPG" width="605" height="288">
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image112.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image112.JPG" width="605" height="298">
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image113.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image113.JPG" width="605" height="296">
 
-![A screenshot of a graph Description automatically
-generated](/assets/support/sv/media/image114.JPG)
+<img alt="A screenshot of a graph Description automatically generated" src="/assets/support/sv/media/image114-ca92a9420.JPG" width="605" height="457">
 
 This example of MINISYM shows results for *Coral reef* of Menai Bay on
 Zanzibar and indicates that this important habitat is most affected by
@@ -1763,44 +1562,27 @@ methods provide valuable information for management\
 and planning.
 
 To begin the comparison, start with calculating an ordinary cumulative
-impact assessment. Select your **boundary polygon** ![Linjepil: rak med
-hel
-fyllning](/assets/support/sv/media/image21.svg) go to **Scenarios** tab ![Linjepil: rak
-med hel
-fyllning](/assets/support/sv/media/image21.svg) press the **plus**
-![](/assets/support/sv/media/image22.png) button ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) **rename** your scenario with prefix
-"**Ordinary**", select Cumulative impact algorithm ![Linjepil: rak med
-hel
-fyllning](/assets/support/sv/media/image21.svg) press **CALCULATE**.
+impact assessment. Select your **boundary polygon** <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> go to **Scenarios** tab <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press the **plus**
+<img alt="" src="/assets/support/sv/media/image22-ce70fac16.png" width="8" height="8"> button <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> **rename** your scenario with prefix
+"**Ordinary**", select Cumulative impact algorithm <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press **CALCULATE**.
 
-![](/assets/support/sv/media/image115.JPG)
+<img alt="" src="/assets/support/sv/media/image115.JPG" width="605" height="290">
 
-![A screenshot of a graph Description automatically
-generated](/assets/support/sv/media/image116.JPG)
+<img alt="A screenshot of a graph Description automatically generated" src="/assets/support/sv/media/image116.JPG" width="602" height="453">
 
-Select the same **boundary polygon** ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) go to *Scenarios* tab ![Linjepil: rak
-med hel
-fyllning](/assets/support/sv/media/image21.svg) press the **plus**
-![](/assets/support/sv/media/image22.png) button ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) **rename** your scenario with prefix
-"**Rarity**" ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) **choose the algorithm**
-*Rarity-adjusted cumulative impact* ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) press **CALCULATE**. When enabling the
+Select the same **boundary polygon** <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> go to *Scenarios* tab <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press the **plus**
+<img alt="" src="/assets/support/sv/media/image22-ce70fac16.png" width="8" height="8"> button <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> **rename** your scenario with prefix
+"**Rarity**" <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> **choose the algorithm**
+*Rarity-adjusted cumulative impact* <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press **CALCULATE**. When enabling the
 *Rarity-adjusted cumulative impact*, you get an option to choose between
 two alternatives under *Calculate rarity indices based on*. *Data grid
 extent* calculates rarity based on the *Whole grid*, and *Calculated
 area extent* is based on the\
 scenario area.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image117.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image117.JPG" width="605" height="293">
 
-![A graph of different colored bars Description automatically generated
-with medium
-confidence](/assets/support/sv/media/image118.JPG)
+<img alt="A graph of different colored bars Description automatically generated with medium confidence" src="/assets/support/sv/media/image118.JPG" width="607" height="452">
 
 Comparing the two analyses, you can see several differences. For
 instance, the colour map is more confined with high impact in coastal
@@ -1817,7 +1599,7 @@ locations for new activities. Such analyses can be quite informative for
 early stages of MSP or other development plans.
 
 The principle is to add pressure scores to each pixel in the area of
-investigation, by using the *Constant* field (see chapter **5.8**,
+investigation, by using the *Constant* field (see chapter **5.11**,
 bullet point 4). When analysing this added pressure in isolation
 (removing all other pressures), the resulting colour map will give
 indications of areas with high and low cumulative impact, where areas of
@@ -1826,32 +1608,18 @@ example, search for the most suitable locations for coastal seabed
 mining in an area of your choice.
 
 Select or draw a **boundary polygon** representing the area in which the
-new activity could be located ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) go to *Scenarios* tab ![Linjepil: rak
-med hel
-fyllning](/assets/support/sv/media/image21.svg) press the **plus**
-![](/assets/support/sv/media/image22.png) button ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) move to the *Pressures* tab ![Linjepil:
-rak med hel
-fyllning](/assets/support/sv/media/image21.svg) **deselect all pressures** except
-**Seabed mining** ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) click on the **adjustment symbol** for
+new activity could be located <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> go to *Scenarios* tab <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press the **plus**
+<img alt="" src="/assets/support/sv/media/image22-ce70fac16.png" width="8" height="8"> button <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> move to the *Pressures* tab <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> **deselect all pressures** except
+**Seabed mining** <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> click on the **adjustment symbol** for
 this pressure layer and type value 50 in the *Constant* field
-![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) go back to *Scenarios* tab ![Linjepil:
-rak med hel
-fyllning](/assets/support/sv/media/image21.svg) **rename** your scenario with prefix
-"**Seabed mining**" ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) press **CALCULATE**.
+<img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> go back to *Scenarios* tab <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> **rename** your scenario with prefix
+"**Seabed mining**" <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press **CALCULATE**.
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image119.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image119.JPG" width="605" height="292">
 
-![A screenshot of a cartoon Description automatically
-generated](/assets/support/sv/media/image120.JPG)
+<img alt="A screenshot of a cartoon Description automatically generated" src="/assets/support/sv/media/image120.JPG" width="685" height="319">
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image121.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image121.JPG" width="687" height="332">
 
 It does not matter how much pressure you add in the *Constant* field as
 long as you have no other pressures involved and you use the colour
@@ -1860,8 +1628,7 @@ that mining with an intensity half of maximum takes place in every pixel
 (that is, 50% of the area in every 1 km^2^ pixel is subjected to direct
 harvest of sand or other minerals).
 
-![A screenshot of a map Description automatically
-generated](/assets/support/sv/media/image121.JPG)
+<img alt="A screenshot of a map Description automatically generated" src="/assets/support/sv/media/image121.JPG" width="620" height="299">
 
 The resulting colour map indicate that greener areas are more suitable
 for seabed mining, from an environmental viewpoint. Yellow toward green
@@ -1877,10 +1644,9 @@ highly efficient and save lots of resources in directing the search for
 locations into certain, more promising areas, with regards to the
 environment.
 
-![A screenshot of a graph Description automatically
-generated](/assets/support/sv/media/image122.JPG)
+<img alt="A screenshot of a graph Description automatically generated" src="/assets/support/sv/media/image122.JPG" width="525" height="410">
 
-![](/assets/support/sv/media/image123.JPG)
+<img alt="" src="/assets/support/sv/media/image123.JPG" width="637" height="603">
 
 The *Calculation Report* with the Sankey diagram and table may provide a
 first idea of expected impacts. But keep in mind that this result is for
@@ -1908,59 +1674,33 @@ and by-catch ecosystem components such as turtles, rays, sharks,
 dolphins, and sea birds would be reduced. Perhaps, you may reduce
 sensitivity with 50% if mitigation expects to be 50% effective.
 
-**Select** your **area** of interest ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) go to *Scenarios* tab ![Linjepil: rak
-med hel
-fyllning](/assets/support/sv/media/image21.svg) press the **plus**
-![](/assets/support/sv/media/image22.png) button ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) press on the **Scenario area**
-(*Chagos*) ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) Scroll down and select *User-defined
-matrix* ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) select which matrix you wish to edit by
+**Select** your **area** of interest <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> go to *Scenarios* tab <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press the **plus**
+<img alt="" src="/assets/support/sv/media/image22-ce70fac16.png" width="8" height="8"> button <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press on the **Scenario area**
+(*Chagos*) <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> Scroll down and select *User-defined
+matrix* <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> select which matrix you wish to edit by
 clicking the arrow
-![](/assets/support/sv/media/image65.png) button ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) press **EDIT MATRIX**.
+<img alt="" src="/assets/support/sv/media/image65-ccebc2cf6.png" width="15" height="12"> button <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press **EDIT MATRIX**.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image124.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image124.JPG" width="678" height="314">
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image125.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image125.JPG" width="605" height="286">
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image126.png)![A screenshot of a computer Description
-automatically
-generated](/assets/support/sv/media/image127.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image126.png" width="205" height="126"><img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image127.JPG" width="605" height="294">
 
-In the matrix, first select the *Revised Matrix 2023* ![Linjepil: rak
-med hel
-fyllning](/assets/support/sv/media/image21.svg) click Edit matrix ![Linjepil: rak med
-hel
-fyllning](/assets/support/sv/media/image21.svg) rename your adjust matrix for example
-*MSP Revised Matrix 202*4![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) **adjust the sensitivities**
+In the matrix, first select the *Revised Matrix 2023* <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> click Edit matrix <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> rename your adjust matrix for example
+*MSP Revised Matrix 202*4<img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> **adjust the sensitivities**
 **according** **to the measures you are simulating** (reduce the
 pressure of Temperature rise to 0.5 for *Photic pelagic* (0.6 to 0.5),
 *Upwelling pelagic* (0.6 to 0.5). Ocean acidification for Cold coral
-reef (0.4 to 0.8) by editing the numbers) ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) **SAVE AS NEW MATRIX** ![Linjepil: rak
-med hel
-fyllning](/assets/support/sv/media/image21.svg) click Close. Back in the *Scenarios*
-tab, choose your **new matrix** "*MSP Revised Matrix 2024*" ![Linjepil:
-rak med hel
-fyllning](/assets/support/sv/media/image21.svg) you may **rename** your scenario with
-Test new matrix ![Linjepil: rak med hel
-fyllning](/assets/support/sv/media/image21.svg) press **CALCULATE**.
+reef (0.4 to 0.8) by editing the numbers) <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> **SAVE AS NEW MATRIX** <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> click Close. Back in the *Scenarios*
+tab, choose your **new matrix** "*MSP Revised Matrix 2024*" <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> you may **rename** your scenario with
+Test new matrix <img alt="Linjepil: rak med hel fyllning" src="/assets/support/sv/media/image21.svg" width="11" height="11"> press **CALCULATE**.
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image128.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image128.JPG" width="605" height="291">
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image129.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image129.JPG" width="605" height="258">
 
-![A screenshot of a computer Description automatically
-generated](/assets/support/sv/media/image130.JPG)
+<img alt="A screenshot of a computer Description automatically generated" src="/assets/support/sv/media/image130.JPG" width="605" height="291">
 
 Note that you can only save or delete your matrix once you have saved an
 original matrix as a new one. Changing sensitivity matrix manually can
@@ -2060,8 +1800,7 @@ for the joy and benefit*\
 *Get our results at
 [www.havochvatten.se/swam-ocean](http://www.havochvatten.se/swam-ocean)*.
 
-![Sweden logo and Swedish Agency for Marine and Water Management
-logo](/assets/support/sv/media/image4.png)
+<img alt="Sweden logo and Swedish Agency for Marine and Water Management logo" src="/assets/support/sv/media/image4.png" width="230" height="48">
 
 Financed by the Government Offices of Sweden and Sida, the Swedish
 International Development Cooperation Agency. The contents does not

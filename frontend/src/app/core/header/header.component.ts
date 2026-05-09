@@ -127,7 +127,6 @@ export class HeaderComponent implements OnInit {
       await this.dialogService.open(ChangeLanguageDialogComponent, this.moduleRef, {});
     if (locale) {
       this.store.dispatch(UserActions.updateUserSettings({ locale: locale }));
-      this.toggleOpenMenu('NONE');
     }
   }
 

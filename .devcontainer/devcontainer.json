@@ -17,6 +17,5 @@
   },
   "remoteUser": "vscode",
   "overrideCommand": false,
-  "postStartCommand": "chmod +x /workspace/.devcontainer/scripts/*.sh && ln -sf /home/vscode/.claude/.claude.json /home/vscode/.claude.json 2>/dev/null || true"
-
+  "postStartCommand": "sudo mkdir -p /home/vscode/.claude/ide && sudo chown -R vscode:vscode /home/vscode/.claude && chmod +x /workspace/.devcontainer/scripts/*.sh && ln -sf /home/vscode/.claude/.claude.json /home/vscode/.claude.json 2>/dev/null || true"
 }
