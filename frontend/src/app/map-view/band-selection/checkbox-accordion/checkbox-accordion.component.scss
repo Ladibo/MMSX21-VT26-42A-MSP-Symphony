@@ -23,9 +23,21 @@
       row-gap: 0.4rem;
 
       li {
+        position: relative;
         display: grid;
         border: 1px solid #707070;
         padding: 1.35rem 0.4rem;
+
+        &.visible {
+          background: linear-gradient(0deg, #e8d18680 0%, white 33%);
+        }
+
+        app-icon.visible {
+          position: absolute;
+          right: 1rem;
+          bottom: 0.7rem;
+          color: $hav-lightyellow;
+        }
       }
     }
   }

@@ -12,7 +12,9 @@
   </app-accordion-box-header>
   <app-accordion-box-content>
     <ul>
-      <li *ngFor="let band of bands; trackBy: bandNumber" class="list-item">
+      <li *ngFor="let band of bands; trackBy: bandNumber"
+        class="list-item"
+        [class.visible]="band.visible && band.loaded">
         <app-slider-controls
           [band]="band"
           [category]="category"
@@ -21,6 +23,7 @@
           [onChangeVisible]="onChangeVisible"
           [onChangeVisibleReliability]="onChangeVisibleReliability"
         ></app-slider-controls>
+        <app-icon iconType="eye" class="visible" *ngIf="band.visible && band.loaded"></app-icon>
       </li>
     </ul>
   </app-accordion-box-content>
