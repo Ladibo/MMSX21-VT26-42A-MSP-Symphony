@@ -137,12 +137,15 @@
       white-space: nowrap;
       color: #333;
       font-size: 13px;
-      cursor: pointer;
       padding: 2px 4px;
       border-radius: 3px;
 
-      &:hover {
-        background: rgba(0, 123, 255, 0.1);
+      &.editable {
+        cursor: pointer;
+
+        &:hover {
+          background: rgba(0, 123, 255, 0.1);
+        }
       }
     }
 

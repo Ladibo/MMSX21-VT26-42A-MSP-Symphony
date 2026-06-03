@@ -273,8 +273,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     setTimeout(() => {
       this.layerManager?.setPrimaryLayerInstances({
         background: this.background,
-        userAreas: this.areaLayer,
-        scenario: this.scenarioLayer
+        userAreas: this.areaLayer
       });
     }, 0);
   }

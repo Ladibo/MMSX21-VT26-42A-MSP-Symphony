@@ -113,8 +113,29 @@ describe('LayerManagerComponent', () => {
     expect(layer.visible).toBe(!initialVisible);
   });
 
-  it('should enter and cancel edit mode', () => {
+  it('should initialize primary layers without the scenario layer', () => {
+    expect(component.primaryLayers.map(layer => layer.id)).toEqual(['background', 'user-areas']);
+  });
+
+  it('should only allow renaming result layers', () => {
+    expect(component.isRenamable(makeResultItem(1))).toBe(true);
+    expect(component.isRenamable(makeBandItem(1))).toBe(false);
+    expect(component.isRenamable(component.primaryLayers[0])).toBe(false);
+  });
+
+  it('should not enter edit mode for primary layers', () => {
     const layer = component.primaryLayers[0];
+    component.startEditing(layer);
+    expect(component.editingLayerId).toBeNull();
+  });
+
+  it('should not enter edit mode for band layers', () => {
+    component.startEditing(makeBandItem(1));
+    expect(component.editingLayerId).toBeNull();
+  });
+
+  it('should enter and cancel edit mode', () => {
+    const layer = makeResultItem(1);
     component.startEditing(layer);
     expect(component.editingLayerId).toBe(layer.id);
     expect(component.editingName).toBe(layer.name);
@@ -124,7 +145,7 @@ describe('LayerManagerComponent', () => {
   });
 
   it('should save a renamed layer locally', () => {
-    const layer = component.primaryLayers[0];
+    const layer = makeResultItem(1);
     component.startEditing(layer);
     component.editingName = 'My Custom Name';
     component.saveLayerName(layer);
@@ -133,7 +154,7 @@ describe('LayerManagerComponent', () => {
   });
 
   it('should cancel editing when name is unchanged', () => {
-    const layer = component.primaryLayers[0];
+    const layer = makeResultItem(1);
     component.startEditing(layer);
     component.editingName = layer.name;
     component.saveLayerName(layer);
@@ -141,7 +162,7 @@ describe('LayerManagerComponent', () => {
   });
 
   it('should not rename when name is blank', () => {
-    const layer = component.primaryLayers[0];
+    const layer = makeResultItem(1);
     const nameBefore = layer.name;
     component.startEditing(layer);
     component.editingName = '   ';
@@ -150,7 +171,7 @@ describe('LayerManagerComponent', () => {
   });
 
   it('should save layer name on Enter key', () => {
-    const layer = component.primaryLayers[0];
+    const layer = makeResultItem(1);
     component.startEditing(layer);
     component.editingName = 'New Name';
     component.onEditKeydown(new KeyboardEvent('keydown', { key: 'Enter' }), layer);
@@ -158,7 +179,7 @@ describe('LayerManagerComponent', () => {
   });
 
   it('should cancel editing on Escape key', () => {
-    const layer = component.primaryLayers[0];
+    const layer = makeResultItem(1);
     component.startEditing(layer);
     component.editingName = 'New Name';
     component.onEditKeydown(new KeyboardEvent('keydown', { key: 'Escape' }), layer);

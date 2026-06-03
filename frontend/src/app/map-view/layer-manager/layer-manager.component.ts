@@ -119,11 +119,10 @@ export class LayerManagerComponent implements OnInit, OnDestroy {
 
   private readonly primaryLayerKeys = [
     'map.layer-manager.layer-names.background',
-    'map.layer-manager.layer-names.user-areas',
-    'map.layer-manager.layer-names.scenario'
+    'map.layer-manager.layer-names.user-areas'
   ];
 
-  private readonly primaryLayerIds = ['background', 'user-areas', 'scenario'];
+  private readonly primaryLayerIds = ['background', 'user-areas'];
 
   private initializePrimaryLayers() {
     this.translateService.get(this.primaryLayerKeys).pipe(take(1)).subscribe(t => {
@@ -148,13 +147,11 @@ export class LayerManagerComponent implements OnInit, OnDestroy {
 
   public setPrimaryLayerInstances(instances: {
     background?: LayerInstance,
-    userAreas?: LayerInstance,
-    scenario?: LayerInstance
+    userAreas?: LayerInstance
   }) {
     const layerMap: { [key: string]: LayerInstance | undefined } = {
       'background': instances.background,
-      'user-areas': instances.userAreas,
-      'scenario': instances.scenario
+      'user-areas': instances.userAreas
     };
 
     this.primaryLayers.forEach(layer => {
@@ -216,6 +213,9 @@ export class LayerManagerComponent implements OnInit, OnDestroy {
   }
 
   startEditing(item: LayerItem) {
+    if (!this.isRenamable(item)) {
+      return;
+    }
     this.editingLayerId = item.id;
     this.editingName = item.name;
   }
@@ -269,5 +269,9 @@ export class LayerManagerComponent implements OnInit, OnDestroy {
 
   isDraggable(item: LayerItem): boolean {
     return item.kind !== 'primary';
+  }
+
+  isRenamable(item: LayerItem): boolean {
+    return item.kind === 'result';
   }
 }

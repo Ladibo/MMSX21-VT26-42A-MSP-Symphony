@@ -32,8 +32,7 @@
             },
             "layer-names": {
             "background": "Background",
-            "user-areas": "User Areas",
-            "scenario": "Scenario"
+            "user-areas": "User Areas"
             }
         },
         "background-transparency": "Background map transparency",
