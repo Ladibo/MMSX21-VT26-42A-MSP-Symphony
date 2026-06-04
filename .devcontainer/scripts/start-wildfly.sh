@@ -1,6 +1,13 @@
 #!/bin/bash
 set -e
 
+# Render data-layer rasters headless: GeoTools/JAI calls BufferedImage.createGraphics(),
+# which otherwise tries to reach an X server (java.awt.AWTError: Can't connect to X11
+# window server using ':N' as the value of the DISPLAY variable) and 500s the
+# /symphony-ws/service/datalayer endpoint, so band layers never load.
+unset DISPLAY
+export JAVA_OPTS="${JAVA_OPTS} -Djava.awt.headless=true"
+
 # Check if the user already exists
 if ! grep -q "^admin=" /opt/wildfly/standalone/configuration/mgmt-users.properties; then
     echo "Creating a WildFly user..."
