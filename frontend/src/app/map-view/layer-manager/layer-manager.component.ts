@@ -144,7 +144,7 @@ export class LayerManagerComponent implements OnInit, OnDestroy {
   private updatePrimaryLayerNames() {
     this.translateService.get(this.primaryLayerKeys).pipe(take(1)).subscribe(t => {
       this.primaryLayers.forEach((layer, i) => {
-        layer.name = this.nameOverrides.get(layer.id) ?? t[this.primaryLayerKeys[i]];
+        layer.name = t[this.primaryLayerKeys[i]];
       });
       this.cdr.markForCheck();
     });
@@ -277,6 +277,6 @@ export class LayerManagerComponent implements OnInit, OnDestroy {
   }
 
   isRenamable(item: LayerItem): boolean {
-    return item.kind === 'primary' || item.kind === 'result';
+    return item.kind === 'result';
   }
 }

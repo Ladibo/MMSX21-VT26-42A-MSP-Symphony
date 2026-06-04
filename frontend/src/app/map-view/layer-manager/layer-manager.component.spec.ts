@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideZonelessChangeDetection } from '@angular/core';
 import { LayerManagerComponent, BandLayerItem, ResultLayerItem } from './layer-manager.component';
 import { AutoSelectDirective } from './auto-select.directive';
@@ -11,6 +11,7 @@ import { ResultLayerService } from '../map/layers/result-layer.service';
 import { CalculationService } from '@data/calculation/calculation.service';
 import { DragDropModule, CdkDragDrop } from '@angular/cdk/drag-drop';
 import { of } from 'rxjs';
+import { TranslateLoader } from '@ngx-translate/core';
 import { MetadataSelectors } from '@data/metadata';
 import { CalculationSelectors } from '@data/calculation';
 import { initialState as calculation } from '@data/calculation/calculation.reducers';
@@ -76,8 +77,8 @@ describe('LayerManagerComponent', () => {
     removeResultPixels: () => {}
   };
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
       imports: [SharedModule, TranslationSetupModule, StoreModule.forRoot({}, {}), DragDropModule],
       declarations: [LayerManagerComponent, AutoSelectDirective],
       providers: [
@@ -91,6 +92,7 @@ describe('LayerManagerComponent', () => {
         { provide: LayerStyleService, useValue: mockLayerStyleService },
         { provide: ResultLayerService, useValue: mockResultLayerService },
         { provide: CalculationService, useValue: mockCalculationService },
+        { provide: TranslateLoader, useValue: { getTranslation: () => of({}) } },
         provideZonelessChangeDetection()
       ]
     }).compileComponents();
@@ -98,7 +100,7 @@ describe('LayerManagerComponent', () => {
     fixture = TestBed.createComponent(LayerManagerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -119,16 +121,16 @@ describe('LayerManagerComponent', () => {
     expect(component.primaryLayers.map(layer => layer.id)).toEqual(['background', 'user-areas']);
   });
 
-  it('should allow renaming primary and result layers but not band layers', () => {
+  it('should only allow renaming result layers', () => {
     expect(component.isRenamable(makeResultItem(1))).toBe(true);
     expect(component.isRenamable(makeBandItem(1))).toBe(false);
-    expect(component.isRenamable(component.primaryLayers[0])).toBe(true);
+    expect(component.isRenamable(component.primaryLayers[0])).toBe(false);
   });
 
-  it('should enter edit mode for primary layers', () => {
+  it('should not enter edit mode for primary layers', () => {
     const layer = component.primaryLayers[0];
     component.startEditing(layer);
-    expect(component.editingLayerId).toBe(layer.id);
+    expect(component.editingLayerId).toBeNull();
   });
 
   it('should not enter edit mode for band layers', () => {

@@ -21,29 +21,7 @@
               [title]="'map.layer-manager.tooltips.toggle-visibility' | translate"
             />
 
-            @if (editingLayerId !== layer.id) {
-              <span
-                class="layer-name"
-                [class.editable]="isRenamable(layer)"
-                (click)="startEditing(layer)"
-                [title]="isRenamable(layer) ? ('map.layer-manager.tooltips.rename-layer' | translate) : ''">
-                {{ layer.name }}
-              </span>
-            } @else {
-              <input
-                type="text"
-                class="layer-name-edit"
-                [(ngModel)]="editingName"
-                (blur)="saveLayerName(layer)"
-                (keydown)="onEditKeydown($event, layer)"
-                appAutoSelect
-              />
-              <button
-                class="confirm-btn"
-                [title]="'map.layer-manager.tooltips.confirm-rename' | translate"
-                (mousedown.prevent)="saveLayerName(layer)"
-              >✓</button>
-            }
+            <span class="layer-name">{{ layer.name }}</span>
 
             <input
               class="opacity-slider"
