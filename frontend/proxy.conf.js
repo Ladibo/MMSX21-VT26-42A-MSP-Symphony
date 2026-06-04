@@ -9,7 +9,7 @@ const TARGETS_CONFIG = {
 
 const targets = TARGETS_CONFIG[process.env.PROXY_TARGET ?? 'remote'];
 const PROXY_CONFIG = {
-  "/symphony-ws/service/*": {
+  "/symphony-ws/service": {
     "target": targets.host,
     "secure": false,
     "logLevel": "debug",

@@ -38,7 +38,8 @@ CREATE TABLE IF NOT EXISTS baselineversion
     bver_validfrom    date                                        NOT NULL,
     bver_ecofilepath  text                                        NOT NULL,
     bver_presfilepath text                                        NOT NULL,
-    bver_locale       varchar(10) DEFAULT 'en'::character varying NOT NULL
+    bver_locale       varchar(10) DEFAULT 'en'::character varying NOT NULL,
+    bver_title        text
 );
 
 EXECUTE FORMAT ('ALTER TABLE baselineversion OWNER TO %s', pgAppAgent);
