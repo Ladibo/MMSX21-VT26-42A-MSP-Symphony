@@ -1,11 +1,14 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideMockStore } from '@ngrx/store/testing';
 
 import { MapComponent } from './map.component';
 import { MapToolbarComponent } from './map-toolbar/map-toolbar.component';
 import { MapOpacitySliderComponent } from './map-opacity-slider/map-opacity-slider.component';
 import { CoreModule } from '@src/app/core/core.module';
-import { ToolbarButtonComponent, ToolbarZoomButtonsComponent } from './toolbar-button/toolbar-button.component';
+import {
+  ToolbarButtonComponent,
+  ToolbarZoomButtonsComponent
+} from './toolbar-button/toolbar-button.component';
 import { LayerManagerComponent } from '../layer-manager/layer-manager.component';
 import { AutoSelectDirective } from '../layer-manager/auto-select.directive';
 import { SharedModule } from '@shared/shared.module';
@@ -15,25 +18,20 @@ import { initialState as metadata } from '@data/metadata/metadata.reducers';
 import { initialState as area } from '@data/area/area.reducers';
 import { initialState as scenario } from '@data/scenario/scenario.reducers';
 import { initialState as calculation } from '@data/calculation/calculation.reducers';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MetadataSelectors } from '@data/metadata';
 import { CalculationSelectors } from '@data/calculation';
-import { ChangeState, ScenarioLayer } from "@src/app/map-view/map/layers/scenario-layer";
-import { BandChange } from "@data/metadata/metadata.interfaces";
+import { ChangeState, ScenarioLayer } from '@src/app/map-view/map/layers/scenario-layer';
+import { BandChange } from '@data/metadata/metadata.interfaces';
+import { provideZonelessChangeDetection } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
 
 describe('MapComponent', () => {
-  let fixture: ComponentFixture<MapComponent>,
-      component: MapComponent;
+  let fixture: ComponentFixture<MapComponent>, component: MapComponent;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [
-        SharedModule,
-        CoreModule,
-        TranslationSetupModule,
-        DragDropModule,
-        HttpClientTestingModule
-      ],
+      imports: [SharedModule, CoreModule, TranslationSetupModule, DragDropModule],
       declarations: [
         MapComponent,
         MapToolbarComponent,
@@ -43,32 +41,47 @@ describe('MapComponent', () => {
         LayerManagerComponent,
         AutoSelectDirective
       ],
-      providers: [provideMockStore({
-        initialState: {
-          metadata,
-          area,
-          scenario,
-          calculation,
-          user: { baseline: undefined }
-        },
-        selectors: [
-          { selector: MetadataSelectors.selectVisibleBands, value: { ecoComponent: [], pressureComponent: [] } },
-          { selector: CalculationSelectors.selectCalculations, value: [] }
-        ]
-      })]
+      providers: [
+        provideMockStore({
+          initialState: {
+            metadata,
+            area,
+            scenario,
+            calculation,
+            user: { baseline: undefined }
+          },
+          selectors: [
+            { selector: MetadataSelectors.selectVisibleBands, value: { ecoComponent: [], pressureComponent: [] } },
+            { selector: CalculationSelectors.selectCalculations, value: [] }
+          ]
+        }),
+        provideZonelessChangeDetection(),
+        provideHttpClient(),
+        provideHttpClientTesting()
+      ]
     }).compileComponents();
     fixture = TestBed.createComponent(MapComponent);
     component = fixture.componentInstance;
-    component.mapCenter = [0,0];
+    component.mapCenter = [0, 0];
+    const mockMenuElement = document.createElement('div');
+    Object.defineProperty(component, 'areaOptionsMenu', {
+      value: { nativeElement: mockMenuElement },
+      writable: true
+    });
+
     fixture.detectChanges();
-  }));
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
   it('classifyBandChanges should classify correctly', () => {
-    expect(ScenarioLayer.classifyBandChanges([{ multiplier: 1.2 } as BandChange])).toBe(ChangeState.Red);
-    expect(ScenarioLayer.classifyBandChanges([{ multiplier: -1.2 } as BandChange])).toBe(ChangeState.Green);
-  })
+    expect(ScenarioLayer.classifyBandChanges([{ multiplier: 1.2 } as BandChange])).toBe(
+      ChangeState.Red
+    );
+    expect(ScenarioLayer.classifyBandChanges([{ multiplier: -1.2 } as BandChange])).toBe(
+      ChangeState.Green
+    );
+  });
 });

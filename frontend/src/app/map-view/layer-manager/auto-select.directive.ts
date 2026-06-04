@@ -1,6 +1,6 @@
 import { Directive, ElementRef, OnInit } from '@angular/core';
 
-@Directive({ selector: '[appAutoSelect]' })
+@Directive({ selector: '[appAutoSelect]', standalone: false })
 export class AutoSelectDirective implements OnInit {
   constructor(private el: ElementRef<HTMLInputElement>) {}
 

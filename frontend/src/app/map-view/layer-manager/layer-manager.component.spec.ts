@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { provideZonelessChangeDetection } from '@angular/core';
 import { LayerManagerComponent, BandLayerItem, ResultLayerItem } from './layer-manager.component';
 import { AutoSelectDirective } from './auto-select.directive';
 import { provideMockStore } from '@ngrx/store/testing';
@@ -89,7 +90,8 @@ describe('LayerManagerComponent', () => {
         }),
         { provide: LayerStyleService, useValue: mockLayerStyleService },
         { provide: ResultLayerService, useValue: mockResultLayerService },
-        { provide: CalculationService, useValue: mockCalculationService }
+        { provide: CalculationService, useValue: mockCalculationService },
+        provideZonelessChangeDetection()
       ]
     }).compileComponents();
 
@@ -117,16 +119,16 @@ describe('LayerManagerComponent', () => {
     expect(component.primaryLayers.map(layer => layer.id)).toEqual(['background', 'user-areas']);
   });
 
-  it('should only allow renaming result layers', () => {
+  it('should allow renaming primary and result layers but not band layers', () => {
     expect(component.isRenamable(makeResultItem(1))).toBe(true);
     expect(component.isRenamable(makeBandItem(1))).toBe(false);
-    expect(component.isRenamable(component.primaryLayers[0])).toBe(false);
+    expect(component.isRenamable(component.primaryLayers[0])).toBe(true);
   });
 
-  it('should not enter edit mode for primary layers', () => {
+  it('should enter edit mode for primary layers', () => {
     const layer = component.primaryLayers[0];
     component.startEditing(layer);
-    expect(component.editingLayerId).toBeNull();
+    expect(component.editingLayerId).toBe(layer.id);
   });
 
   it('should not enter edit mode for band layers', () => {

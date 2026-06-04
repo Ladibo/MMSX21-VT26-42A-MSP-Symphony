@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ChangeDetectorRef } from '@angular/core';
 import { combineLatest, Subscription, take } from 'rxjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Store } from '@ngrx/store';
@@ -46,7 +46,8 @@ export type LayerItem = PrimaryLayerItem | BandLayerItem | ResultLayerItem;
 @Component({
   selector: 'app-layer-manager',
   templateUrl: './layer-manager.component.html',
-  styleUrls: ['./layer-manager.component.scss']
+  styleUrls: ['./layer-manager.component.scss'],
+  standalone: false
 })
 export class LayerManagerComponent implements OnInit, OnDestroy {
   @Input() isExpanded = false;
@@ -68,7 +69,8 @@ export class LayerManagerComponent implements OnInit, OnDestroy {
     public layerStyleService: LayerStyleService,
     private resultLayerService: ResultLayerService,
     private calcService: CalculationService,
-    private translateService: TranslateService
+    private translateService: TranslateService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit() {
@@ -109,6 +111,7 @@ export class LayerManagerComponent implements OnInit, OnDestroy {
       });
 
       this.secondaryLayers = [...bands, ...resultItems];
+      this.cdr.markForCheck();
     });
   }
 
@@ -134,14 +137,16 @@ export class LayerManagerComponent implements OnInit, OnDestroy {
         opacity: 1,
         instance: null
       }));
+      this.cdr.markForCheck();
     });
   }
 
   private updatePrimaryLayerNames() {
     this.translateService.get(this.primaryLayerKeys).pipe(take(1)).subscribe(t => {
       this.primaryLayers.forEach((layer, i) => {
-        layer.name = t[this.primaryLayerKeys[i]];
+        layer.name = this.nameOverrides.get(layer.id) ?? t[this.primaryLayerKeys[i]];
       });
+      this.cdr.markForCheck();
     });
   }
 
@@ -272,6 +277,6 @@ export class LayerManagerComponent implements OnInit, OnDestroy {
   }
 
   isRenamable(item: LayerItem): boolean {
-    return item.kind === 'result';
+    return item.kind === 'primary' || item.kind === 'result';
   }
 }
